@@ -7588,11 +7588,19 @@
     }, []);
     return null;
   };
-  const Setting = "_Setting_1c56i_1";
-  const View = "_View_1c56i_14";
+  const Setting = "_Setting_1ouvp_1";
+  const View = "_View_1ouvp_16";
+  const Header = "_Header_1ouvp_19";
+  const Title = "_Title_1ouvp_30";
+  const Menus = "_Menus_1ouvp_33";
+  const Menu = "_Menu_1ouvp_33";
   const styles = {
     Setting,
-    View
+    View,
+    Header,
+    Title,
+    Menus,
+    Menu
   };
   const classes = (...classes2) => {
     return classes2.filter(Boolean).join(" ");
@@ -7648,8 +7656,78 @@
     isSetting,
     toggleSetting
   }) => {
-    const content = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles.Setting, isSetting ? styles.View : false) });
-    return ReactDOM.createPortal(content, document.body);
+    const settingRef = reactExports.useRef(null);
+    const [isDragging, setIsDragging] = reactExports.useState(false);
+    const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
+    const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
+    const handleMouseDown = (e) => {
+      if (!settingRef.current)
+        return;
+      setIsDragging(true);
+      setInitialPosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+      setOffset({
+        x: settingRef.current.offsetLeft,
+        y: settingRef.current.offsetTop
+      });
+    };
+    const handleMouseMove = (e) => {
+      if (!isDragging || !settingRef.current)
+        return;
+      const currentX = e.clientX - initialPosition.x;
+      const currentY = e.clientY - initialPosition.y;
+      const newLeft = offset.x + currentX;
+      const newTop = offset.y + currentY;
+      settingRef.current.style.left = `${newLeft}px`;
+      settingRef.current.style.top = `${newTop}px`;
+    };
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+    reactExports.useEffect(() => {
+      if (isDragging) {
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+      } else {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      }
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }, [isDragging]);
+    return ReactDOM.createPortal(
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          ref: settingRef,
+          className: classes(styles.Setting, isSetting ? styles.View : false),
+          style: { position: "absolute" },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.Header, onMouseDown: handleMouseDown, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: styles.Menus,
+                onMouseDown: (e) => e.stopPropagation(),
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    className: styles.Menu,
+                    onClick: toggleSetting,
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("i", { className: "fi fi-rr-cross-small" })
+                  }
+                )
+              }
+            )
+          ] })
+        }
+      ),
+      document.body
+    );
   };
   const App = () => {
     const [isSetting, setIsSetting] = reactExports.useState(true);
@@ -7678,7 +7756,7 @@
 ;
 (function(){
                     const el = document.createElement("style");
-                    el.innerText = "@import url(\"https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css\");\n* {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  box-sizing: border-box;\n  font-family: \"Pretendard\" !important;\n}\n#root,\nhtml,\nbody {\n  margin: 0;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\ninput[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\nselect {\n  border: none;\n  border-radius: 0;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\nselect:focus {\n  outline: none;\n}\nimg {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-user-drag: none;\n}\ni {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  line-height: 0;\n}\n._SettingMenu_1enfi_1 {\n  list-style: none;\n}\n._SettingMenu_1enfi_1 a {\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n}\n._SettingMenu_1enfi_1 a p {\n  margin: 0;\n  font-size: 24px;\n  background: linear-gradient(45deg, #0388ff, #48dcb6);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: transparent;\n  font-weight: 800;\n  line-height: 1;\n}\n._Setting_1c56i_1 {\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  position: fixed;\n  width: 300px;\n  height: 300px;\n  background-color: rgba(0, 0, 0, 0.3);\n  display: none;\n  z-index: 1000;\n  border: 1px solid #444;\n  border-radius: 14px;\n}\n._Setting_1c56i_1._View_1c56i_14 {\n  display: flex;\n}\n";
+                    el.innerText = "@import url(\"https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css\");@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');\n\n* {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  box-sizing: border-box;\n  font-family: \"Pretendard\" !important;\n}\n#root,\nhtml,\nbody {\n  margin: 0;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\ninput[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\nselect {\n  border: none;\n  border-radius: 0;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\nselect:focus {\n  outline: none;\n}\nimg {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-user-drag: none;\n}\ni {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  line-height: 0;\n}\n._SettingMenu_1enfi_1 {\n  list-style: none;\n}\n._SettingMenu_1enfi_1 a {\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n}\n._SettingMenu_1enfi_1 a p {\n  margin: 0;\n  font-size: 24px;\n  background: linear-gradient(45deg, #0388ff, #48dcb6);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: transparent;\n  font-weight: 800;\n  line-height: 1;\n}\n._Setting_1ouvp_1 {\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  position: fixed;\n  width: 300px;\n  height: 300px;\n  background-color: #fff;\n  display: none;\n  z-index: 1000;\n  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;\n  border-radius: 12px;\n  border: 1px solid rgba(117, 123, 138, 0.2);\n  overflow: hidden;\n}\n._Setting_1ouvp_1._View_1ouvp_16 {\n  display: flex;\n}\n._Setting_1ouvp_1 ._Header_1ouvp_19 {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 28px;\n  flex-direction: row;\n  position: relative;\n  border-bottom: 1px solid rgba(117, 123, 138, 0.1);\n  background-color: rgba(0, 0, 0, 0.015);\n  padding-left: 8px;\n}\n._Setting_1ouvp_1 ._Header_1ouvp_19 ._Title_1ouvp_30 p {\n  font-size: 12px;\n}\n._Setting_1ouvp_1 ._Header_1ouvp_19 ._Menus_1ouvp_33 {\n  height: 100%;\n  position: absolute;\n  right: 0;\n}\n._Setting_1ouvp_1 ._Header_1ouvp_19 ._Menus_1ouvp_33 ._Menu_1ouvp_33 {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 28px;\n  height: 100%;\n  transition-duration: 0.1s;\n}\n._Setting_1ouvp_1 ._Header_1ouvp_19 ._Menus_1ouvp_33 ._Menu_1ouvp_33:hover {\n  cursor: pointer;\n  background-color: rgba(0, 0, 0, 0.03);\n}\n";
                     el.type = "text/css";
                     document.head.appendChild(el);
                 })();
