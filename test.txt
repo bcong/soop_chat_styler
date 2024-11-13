@@ -1,0 +1,225 @@
+// ==UserScript==
+// @name         SOOP(숲) - 채팅 스타일러
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  사용자가 채팅 환경을 자유롭게 커스터마이징할 수 있는 확장 프로그램입니다.
+// @author       비콩
+// @match        https://www.sooplive.co.kr/*
+// @match        https://play.sooplive.co.kr/*
+// @match        https://vod.sooplive.co.kr/player/*
+// @grant        none
+// @github       https://github.com/bcong
+// @connect      sooplive.co.kr
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // 현재 URL에서 채널 ID 추출 (예: phonics1)
+    const urlParts = window.location.pathname.split('/');
+    const channelId = urlParts[1];  // 두 번째 부분이 채널 ID
+
+    // 채팅 메시지를 담을 고정된 div 생성
+    const fixedContainer = document.createElement('div');
+    fixedContainer.style.position = 'fixed';
+    fixedContainer.style.color = 'white';
+    fixedContainer.style.zIndex = '9999'; // 다른 요소 위에 표시되도록 설정
+    fixedContainer.style.width = '300px';
+    fixedContainer.style.overflowX = 'hidden'; // 스크롤 가능하도록 설정
+    fixedContainer.style.overflowY = 'hidden'; // 스크롤 가능하도록 설정
+    fixedContainer.style.cursor = 'move'; // 드래그 가능 마우스 커서 표시
+
+    document.body.appendChild(fixedContainer);
+
+    // localStorage에서 해당 채널의 마지막 위치 가져오기
+    const savedLeft = localStorage.getItem(`chatboxLeft_${channelId}`);
+    const savedTop = localStorage.getItem(`chatboxTop_${channelId}`);
+
+    if (savedLeft && savedTop) {
+        fixedContainer.style.left = `${savedLeft}px`;
+        fixedContainer.style.top = `${savedTop}px`;
+    } else {
+        // 기본 위치 설정 (없으면 좌측 상단)
+        fixedContainer.style.left = '0px';
+        fixedContainer.style.top = '0px';
+    }
+
+    // 제작자 메시지를 추가하는 함수
+    function addMessage(textContent) {
+        const authorMessageDiv = document.createElement('div');
+        authorMessageDiv.textContent = textContent;
+        authorMessageDiv.style.marginBottom = '5px';
+        authorMessageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        authorMessageDiv.style.borderRadius = '10px';
+        authorMessageDiv.style.padding = '6px 8px';
+        authorMessageDiv.style.fontSize = '14px';
+
+        fixedContainer.appendChild(authorMessageDiv);
+    }
+    
+    // 제작자 메시지 추가
+    addMessage(`클라우드 채팅 (제작자 - 비콩)`);
+
+    // 채팅 메시지를 업데이트하는 함수
+    function updateChatMessages() {
+        const chatArea = document.querySelector('#chat_area');
+        if (!chatArea) return;
+
+        const chatItems = chatArea.querySelectorAll('.chatting-list-item');
+        const recentChats = Array.from(chatItems).slice(-10); // 최근 10개만 가져옴
+
+        if (recentChats.length <= 1) return;
+
+        // 기존 내용을 지우고 새로 추가
+        fixedContainer.innerHTML = '';        
+
+        recentChats.forEach(chat => {
+            const username = chat.querySelector('.username .author')?.textContent || null;
+
+            // 'start-message' 클래스를 가진 div가 있는지 확인
+            const startMessageDiv = chat.querySelector('.start-message');
+
+            if (startMessageDiv) {
+                addMessage(`클라우드 채팅 (제작자 - 비콩)`);
+            }
+
+            if (!username) return;
+
+            const messageText = chat.querySelector('.message-text .msg')?.textContent || '';
+
+            addMessage(`${username}　${messageText}`);
+        });
+
+        // 스크롤을 맨 아래로 이동
+        fixedContainer.scrollTop = fixedContainer.scrollHeight;
+    }
+
+    // 일정 시간마다 업데이트 (예: 2초마다)
+    setInterval(updateChatMessages, 1);
+
+    // 드래그 기능 구현
+    let offsetX = 0, offsetY = 0, initialX = 0, initialY = 0, isDragging = false;
+
+    // 마우스 버튼을 눌렀을 때 실행되는 함수
+    function startDragging(e) {
+        e.preventDefault();
+        isDragging = true;
+        initialX = e.clientX;
+        initialY = e.clientY;
+        offsetX = fixedContainer.offsetLeft;
+        offsetY = fixedContainer.offsetTop;
+
+        document.addEventListener('mousemove', dragElement);
+        document.addEventListener('mouseup', stopDragging);
+    }
+
+    // 마우스를 움직일 때 실행되는 함수
+    function dragElement(e) {
+        if (!isDragging) return;
+
+        const currentX = e.clientX - initialX;
+        const currentY = e.clientY - initialY;
+
+        const newLeft = offsetX + currentX;
+        const newTop = offsetY + currentY;
+
+        fixedContainer.style.left = `${newLeft}px`;
+        fixedContainer.style.top = `${newTop}px`;
+
+        // 위치 저장 (채널 ID에 따라 다르게 저장)
+        localStorage.setItem(`chatboxLeft_${channelId}`, newLeft);
+        localStorage.setItem(`chatboxTop_${channelId}`, newTop);
+    }
+
+    // 마우스 버튼을 놓았을 때 실행되는 함수
+    function stopDragging() {
+        isDragging = false;
+        document.removeEventListener('mousemove', dragElement);
+        document.removeEventListener('mouseup', stopDragging);
+    }
+
+    // 드래그 시작 이벤트 설정 (고정된 컨테이너에서 드래그 가능)
+    fixedContainer.addEventListener('mousedown', startDragging);
+
+    // <ul> 태그 안에 코드 삽입하는 함수 (맨 앞에 삽입)
+    function insertCodeInList() {
+        const chatTitleElement = document.querySelector('.chat_title ul');
+        if (!chatTitleElement) return;
+
+        // 새로운 <li> 요소 생성
+        const listItemElement = document.createElement('li');
+        listItemElement.className = 'chat_styler'; // 추후 사용할 수 있도록 클래스 추가
+
+        // <a> 요소 생성
+        const anchorElement = document.createElement('a');
+        anchorElement.href = "javascript:;"; // href를 임시로 설정
+        anchorElement.style.display = 'flex';
+        anchorElement.style.alignItems = 'center';
+        anchorElement.style.justifyContent = 'center';
+
+        // "S" 글자를 포함한 <p> 요소 생성
+        const paragraphElement = document.createElement('p');
+        paragraphElement.textContent = 'S'; // 텍스트를 "S"로 설정
+        
+        // <p> 요소를 <a> 요소 안에 추가
+        anchorElement.appendChild(paragraphElement);
+
+        // <a> 요소를 <li> 요소 안에 추가
+        listItemElement.appendChild(anchorElement);
+
+        // 새로운 <li> 요소를 <ul>의 맨 앞에 삽입
+        chatTitleElement.insertBefore(listItemElement, chatTitleElement.firstChild);
+
+        // 팝업으로 사용할 div 태그 생성 (처음에는 숨겨진 상태)
+        const popupDiv = document.createElement('div');
+        popupDiv.className = 'popup';
+        popupDiv.textContent = '팝업 내용입니다'; // 팝업에 표시될 내용
+        popupDiv.style.display = 'none'; // 처음에는 보이지 않게 설정
+        popupDiv.style.position = 'absolute';
+        popupDiv.style.backgroundColor = '#fff';
+        popupDiv.style.border = '1px solid #ccc';
+        popupDiv.style.padding = '10px';
+        
+        // 문서 body에 팝업 div 추가
+        document.body.appendChild(popupDiv);
+
+        // li 클릭 시 팝업을 해당 li 아래에 표시하는 이벤트 리스너 추가
+        listItemElement.addEventListener('click', function(event) {
+            const rect = listItemElement.getBoundingClientRect(); // li의 위치 가져오기
+
+            // 팝업 div의 위치를 li 바로 아래로 설정
+            popupDiv.style.top = `${rect.bottom + window.scrollY}px`;
+            popupDiv.style.left = `${rect.left + window.scrollX}px`;
+
+            // 팝업을 보이도록 설정
+            popupDiv.style.display = 'block';
+        });
+
+        // 텍스트를 중앙에 배치하고 색상을 흰색으로 설정하는 CSS 스타일 적용
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .chat_styler {
+                list-style: none;
+            }
+            .chat_styler p {
+                margin: 0; 
+                font-size: 24px; 
+                background: linear-gradient(45deg, #0388ff, #48dcb6); 
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; 
+                color: transparent;
+                font-weight: 800;
+                line-height: 1;
+            }
+            .popup {
+                z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+            }
+        `;
+        
+        // 스타일을 문서의 head에 추가
+        document.head.appendChild(style);
+    }
+
+    // <ul> 태그 안에 코드를 삽입하는 함수 실행
+    insertCodeInList();
+})();
