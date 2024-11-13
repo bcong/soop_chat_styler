@@ -84,4 +84,4 @@ const SettingComponent: React.FC<I_PROPS> = ({
     );
 };
 
-export default SettingComponent;
+export default SettingComponent
