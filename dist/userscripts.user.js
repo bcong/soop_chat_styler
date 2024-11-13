@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      202411140343
+// @version      202411140347
 // @description  새로운 채팅 환경
 // @author       비콩
 // @match        https://www.sooplive.co.kr/*
