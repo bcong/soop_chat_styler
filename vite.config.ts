@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
             lib: {
                 entry: "src/index.tsx",
                 name: "userscript",
-                fileName: (_format) => `react-userscripts.user.js`,
+                fileName: (_format) => `userscripts.user.js`,
                 formats: ["iife"],
             },
             rollupOptions: {
