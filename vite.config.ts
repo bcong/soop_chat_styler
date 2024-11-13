@@ -38,7 +38,6 @@ export default defineConfig(({ mode }) => {
         },
         define: {
             // Don't pick up weird variables from `NODE_ENV`
-            // https://github.com/vitejs/vite/discussions/13587
             "process.env.NODE_ENV": JSON.stringify(mode),
         },
         resolve: {
@@ -93,10 +92,16 @@ const bundlePlugin: PluginOption = {
                 })();`;
             }
         }
+
         function addHeader(code: string) {
             const header = fs.readFileSync("src/userscript-header.ts", "utf-8");
-            console.log("\nAdding header to userscript:\n", header);
-            return `${header}\n${code}`;
+            const now = new Date();
+            const version = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+            const updatedHeader = header.replace(/@version\s+[\d]+/, `@version      ${version}`);
+
+            console.log("\nAdding header to userscript:\n", updatedHeader);
+
+            return `${updatedHeader}\n${code}`;
         }
     },
 };
