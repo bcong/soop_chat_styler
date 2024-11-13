@@ -96,7 +96,7 @@ const bundlePlugin: PluginOption = {
         function addHeader(code: string) {
             const header = fs.readFileSync("src/userscript-header.ts", "utf-8");
             const now = new Date();
-            const version = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+            const version = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
             const updatedHeader = header.replace(/@version\s+[\d]+/, `@version      ${version}`);
 
             console.log("\nAdding header to userscript:\n", updatedHeader);
