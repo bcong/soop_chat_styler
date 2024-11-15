@@ -1,14 +1,3 @@
-// ==UserScript==
-// @name       soop_chat_styler
-// @namespace  soop_chat_styler
-// @version    1.0.0
-// @author     KyungSub Kim
-// @match      https://www.google.com/
-// @grant      GM_getValue
-// @grant      GM_listValues
-// @grant      GM_setValue
-// ==/UserScript==
-
 (function () {
   'use strict';
 
