@@ -2,8 +2,9 @@ import ToggleButton from '@Components/ToggleButton';
 import styles from './style.module.less';
 import ListBox from '@Components/ListBox';
 import { useMainStore } from '@Stores/index';
+import { observer } from 'mobx-react-lite';
 
-const Setting = () => {
+const Setting = observer(() => {
     const mainStore = useMainStore();
 
     const settingList = [
@@ -68,6 +69,6 @@ const Setting = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Setting;

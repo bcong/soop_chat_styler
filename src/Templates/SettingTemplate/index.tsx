@@ -9,7 +9,7 @@ import Setting from '@Views/Setting';
 
 interface I_PROPS extends I_GLOBAL_PROPS { }
 
-const SettingTemplate: React.FC<I_PROPS> = observer(({
+const SettingTemplate: React.FC<I_PROPS> = ({
     isSetting,
     toggleSetting,
 }) => {
@@ -91,6 +91,6 @@ const SettingTemplate: React.FC<I_PROPS> = observer(({
         </div>,
         document.body
     );
-});
+};
 
 export default SettingTemplate;
