@@ -13,11 +13,15 @@ export default defineConfig(({ mode }) => {
                 tsDecorators: true,
             }),
             monkey({
-                entry: 'dist/userscripts.user.js', // Your script entry point
+                entry: 'src/index.tsx',
                 userscript: {
-                    namespace: 'your-namespace',
-                    match: ['*://*/*'], // Define the sites where your script will run
-                    grant: ['GM_setValue', 'GM_getValue'], // Ensure these are granted
+                    namespace: 'soop_chat_styler',
+                    match: ['https://www.google.com/'],
+                    grant: ['GM_setValue', 'GM_getValue'],
+                },
+                server: {
+                    mountGmApi: true,
+                    open: false
                 },
                 build: {
                     fileName: 'userscripts.user.js'

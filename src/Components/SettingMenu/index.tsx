@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './style.module.less';
+import { I_GLOBAL_PROPS } from '@Types/index';
 
 interface I_PROPS extends I_GLOBAL_PROPS {
 

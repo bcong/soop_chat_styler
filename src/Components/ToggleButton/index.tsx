@@ -7,7 +7,7 @@ interface I_PROPS {
 }
 
 const ToggleButton: React.FC<I_PROPS> = ({
-    enable,
+    enable = false,
     setEnable
 }) => {
 
@@ -17,9 +17,7 @@ const ToggleButton: React.FC<I_PROPS> = ({
 
     return (
         <div className={styles.ToggleButton} onClick={handleToggle}>
-            <div className={classes(styles.Circle, enable ? styles.Enable : false)}>
-
-            </div>
+            <div className={classes(styles.Circle, enable ? styles.Enable : false)} />
         </div>
     );
 };
