@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.module.less';
 import { classes } from '@Utils/index';
+import ToggleButton from '@Components/ToggleButton';
 
 interface I_PROPS extends I_GLOBAL_PROPS { }
 
@@ -49,6 +50,7 @@ const SettingComponent: React.FC<I_PROPS> = ({
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         }
+
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
@@ -64,7 +66,7 @@ const SettingComponent: React.FC<I_PROPS> = ({
             <div className={styles.Header} onMouseDown={handleMouseDown}>
                 <div className={styles.Title}>
                     <p>
-                        채팅 스타일러
+                        채팅 스타일러s
                     </p>
                 </div>
                 <div
@@ -76,6 +78,20 @@ const SettingComponent: React.FC<I_PROPS> = ({
                         onClick={toggleSetting}
                     >
                         <i className='fi fi-rr-cross-small' />
+                    </div>
+                </div>
+            </div>
+            <div className={styles.Content}>
+                <div className={styles.Menus}>
+                    <div className={styles.Menu}>
+                        <div className={styles.Name}>
+                            <p>
+                                스타일러 사용
+                            </p>
+                        </div>
+                        <div className={styles.Value}>
+                            <ToggleButton enable={GM_getValue('enable', false)} setEnable={(value: boolean) => GM_setValue('enable', value)} />
+                        </div>
                     </div>
                 </div>
             </div>

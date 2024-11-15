@@ -9,6 +9,8 @@
 // @match        https://vod.sooplive.co.kr/player/*
 // @icon         https://res.sooplive.co.kr/afreeca.ico
 // @connect      sooplive.co.kr
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @run-at       document-end
 // @license MIT
 // @downloadURL https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js

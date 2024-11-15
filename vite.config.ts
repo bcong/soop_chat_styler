@@ -2,6 +2,7 @@ import { PluginOption, defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import fs from "fs";
 import path from "path";
+import monkey from 'vite-plugin-monkey';
 
 export default defineConfig(({ mode }) => {
     console.log("Building in", mode);
@@ -11,7 +12,18 @@ export default defineConfig(({ mode }) => {
             react({
                 tsDecorators: true,
             }),
-            splitVendorChunkPlugin()
+            monkey({
+                entry: 'dist/userscripts.user.js', // Your script entry point
+                userscript: {
+                    namespace: 'your-namespace',
+                    match: ['*://*/*'], // Define the sites where your script will run
+                    grant: ['GM_setValue', 'GM_getValue'], // Ensure these are granted
+                },
+                build: {
+                    fileName: 'userscripts.user.js'
+                }
+            }),
+            splitVendorChunkPlugin(),
         ],
         base: "./",
         root: "./",
@@ -26,7 +38,7 @@ export default defineConfig(({ mode }) => {
             lib: {
                 entry: "src/index.tsx",
                 name: "userscript",
-                fileName: (_format) => `userscripts.user.js`,
+                fileName: () => `userscripts.user.js`,
                 formats: ["iife"],
             },
             rollupOptions: {
@@ -37,7 +49,6 @@ export default defineConfig(({ mode }) => {
             },
         },
         define: {
-            // Don't pick up weird variables from `NODE_ENV`
             "process.env.NODE_ENV": JSON.stringify(mode),
         },
         resolve: {

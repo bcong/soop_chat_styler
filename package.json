@@ -21,6 +21,7 @@
         "@types/node": "^22.9.0",
         "@types/react": "^18.2.20",
         "@types/react-dom": "^18.2.7",
+        "@types/tampermonkey": "^5.0.3",
         "@typescript-eslint/eslint-plugin": "^6.4.1",
         "@typescript-eslint/parser": "^6.4.1",
         "@vitejs/plugin-react-swc": "^3.3.2",
@@ -32,6 +33,7 @@
         "prettier": "^3.0.2",
         "sass": "^1.80.4",
         "typescript": "^5.1.6",
-        "vite": "^4.4.9"
+        "vite": "^5.0.3",
+        "vite-plugin-monkey": "^4.0.6"
     }
 }

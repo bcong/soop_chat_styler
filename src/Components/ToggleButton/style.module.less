@@ -1,0 +1,28 @@
+.ToggleButton {
+    width: 46px;
+    height: 25px;
+    border-radius: 36px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    position: relative;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .Circle {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, rgb(190, 190, 190), rgb(210, 210, 210));
+        top: 50%;
+        left: 0px;
+        transform: translate(14%, -50%);
+        transition-duration: .2s;
+
+        &.Enable {
+            transform: translate(130%, -50%);
+            background: linear-gradient(45deg, #0388ff, #48dcb6);
+        }
+    }
+}
