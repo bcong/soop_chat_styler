@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
                 tsDecorators: true,
             }),
             monkey({
-                entry: 'src/index.tsx', // 엔트리 파일 경로 (TypeScript 파일)
+                entry: 'src/index.tsx',
                 userscript: {
                     name: 'SOOP (숲) - 채팅 스타일러',
                     namespace: 'https://github.com/bcong',
@@ -33,11 +33,11 @@ export default defineConfig(({ mode }) => {
                     updateURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js'
                 },
                 server: {
-                    mountGmApi: true, // GM API 사용 여부
-                    open: false       // 서버 자동 열림 여부 (false로 설정)
+                    mountGmApi: true,
+                    open: false
                 },
                 build: {
-                    fileName: 'userscripts.user.js' // 빌드된 파일 이름 설정
+                    fileName: 'userscripts.user.js'
                 }
             }),
             splitVendorChunkPlugin(),
