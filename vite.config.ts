@@ -16,7 +16,11 @@ export default defineConfig(({ mode }) => {
                 entry: 'src/index.tsx',
                 userscript: {
                     namespace: 'soop_chat_styler',
-                    match: ['https://www.google.com/'],
+                    match: [
+                        'https://www.sooplive.co.kr/*',
+                        'https://play.sooplive.co.kr/*',
+                        'https://vod.sooplive.co.kr/player/*'
+                    ],
                     grant: ['GM_setValue', 'GM_getValue'],
                 },
                 server: {
