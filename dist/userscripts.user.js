@@ -1,24 +1,273 @@
+// ==UserScript==
+// @name         SOOP (숲) - 채팅 스타일러
+// @namespace    https://github.com/bcong
+// @version      0
+// @author       비콩
+// @description  새로운 채팅 환경
+// @license      MIT
+// @icon         https://res.sooplive.co.kr/afreeca.ico
+// @downloadURL  https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
+// @updateURL    https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
+// @match        https://www.sooplive.co.kr/*
+// @match        https://play.sooplive.co.kr/*
+// @match        https://vod.sooplive.co.kr/player/*
+// @connect      sooplive.co.kr
+// @grant        GM_addStyle
+// @grant        GM_getValue
+// @grant        GM_listValues
+// @grant        GM_setValue
+// ==/UserScript==
+
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: "Pretendard" !important;
+}
+#root,
+html,
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+select {
+  border: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  outline: none;
+}
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0;
+  color: #646464;
+}
+p {
+  color: #000000;
+}
+._SettingMenu_1enfi_1 {
+  list-style: none;
+}
+._SettingMenu_1enfi_1 a {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+._SettingMenu_1enfi_1 a p {
+  margin: 0;
+  font-size: 24px;
+  background: linear-gradient(45deg, #0388ff, #48dcb6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 800;
+  line-height: 1;
+}
+._SettingTemplate_1f3a4_1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 300px;
+  background-color: #fff;
+  display: none;
+  z-index: 1000;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 12px;
+  border: 1px solid rgba(117, 123, 138, 0.2);
+  overflow: hidden;
+  flex-direction: column;
+}
+._SettingTemplate_1f3a4_1._View_1f3a4_16 {
+  display: flex;
+}
+._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 34px;
+  flex-direction: row;
+  position: relative;
+  border-bottom: 1px solid rgba(117, 123, 138, 0.1);
+  background-color: rgba(0, 0, 0, 0.02);
+  padding-left: 12px;
+}
+._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Title_1f3a4_30 p {
+  font-size: 14px;
+}
+._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 {
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 100%;
+  transition-duration: 0.1s;
+}
+._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+._SettingTemplate_1f3a4_1 ._Content_1f3a4_50 {
+  flex: 1;
+}
+._ToggleButton_1wlxv_1 {
+  width: 46px;
+  height: 25px;
+  border-radius: 36px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+._ToggleButton_1wlxv_1:hover {
+  cursor: pointer;
+}
+._ToggleButton_1wlxv_1 ._Circle_1wlxv_11 {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #bebebe, #d2d2d2);
+  top: 50%;
+  left: 0px;
+  transform: translate(14%, -50%);
+  transition-duration: 0.2s;
+}
+._ToggleButton_1wlxv_1 ._Circle_1wlxv_11._Enable_1wlxv_22 {
+  transform: translate(130%, -50%);
+  background: linear-gradient(45deg, #0388ff, #48dcb6);
+}
+._Setting_1jr3g_1 {
+  flex: 1;
+}
+._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+}
+._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 {
+  width: 120px;
+}
+._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 p {
+  font-weight: 500;
+  font-size: 14px;
+}
+._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Value_1jr3g_18 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+._Setting_gdazf_1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 300px;
+  background-color: #fff;
+  display: none;
+  z-index: 1000;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 12px;
+  border: 1px solid rgba(117, 123, 138, 0.2);
+  overflow: hidden;
+  flex-direction: column;
+}
+._Setting_gdazf_1._View_gdazf_16 {
+  display: flex;
+}
+._Setting_gdazf_1 ._Header_gdazf_19 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 28px;
+  flex-direction: row;
+  position: relative;
+  border-bottom: 1px solid rgba(117, 123, 138, 0.1);
+  background-color: rgba(0, 0, 0, 0.015);
+  padding-left: 8px;
+}
+._Setting_gdazf_1 ._Header_gdazf_19 ._Title_gdazf_30 p {
+  font-size: 14px;
+}
+._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 {
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 100%;
+  transition-duration: 0.1s;
+}
+._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+._Setting_gdazf_1 ._Content_gdazf_50 {
+  flex: 1;
+}
+._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+}
+._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 {
+  width: 120px;
+}
+._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 p {
+  font-weight: 500;
+  font-size: 14px;
+}
+._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Value_gdazf_67 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+} `);
+
 (function () {
   'use strict';
 
-  // ==UserScript==
-  // @name         SOOP (숲) - 채팅 스타일러
-  // @namespace    https://github.com/bcong
-  // @version      20241115175416
-  // @description  새로운 채팅 환경
-  // @author       비콩
-  // @match        https://www.sooplive.co.kr/*
-  // @match        https://play.sooplive.co.kr/*
-  // @match        https://vod.sooplive.co.kr/player/*
-  // @icon         https://res.sooplive.co.kr/afreeca.ico
-  // @connect      sooplive.co.kr
-  // @grant        GM_setValue
-  // @grant        GM_getValue
-  // @run-at       document-end
-  // @license MIT
-  // @downloadURL https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
-  // @updateURL https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
-  // ==/UserScript==
   var __defProp = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -11712,11 +11961,5 @@
       });
     });
   })();
-  (function(){
-                      const el = document.createElement("style");
-                      el.innerText = "@import url(\"https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css\");@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');\n\n* {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  box-sizing: border-box;\n  font-family: \"Pretendard\" !important;\n}\n#root,\nhtml,\nbody {\n  margin: 0;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\ninput[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\nselect {\n  border: none;\n  border-radius: 0;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\nselect:focus {\n  outline: none;\n}\nimg {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-user-drag: none;\n}\ni {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  line-height: 0;\n  color: #646464;\n}\np {\n  color: #000000;\n}\n._SettingMenu_1enfi_1 {\n  list-style: none;\n}\n._SettingMenu_1enfi_1 a {\n  display: flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n}\n._SettingMenu_1enfi_1 a p {\n  margin: 0;\n  font-size: 24px;\n  background: linear-gradient(45deg, #0388ff, #48dcb6);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: transparent;\n  font-weight: 800;\n  line-height: 1;\n}\n._SettingTemplate_1f3a4_1 {\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  position: fixed;\n  width: 300px;\n  background-color: #fff;\n  display: none;\n  z-index: 1000;\n  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;\n  border-radius: 12px;\n  border: 1px solid rgba(117, 123, 138, 0.2);\n  overflow: hidden;\n  flex-direction: column;\n}\n._SettingTemplate_1f3a4_1._View_1f3a4_16 {\n  display: flex;\n}\n._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 34px;\n  flex-direction: row;\n  position: relative;\n  border-bottom: 1px solid rgba(117, 123, 138, 0.1);\n  background-color: rgba(0, 0, 0, 0.02);\n  padding-left: 12px;\n}\n._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Title_1f3a4_30 p {\n  font-size: 14px;\n}\n._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 {\n  height: 100%;\n  position: absolute;\n  right: 0;\n}\n._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33 {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 28px;\n  height: 100%;\n  transition-duration: 0.1s;\n}\n._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33:hover {\n  cursor: pointer;\n  background-color: rgba(0, 0, 0, 0.03);\n}\n._SettingTemplate_1f3a4_1 ._Content_1f3a4_50 {\n  flex: 1;\n}\n._ToggleButton_1wlxv_1 {\n  width: 46px;\n  height: 25px;\n  border-radius: 36px;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  position: relative;\n}\n._ToggleButton_1wlxv_1:hover {\n  cursor: pointer;\n}\n._ToggleButton_1wlxv_1 ._Circle_1wlxv_11 {\n  position: absolute;\n  width: 18px;\n  height: 18px;\n  border-radius: 50%;\n  background: linear-gradient(45deg, #bebebe, #d2d2d2);\n  top: 50%;\n  left: 0px;\n  transform: translate(14%, -50%);\n  transition-duration: 0.2s;\n}\n._ToggleButton_1wlxv_1 ._Circle_1wlxv_11._Enable_1wlxv_22 {\n  transform: translate(130%, -50%);\n  background: linear-gradient(45deg, #0388ff, #48dcb6);\n}\n._Setting_1jr3g_1 {\n  flex: 1;\n}\n._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 40px;\n  padding: 0 12px;\n}\n._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 {\n  width: 120px;\n}\n._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 p {\n  font-weight: 500;\n  font-size: 14px;\n}\n._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Value_1jr3g_18 {\n  display: flex;\n  justify-content: right;\n  align-items: center;\n  flex: 1;\n  height: 100%;\n}\n._Setting_gdazf_1 {\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  position: fixed;\n  width: 300px;\n  background-color: #fff;\n  display: none;\n  z-index: 1000;\n  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;\n  border-radius: 12px;\n  border: 1px solid rgba(117, 123, 138, 0.2);\n  overflow: hidden;\n  flex-direction: column;\n}\n._Setting_gdazf_1._View_gdazf_16 {\n  display: flex;\n}\n._Setting_gdazf_1 ._Header_gdazf_19 {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 28px;\n  flex-direction: row;\n  position: relative;\n  border-bottom: 1px solid rgba(117, 123, 138, 0.1);\n  background-color: rgba(0, 0, 0, 0.015);\n  padding-left: 8px;\n}\n._Setting_gdazf_1 ._Header_gdazf_19 ._Title_gdazf_30 p {\n  font-size: 14px;\n}\n._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 {\n  height: 100%;\n  position: absolute;\n  right: 0;\n}\n._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33 {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 28px;\n  height: 100%;\n  transition-duration: 0.1s;\n}\n._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33:hover {\n  cursor: pointer;\n  background-color: rgba(0, 0, 0, 0.03);\n}\n._Setting_gdazf_1 ._Content_gdazf_50 {\n  flex: 1;\n}\n._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 40px;\n  padding: 0 12px;\n}\n._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 {\n  width: 120px;\n}\n._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 p {\n  font-weight: 500;\n  font-size: 14px;\n}\n._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Value_gdazf_67 {\n  display: flex;\n  justify-content: right;\n  align-items: center;\n  flex: 1;\n  height: 100%;\n}\n";
-                      el.type = "text/css";
-                      document.head.appendChild(el);
-                  })();
 
 })();

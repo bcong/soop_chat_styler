@@ -8,27 +8,36 @@ export default defineConfig(({ mode }) => {
     console.log("Building in", mode);
     return {
         plugins: [
-            bundlePlugin,
+            // bundlePlugin,
             react({
                 tsDecorators: true,
             }),
             monkey({
-                entry: 'src/index.tsx',
+                entry: 'src/index.tsx', // 엔트리 파일 경로 (TypeScript 파일)
                 userscript: {
-                    namespace: 'soop_chat_styler',
+                    name: 'SOOP (숲) - 채팅 스타일러',
+                    namespace: 'https://github.com/bcong',
+                    version: '0',
+                    description: '새로운 채팅 환경',
+                    author: '비콩',
                     match: [
                         'https://www.sooplive.co.kr/*',
                         'https://play.sooplive.co.kr/*',
                         'https://vod.sooplive.co.kr/player/*'
                     ],
+                    icon: 'https://res.sooplive.co.kr/afreeca.ico',
+                    connect: ['sooplive.co.kr'],
                     grant: ['GM_setValue', 'GM_getValue'],
+                    license: 'MIT',
+                    downloadURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js',
+                    updateURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js'
                 },
                 server: {
-                    mountGmApi: true,
-                    open: false
+                    mountGmApi: true, // GM API 사용 여부
+                    open: false       // 서버 자동 열림 여부 (false로 설정)
                 },
                 build: {
-                    fileName: 'userscripts.user.js'
+                    fileName: 'userscripts.user.js' // 빌드된 파일 이름 설정
                 }
             }),
             splitVendorChunkPlugin(),
