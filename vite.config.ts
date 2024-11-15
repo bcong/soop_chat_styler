@@ -29,7 +29,6 @@ export default defineConfig(({ mode }) => {
                     ],
                     icon: 'https://res.sooplive.co.kr/afreeca.ico',
                     connect: ['sooplive.co.kr'],
-                    grant: ['GM_setValue', 'GM_getValue'],
                     license: 'MIT',
                     downloadURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js',
                     updateURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js'
