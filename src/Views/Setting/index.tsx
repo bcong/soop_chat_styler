@@ -3,6 +3,7 @@ import styles from './style.module.less';
 import ListBox from '@Components/ListBox';
 import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 
 const Setting = observer(() => {
     const mainStore = useMainStore();
@@ -30,8 +31,8 @@ const Setting = observer(() => {
         }
     ];
 
-    const settingListElem = settingList.map(({ name, values }) => {
-        const valueElem = values.map(({ type, value, cb }) => {
+    const settingListElem = settingList.map(({ name, values }, idx) => {
+        const valueElem = values.map(({ type, value, cb }, idx) => {
 
             let contentElem;
             switch (type) {
@@ -44,20 +45,22 @@ const Setting = observer(() => {
             }
 
             return (
-                contentElem
+
+                <div key={idx} className={styles.Value}>
+                    {contentElem}
+                </div>
+
             );
         });
 
         return (
-            <div className={styles.Menu}>
+            <div key={idx} className={styles.Menu}>
                 <div className={styles.Name}>
                     <p>
                         {name}
                     </p>
                 </div>
-                <div className={styles.Value}>
-                    {valueElem}
-                </div>
+                {valueElem}
             </div>
         );
     });
