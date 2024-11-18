@@ -93,13 +93,19 @@
         // 데코 레이터 기능 활성화
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "types": [
+            "vite-plugin-svgr/client",
+            "@types/tampermonkey"
+        ],
         "typeRoots": [
             "./node_modules/@types",
             "./src/@types"
         ],
     },
     "include": [
-        "src"
+        "src",
+        "svg.d.ts",
+        "vite-env.d.ts"
     ],
     "references": [
         {
