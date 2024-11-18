@@ -16,8 +16,8 @@ const ToggleButton: React.FC<I_PROPS> = ({
     };
 
     return (
-        <div className={styles.ToggleButton} onClick={handleToggle}>
-            <div className={classes(styles.Circle, enable ? styles.Enable : false)} />
+        <div className={classes(styles.ToggleButton, enable ? styles.Enable : false)} onClick={handleToggle}>
+            <div className={styles.Circle} />
         </div>
     );
 };

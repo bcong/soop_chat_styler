@@ -2,6 +2,7 @@ import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import monkey from 'vite-plugin-monkey';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => {
     console.log("Building in", mode);
@@ -29,6 +30,7 @@ export default defineConfig(({ mode }) => {
                     ],
                     icon: 'https://res.sooplive.co.kr/afreeca.ico',
                     connect: ['sooplive.co.kr'],
+                    grant: ['GM_setValue', 'GM_getValue', 'GM_listValues'],
                     license: 'MIT',
                     downloadURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js',
                     updateURL: 'https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js'
@@ -41,6 +43,7 @@ export default defineConfig(({ mode }) => {
                     fileName: 'userscripts.user.js'
                 }
             }),
+            svgr(),
             splitVendorChunkPlugin(),
         ],
         base: "./",

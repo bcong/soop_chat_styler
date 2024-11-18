@@ -2,7 +2,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    position: fixed;
+    position: fixed !important;
     width: 300px;
     background-color: #fff;
     display: none;
@@ -46,6 +46,11 @@
                 width: 28px;
                 height: 100%;
                 transition-duration: .1s;
+
+                object {
+                    width: 60%;
+                    height: 100%;
+                }
 
                 &:hover {
                     cursor: pointer;

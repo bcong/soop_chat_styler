@@ -2,11 +2,20 @@
     width: 46px;
     height: 25px;
     border-radius: 36px;
-    border: 1px solid rgba(0, 0, 0, .2);
+    background-color: rgb(216, 218, 223);
     position: relative;
+    transition-duration: .2s;
 
     &:hover {
         cursor: pointer;
+    }
+
+    &.Enable {
+        background-color: #0388ff;
+
+        .Circle {
+            transform: translate(134%, -50%);
+        }
     }
 
     .Circle {
@@ -14,15 +23,10 @@
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        background: linear-gradient(45deg, rgb(190, 190, 190), rgb(210, 210, 210));
+        background: #fff;
         top: 50%;
         left: 0px;
-        transform: translate(14%, -50%);
+        transform: translate(20%, -50%);
         transition-duration: .2s;
-
-        &.Enable {
-            transform: translate(130%, -50%);
-            background: linear-gradient(45deg, #0388ff, #48dcb6);
-        }
     }
 }
