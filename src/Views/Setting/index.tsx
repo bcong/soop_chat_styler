@@ -3,12 +3,23 @@ import styles from './style.module.less';
 import ListBox from '@Components/ListBox';
 import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { I_OPTION, I_SETTINGS } from '@Types/index';
 
 const Setting = observer(() => {
     const mainStore = useMainStore();
 
-    const settingList = [
+    const opitons: I_OPTION[] = [
+        {
+            key: 0,
+            name: '구름'
+        },
+        {
+            key: 1,
+            name: '화면 내부'
+        }
+    ];
+
+    const settingList: I_SETTINGS[] = [
         {
             name: '스타일러 사용',
             values: [
@@ -25,6 +36,7 @@ const Setting = observer(() => {
                 {
                     type: 'list',
                     value: mainStore.setting.get('chat_style'),
+                    options: opitons,
                     cb: (value: unknown) => mainStore.setSetting('chat_style', value, true)
                 }
             ]
@@ -32,7 +44,7 @@ const Setting = observer(() => {
     ];
 
     const settingListElem = settingList.map(({ name, values }, idx) => {
-        const valueElem = values.map(({ type, value, cb }, idx) => {
+        const valueElem = values.map(({ type, value, options, cb }, idx) => {
 
             let contentElem;
             switch (type) {
@@ -40,7 +52,7 @@ const Setting = observer(() => {
                     contentElem = <ToggleButton enable={value} setEnable={cb} />;
                     break;
                 case 'list':
-                    contentElem = <ListBox />;
+                    contentElem = <ListBox value={value} options={options as I_OPTION[]} setValue={cb} />;
                     break;
             }
 

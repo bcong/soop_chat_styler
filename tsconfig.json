@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
+        "target": "ESNext",
         ////////// Module //////////
         "module": "CommonJS", // 모듈 코드 생성시에 어떤 버전으로 생성할지
         "moduleResolution": "node", // 모듈 코드 해석시에 어떤 버전으로 해석할지
         "allowSyntheticDefaultImports": true, // default export없는 모듈도 default import 가능하게
         "esModuleInterop": true, // babel 생태계와의 호환을 의해 __importStar, __importDefault를 내보냄. 타입 시스템 호환을 위해 바로 위의 것 활성화함.
         ////////// path //////////
-        "baseUrl": "./", // 나중에 module참조 에러시 사용할 path
+        "baseUrl": ".", // 나중에 module참조 에러시 사용할 path
         "outDir": "./dist", // 출력 데이터(구조적으로) 쌓이는 경로
         "paths": {
             "@Assets/*": [
@@ -78,7 +78,7 @@
         "lib": [
             "dom",
             "dom.iterable",
-            "ES2022"
+            "ESNext"
         ], // 컴파일 과정에서 포함될 라이브러리
         ////////// optimization //////////
         "importHelpers": true, // tslib의 helper사용
