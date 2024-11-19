@@ -9,37 +9,45 @@ interface I_PROPS extends I_GLOBAL_PROPS {
 const SettingMenuComponent: React.FC<I_PROPS> = ({
     toggleSetting
 }) => {
-    const id = 'chat_styler';
+    const id = 'chatStylerSetting';
 
     useEffect(() => {
-        const chatTitleElement = document.querySelector('.chat_title ul');
+        const closeElement = document.getElementById('setbox_close');
 
-        if (!chatTitleElement) return;
+        if (closeElement) {
+            closeElement.remove();
+        }
+    }, []);
+
+    useEffect(() => {
+        const serviceUtilElement = document.querySelector('.serviceUtil');
+
+        if (!serviceUtilElement) return;
 
         const existingItem = document.getElementById(id);
 
         if (existingItem)
             existingItem.remove();
 
-        const listItemElement = document.createElement('li');
-        listItemElement.className = styles.SettingMenu;
-        listItemElement.id = id;
+        const newDivElement = document.createElement('div');
+        newDivElement.id = id;
+        newDivElement.className = styles.SettingMenu;
 
-        const anchorElement = document.createElement('a');
-        anchorElement.setAttribute('tip', '채팅 스타일러 설정');
+        const buttonElement = document.createElement('button');
+        buttonElement.setAttribute('tip', '채팅 스타일러 설정');
 
-        const paragraphElement = document.createElement('p');
-        paragraphElement.textContent = 'S';
+        const spanElement = document.createElement('p');
+        spanElement.textContent = 'S'; // S 텍스트 추가
+        buttonElement.appendChild(spanElement);
 
-        anchorElement.appendChild(paragraphElement);
-        listItemElement.appendChild(anchorElement);
+        newDivElement.appendChild(buttonElement);
 
-        chatTitleElement.insertBefore(listItemElement, chatTitleElement.firstChild);
+        serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
 
-        listItemElement.addEventListener('click', toggleSetting);
+        newDivElement.addEventListener('click', toggleSetting);
 
         return () => {
-            listItemElement.removeEventListener('click', toggleSetting);
+            newDivElement.removeEventListener('click', toggleSetting);
         };
     }, []);
 

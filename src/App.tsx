@@ -7,11 +7,12 @@ import ChatTemplate from '@Templates/ChatTemplate';
 
 const App = () => {
     const mainStore = useMainStore();
-    const [isSetting, setIsSetting] = useState(false);
+    const [isSetting, IsSetting] = useState(false);
+    const [isInit, IsInit] = useState(false);
     const chatUpdate = useRef<number | null>(null);
 
     const toggleSetting = () => {
-        setIsSetting((prevIsSetting) => !prevIsSetting);
+        IsSetting((prevIsSetting) => !prevIsSetting);
     };
 
     const initSetting = () => {
@@ -19,6 +20,7 @@ const App = () => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
         mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩' });
+        IsInit(true);
     };
 
     const updateChatMessages = () => {
@@ -57,7 +59,7 @@ const App = () => {
     }, []);
 
     return (
-        <>
+        isInit && <>
             <SettingMenu isSetting={isSetting} toggleSetting={toggleSetting} />
             <SettingTemplate isSetting={isSetting} toggleSetting={toggleSetting} />
             <ChatTemplate />

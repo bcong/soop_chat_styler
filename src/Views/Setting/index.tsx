@@ -33,6 +33,16 @@ const Setting = observer(() => {
             ]
         },
         {
+            name: '기존 채팅 활성화',
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('defalut_chat_enable'),
+                    cb: (value: unknown) => mainStore.setSetting('defalut_chat_enable', value, true)
+                }
+            ]
+        },
+        {
             name: '채팅창 스타일',
             values: [
                 {

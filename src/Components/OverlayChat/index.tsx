@@ -56,7 +56,7 @@ const OverlayChat = observer(() => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isDragging]);
+    }, [translate, isDragging]);
 
     useEffect(() => {
         if (!chatRef.current) return;

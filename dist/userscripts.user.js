@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120010127
+// @version      20241120020442
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -64,23 +64,26 @@ img {
 p {
   color: #000000;
 }
-._SettingMenu_1enfi_1 {
-  list-style: none;
+._SettingMenu_1f6w4_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
-._SettingMenu_1enfi_1 a {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-._SettingMenu_1enfi_1 a p {
-  margin: 0;
-  font-size: 24px;
+._SettingMenu_1f6w4_1 button p {
+  font-size: 24px !important;
   background: linear-gradient(45deg, #0388ff, #48dcb6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   font-weight: 800;
   line-height: 1;
+  padding: 8px !important;
+}
+._SettingMenu_1f6w4_1:hover {
+  background-color: rgba(255, 255, 255, 0.25);
 }
 ._SettingTemplate_1b951_1 {
   top: 50%;
@@ -7342,33 +7345,39 @@ p {
       createRoot = m$1.createRoot;
       m$1.hydrateRoot;
     }
-    const SettingMenu = "_SettingMenu_1enfi_1";
+    const SettingMenu = "_SettingMenu_1f6w4_1";
     const styles$7 = {
       SettingMenu
     };
     const SettingMenuComponent = ({
       toggleSetting
     }) => {
-      const id2 = "chat_styler";
+      const id2 = "chatStylerSetting";
       reactExports.useEffect(() => {
-        const chatTitleElement = document.querySelector(".chat_title ul");
-        if (!chatTitleElement) return;
+        const closeElement = document.getElementById("setbox_close");
+        if (closeElement) {
+          closeElement.remove();
+        }
+      }, []);
+      reactExports.useEffect(() => {
+        const serviceUtilElement = document.querySelector(".serviceUtil");
+        if (!serviceUtilElement) return;
         const existingItem = document.getElementById(id2);
         if (existingItem)
           existingItem.remove();
-        const listItemElement = document.createElement("li");
-        listItemElement.className = styles$7.SettingMenu;
-        listItemElement.id = id2;
-        const anchorElement = document.createElement("a");
-        anchorElement.setAttribute("tip", "채팅 스타일러 설정");
-        const paragraphElement = document.createElement("p");
-        paragraphElement.textContent = "S";
-        anchorElement.appendChild(paragraphElement);
-        listItemElement.appendChild(anchorElement);
-        chatTitleElement.insertBefore(listItemElement, chatTitleElement.firstChild);
-        listItemElement.addEventListener("click", toggleSetting);
+        const newDivElement = document.createElement("div");
+        newDivElement.id = id2;
+        newDivElement.className = styles$7.SettingMenu;
+        const buttonElement = document.createElement("button");
+        buttonElement.setAttribute("tip", "채팅 스타일러 설정");
+        const spanElement = document.createElement("p");
+        spanElement.textContent = "S";
+        buttonElement.appendChild(spanElement);
+        newDivElement.appendChild(buttonElement);
+        serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
+        newDivElement.addEventListener("click", toggleSetting);
         return () => {
-          listItemElement.removeEventListener("click", toggleSetting);
+          newDivElement.removeEventListener("click", toggleSetting);
         };
       }, []);
       return null;
@@ -11583,8 +11592,31 @@ p {
     };
     class MainStore {
       constructor() {
+        __publicField(this, "_initSetting", [
+          {
+            key: "chat_style",
+            value: 0
+          },
+          {
+            key: "enable",
+            value: true
+          },
+          {
+            key: "overlay_view_count",
+            value: 10
+          },
+          {
+            key: "defalut_chat_enable",
+            value: true
+          }
+        ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
         __publicField(this, "_chats", []);
+        __publicField(this, "init", () => {
+          for (const setting of this.initSetting) {
+            this.setting.set(setting.key, setting.value);
+          }
+        });
         __publicField(this, "setSetting", (key, value, save) => {
           this.setting.set(key, value);
           save && GM_setValue(key, value);
@@ -11598,6 +11630,10 @@ p {
             this.chats.shift();
         });
         makeObservable(this);
+        this.init();
+      }
+      get initSetting() {
+        return this._initSetting;
       }
       get setting() {
         return this._setting;
@@ -11614,10 +11650,16 @@ p {
     ], MainStore.prototype, "_chats", 2);
     __decorateClass([
       action
+    ], MainStore.prototype, "init", 2);
+    __decorateClass([
+      action
     ], MainStore.prototype, "setSetting", 2);
     __decorateClass([
       action
     ], MainStore.prototype, "addChat", 2);
+    __decorateClass([
+      computed
+    ], MainStore.prototype, "initSetting", 1);
     __decorateClass([
       computed
     ], MainStore.prototype, "setting", 1);
@@ -12044,6 +12086,16 @@ p {
           ]
         },
         {
+          name: "기존 채팅 활성화",
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("defalut_chat_enable"),
+              cb: (value) => mainStore.setSetting("defalut_chat_enable", value, true)
+            }
+          ]
+        },
+        {
           name: "채팅창 스타일",
           values: [
             {
@@ -12224,7 +12276,7 @@ p {
           document.removeEventListener("mousemove", handleMouseMove);
           document.removeEventListener("mouseup", handleMouseUp);
         };
-      }, [isDragging]);
+      }, [translate, isDragging]);
       reactExports.useEffect(() => {
         if (!chatRef.current) return;
         const left = mainStore.setting.get("overlay_x");
@@ -12253,6 +12305,12 @@ p {
       const mainStore = useMainStore();
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
+      const defalut_chat_enable = mainStore.setting.get("defalut_chat_enable");
+      reactExports.useEffect(() => {
+        const sideElement = document.querySelector("#webplayer_contents .wrapping.side");
+        if (sideElement)
+          sideElement.style.display = defalut_chat_enable ? "block" : "none";
+      }, [defalut_chat_enable]);
       let chatElem;
       switch (chat_style) {
         case 0:
@@ -12266,16 +12324,18 @@ p {
     });
     const App = () => {
       const mainStore = useMainStore();
-      const [isSetting, setIsSetting] = reactExports.useState(false);
+      const [isSetting, IsSetting] = reactExports.useState(false);
+      const [isInit, IsInit] = reactExports.useState(false);
       const chatUpdate = reactExports.useRef(null);
       const toggleSetting = () => {
-        setIsSetting((prevIsSetting) => !prevIsSetting);
+        IsSetting((prevIsSetting) => !prevIsSetting);
       };
       const initSetting = () => {
         GM_listValues().map((v2) => {
           mainStore.setSetting(v2, GM_getValue(v2), false);
         });
         mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩" });
+        IsInit(true);
       };
       const updateChatMessages = () => {
         const chatArea = document.querySelector("#chat_area");
@@ -12302,7 +12362,7 @@ p {
           if (chatUpdate.current) clearInterval(chatUpdate.current);
         };
       }, []);
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      return isInit && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(SettingMenuComponent, { isSetting, toggleSetting }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(SettingTemplate, { isSetting, toggleSetting }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Chat, {})
