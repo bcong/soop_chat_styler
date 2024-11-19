@@ -38,7 +38,7 @@ const App = () => {
         GM_listValues().map((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
-        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩', color: '#e9ab00' });
+        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩 (github.com/bcong)', color: '#e9ab00' });
         IsInit(true);
     };
 

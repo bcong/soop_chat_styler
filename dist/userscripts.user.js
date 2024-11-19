@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120025301
+// @version      20241120025545
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12427,7 +12427,7 @@ p {
         GM_listValues().map((v2) => {
           mainStore.setSetting(v2, GM_getValue(v2), false);
         });
-        mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩", color: "#e9ab00" });
+        mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩 (github.com/bcong)", color: "#e9ab00" });
         IsInit(true);
       };
       const updateChatMessages = () => {
