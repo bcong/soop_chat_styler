@@ -18,6 +18,22 @@ export default class MainStore {
         {
             key: 'defalut_chat_enable',
             value: true,
+        },
+        {
+            key: 'overlay_background_opacity',
+            value: 0
+        },
+        {
+            key: 'overlay_chat_opacity',
+            value: 80
+        },
+        {
+            key: 'overlay_random_username',
+            value: true,
+        },
+        {
+            key: 'overlay_view_width',
+            value: 300
         }
     ];
 
@@ -47,14 +63,15 @@ export default class MainStore {
 
     @action
     addChat = (chat: I_CHAT) => {
-        const lastId = this.chats[this.chats.length - 1]?.id;
-
-        if (lastId >= chat.id) return;
-
         this.chats.push(chat);
 
         if (this.chats.length >= 100)
             this.chats.shift();
+    };
+
+    @action
+    lastChat = () => {
+        return this.chats[this.chats.length - 1];
     };
 
     @computed

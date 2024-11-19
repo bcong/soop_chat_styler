@@ -11,6 +11,10 @@ const OverlayChat = observer(() => {
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const overlayViewCount = mainStore.setting.get('overlay_view_count');
+    const overlayViewOpacity = mainStore.setting.get('overlay_chat_opacity');
+    const overlayBackgroundOpacity = mainStore.setting.get('overlay_background_opacity');
+    const overlayRandomUsername = mainStore.setting.get('overlay_random_username');
+    const overlayViewWidth = mainStore.setting.get('overlay_view_width');
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!chatRef.current) return;
@@ -71,10 +75,10 @@ const OverlayChat = observer(() => {
 
     const chatsElem = mainStore.chats
         .slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1)
-        .map(({ id, username, messageText }) => {
+        .map(({ id, username, messageText, color }) => {
             return (
-                <div key={id} className={styles.Chat}>
-                    <p>
+                <div key={id} className={styles.Chat} style={{ backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }}>
+                    <p style={{ color: overlayRandomUsername ? color : '#9dd9a5' }}>
                         {username}
                         <span>
                             {messageText}
@@ -89,7 +93,7 @@ const OverlayChat = observer(() => {
             ref={chatRef}
             className={styles.OverlayChat}
             onMouseDown={handleMouseDown}
-            style={{ transform: `translate(${translate.x}px, ${translate.y}px)` }}
+            style={{ transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` }}
         >
             {chatsElem}
         </div>

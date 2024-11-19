@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120021351
+// @version      20241120025301
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -85,11 +85,12 @@ p {
 ._SettingMenu_1f6w4_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
-._SettingTemplate_1b951_1 {
+._SettingTemplate_15fst_1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: fixed !important;
+  width: 300px;
   background-color: #fff;
   display: none;
   z-index: 10001;
@@ -98,10 +99,10 @@ p {
   border: 1px solid rgba(117, 123, 138, 0.2);
   flex-direction: column;
 }
-._SettingTemplate_1b951_1._View_1b951_14 {
+._SettingTemplate_15fst_1._View_15fst_15 {
   display: flex;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 {
+._SettingTemplate_15fst_1 ._Header_15fst_18 {
   display: flex;
   align-items: center;
   width: 100%;
@@ -112,15 +113,15 @@ p {
   background-color: rgba(0, 0, 0, 0.02);
   padding-left: 12px;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 ._Title_1b951_28 p {
+._SettingTemplate_15fst_1 ._Header_15fst_18 ._Title_15fst_29 p {
   font-size: 14px;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 {
+._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 {
   height: 100%;
   position: absolute;
   right: 0;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31 {
+._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,15 +129,15 @@ p {
   height: 100%;
   transition-duration: 0.1s;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31 svg {
+._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32 svg {
   width: 60%;
   height: 100%;
 }
-._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31:hover {
+._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.03);
 }
-._SettingTemplate_1b951_1 ._Content_1b951_52 {
+._SettingTemplate_15fst_1 ._Content_15fst_53 {
   flex: 1;
 }
 ._ToggleButton_6twf4_1 {
@@ -343,30 +344,29 @@ p {
   color: #fff;
   font-weight: 600;
 }
-._OverlayChat_gwyj3_1 {
+._OverlayChat_1s65x_1 {
   position: fixed;
-  z-index: 10000;
+  z-index: 998;
   overflow: hidden;
+  border-radius: 10px;
   cursor: move;
-  width: 300px;
   left: 0;
   bottom: 0;
 }
-._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 {
-  background-color: rgba(0, 0, 0, 0.8);
+._OverlayChat_1s65x_1 ._Chat_1s65x_10 {
   border-radius: 10px;
   text-wrap: wrap;
-  padding: 6px 8px;
+  padding: 6px 10px;
   margin-bottom: 6px;
 }
-._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 p {
+._OverlayChat_1s65x_1 ._Chat_1s65x_10 p {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
 }
-._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 p span {
+._OverlayChat_1s65x_1 ._Chat_1s65x_10 p span {
+  color: #fff;
   font-weight: 300;
-  margin-left: 6px;
+  margin-left: 10px;
 } `);
 
 (function () {
@@ -7382,13 +7382,13 @@ p {
       }, []);
       return null;
     };
-    const SettingTemplate$1 = "_SettingTemplate_1b951_1";
-    const View$2 = "_View_1b951_14";
-    const Header = "_Header_1b951_17";
-    const Title = "_Title_1b951_28";
-    const Menus$1 = "_Menus_1b951_31";
-    const Menu$1 = "_Menu_1b951_31";
-    const Content = "_Content_1b951_52";
+    const SettingTemplate$1 = "_SettingTemplate_15fst_1";
+    const View$2 = "_View_15fst_15";
+    const Header = "_Header_15fst_18";
+    const Title = "_Title_15fst_29";
+    const Menus$1 = "_Menus_15fst_32";
+    const Menu$1 = "_Menu_15fst_32";
+    const Content = "_Content_15fst_53";
     const styles$6 = {
       SettingTemplate: SettingTemplate$1,
       View: View$2,
@@ -11608,6 +11608,22 @@ p {
           {
             key: "defalut_chat_enable",
             value: true
+          },
+          {
+            key: "overlay_background_opacity",
+            value: 0
+          },
+          {
+            key: "overlay_chat_opacity",
+            value: 80
+          },
+          {
+            key: "overlay_random_username",
+            value: true
+          },
+          {
+            key: "overlay_view_width",
+            value: 300
           }
         ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
@@ -11622,12 +11638,12 @@ p {
           save && GM_setValue(key, value);
         });
         __publicField(this, "addChat", (chat) => {
-          var _a2;
-          const lastId = (_a2 = this.chats[this.chats.length - 1]) == null ? void 0 : _a2.id;
-          if (lastId >= chat.id) return;
           this.chats.push(chat);
           if (this.chats.length >= 100)
             this.chats.shift();
+        });
+        __publicField(this, "lastChat", () => {
+          return this.chats[this.chats.length - 1];
         });
         makeObservable(this);
         this.init();
@@ -11657,6 +11673,9 @@ p {
     __decorateClass([
       action
     ], MainStore.prototype, "addChat", 2);
+    __decorateClass([
+      action
+    ], MainStore.prototype, "lastChat", 2);
     __decorateClass([
       computed
     ], MainStore.prototype, "initSetting", 1);
@@ -12064,6 +12083,7 @@ p {
     };
     const Setting = observer(() => {
       const mainStore = useMainStore();
+      const chat_style = mainStore.setting.get("chat_style");
       const opitons = [
         {
           key: 0,
@@ -12107,7 +12127,18 @@ p {
           ]
         },
         {
+          name: "닉네임 랜덤 색상",
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_random_username"),
+              cb: (value) => mainStore.setSetting("overlay_random_username", value, true)
+            }
+          ]
+        },
+        {
           name: "채팅 표시 개수",
+          disable: chat_style != 0,
           values: [
             {
               type: "slider",
@@ -12117,9 +12148,49 @@ p {
               cb: (value) => mainStore.setSetting("overlay_view_count", value, true)
             }
           ]
+        },
+        {
+          name: "채팅 투명도",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_chat_opacity"),
+              min: 0,
+              max: 100,
+              cb: (value) => mainStore.setSetting("overlay_chat_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "배경 투명도",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_background_opacity"),
+              min: 0,
+              max: 100,
+              cb: (value) => mainStore.setSetting("overlay_background_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅창 길이",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_view_width"),
+              min: 0,
+              max: 500,
+              cb: (value) => mainStore.setSetting("overlay_view_width", value, true)
+            }
+          ]
         }
       ];
-      const settingListElem = settingList.map(({ name, values }, idx) => {
+      const settingListElem = settingList.map(({ name, disable, values }, idx) => {
+        if (disable) return;
         const valueElem = values.map(({ type, value, options, inputType, min, max, cb: cb2 }, idx2) => {
           let contentElem;
           switch (type) {
@@ -12224,8 +12295,8 @@ p {
         document.body
       );
     };
-    const OverlayChat$1 = "_OverlayChat_gwyj3_1";
-    const Chat$1 = "_Chat_gwyj3_10";
+    const OverlayChat$1 = "_OverlayChat_1s65x_1";
+    const Chat$1 = "_Chat_1s65x_10";
     const styles = {
       OverlayChat: OverlayChat$1,
       Chat: Chat$1
@@ -12238,6 +12309,10 @@ p {
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
       const [translate, setTranslate] = reactExports.useState({ x: 0, y: 0 });
       const overlayViewCount = mainStore.setting.get("overlay_view_count");
+      const overlayViewOpacity = mainStore.setting.get("overlay_chat_opacity");
+      const overlayBackgroundOpacity = mainStore.setting.get("overlay_background_opacity");
+      const overlayRandomUsername = mainStore.setting.get("overlay_random_username");
+      const overlayViewWidth = mainStore.setting.get("overlay_view_width");
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -12284,8 +12359,8 @@ p {
         setTranslate({ x: left || 0, y: top || 0 });
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
       }, []);
-      const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText }) => {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Chat, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+      const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText, color }) => {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { color: overlayRandomUsername ? color : "#9dd9a5" }, children: [
           username,
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: messageText })
         ] }) }, id2);
@@ -12296,7 +12371,7 @@ p {
           ref: chatRef,
           className: styles.OverlayChat,
           onMouseDown: handleMouseDown,
-          style: { transform: `translate(${translate.x}px, ${translate.y}px)` },
+          style: { transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` },
           children: chatsElem
         }
       );
@@ -12327,6 +12402,24 @@ p {
       const [isSetting, IsSetting] = reactExports.useState(false);
       const [isInit, IsInit] = reactExports.useState(false);
       const chatUpdate = reactExports.useRef(null);
+      let colorIdx = 0;
+      const colors = [
+        "#f28ca5",
+        "#9dd9a5",
+        "#fff08c",
+        "#a1b1eb",
+        "#fac098",
+        "#c88ed9",
+        "#a2f7f7",
+        "#f798f2",
+        "#ddfa85",
+        "#fcdede",
+        "#ffb3ba",
+        "#ffdfba",
+        "#ffffba",
+        "#baffc9",
+        "#bae1ff"
+      ];
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
       };
@@ -12334,7 +12427,7 @@ p {
         GM_listValues().map((v2) => {
           mainStore.setSetting(v2, GM_getValue(v2), false);
         });
-        mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩" });
+        mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩", color: "#e9ab00" });
         IsInit(true);
       };
       const updateChatMessages = () => {
@@ -12343,14 +12436,17 @@ p {
         const chatItems = chatArea.querySelectorAll(".chatting-list-item");
         const recentChats = Array.from(chatItems).slice(-10);
         if (recentChats.length <= 1) return;
+        const lastChat = mainStore.lastChat();
         recentChats.forEach((chat) => {
           var _a2, _b2;
           const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
           const message = chat.querySelector(".message-text");
           if (!username || !message) return;
           const id2 = Number(message == null ? void 0 : message.id) || 0;
+          if (lastChat.id >= id2) return;
           const messageText = ((_b2 = chat.querySelector(".msg")) == null ? void 0 : _b2.textContent) || "";
-          mainStore.addChat({ id: id2, username, messageText });
+          mainStore.addChat({ id: id2, username, messageText, color: colors[colorIdx] });
+          colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
         });
       };
       reactExports.useEffect(() => {

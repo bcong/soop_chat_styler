@@ -10,6 +10,10 @@ export type T_SETTING =
     | 'overlay_y'
     | 'overlay_view_count'
     | 'defalut_chat_enable'
+    | 'overlay_random_username'
+    | 'overlay_view_width'
+    | 'overlay_background_opacity'
+    | 'overlay_chat_opacity'
 
 export type T_SETTING_TYPE =
     | 'toggle'
@@ -43,6 +47,7 @@ export interface I_CHAT {
     id: number
     username: string
     messageText: string
+    color: string
 }
 
 export interface I_INIT_SETTING {

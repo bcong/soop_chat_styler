@@ -10,6 +10,25 @@ const App = () => {
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
     const chatUpdate = useRef<number | null>(null);
+    let colorIdx = 0;
+
+    const colors = [
+        '#f28ca5',
+        '#9dd9a5',
+        '#fff08c',
+        '#a1b1eb',
+        '#fac098',
+        '#c88ed9',
+        '#a2f7f7',
+        '#f798f2',
+        '#ddfa85',
+        '#fcdede',
+        '#ffb3ba',
+        '#ffdfba',
+        '#ffffba',
+        '#baffc9',
+        '#bae1ff'
+    ];
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
@@ -19,7 +38,7 @@ const App = () => {
         GM_listValues().map((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
-        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩' });
+        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩', color: '#e9ab00' });
         IsInit(true);
     };
 
@@ -33,6 +52,8 @@ const App = () => {
 
         if (recentChats.length <= 1) return;
 
+        const lastChat = mainStore.lastChat();
+
         recentChats.forEach(chat => {
             const username = chat.querySelector('.username .author')?.textContent || null;
             const message = chat.querySelector('.message-text');
@@ -40,9 +61,13 @@ const App = () => {
             if (!username || !message) return;
 
             const id = Number(message?.id) || 0;
+
+            if (lastChat.id >= id) return;
+
             const messageText = chat.querySelector('.msg')?.textContent || '';
 
-            mainStore.addChat({ id, username, messageText });
+            mainStore.addChat({ id, username, messageText, color: colors[colorIdx] });
+            colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
         });
     };
 

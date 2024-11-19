@@ -9,6 +9,7 @@ import SliderBar from '@Components/SliderBar';
 
 const Setting = observer(() => {
     const mainStore = useMainStore();
+    const chat_style = mainStore.setting.get('chat_style');
 
     const opitons: I_OPTION[] = [
         {
@@ -54,7 +55,18 @@ const Setting = observer(() => {
             ]
         },
         {
+            name: '닉네임 랜덤 색상',
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('overlay_random_username'),
+                    cb: (value: unknown) => mainStore.setSetting('overlay_random_username', value, true)
+                }
+            ]
+        },
+        {
             name: '채팅 표시 개수',
+            disable: chat_style != 0,
             values: [
                 {
                     type: 'slider',
@@ -64,10 +76,50 @@ const Setting = observer(() => {
                     cb: (value: unknown) => mainStore.setSetting('overlay_view_count', value, true)
                 }
             ]
-        }
+        },
+        {
+            name: '채팅 투명도',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_chat_opacity'),
+                    min: 0,
+                    max: 100,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_chat_opacity', value, true)
+                }
+            ]
+        },
+        {
+            name: '배경 투명도',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_background_opacity'),
+                    min: 0,
+                    max: 100,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_background_opacity', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅창 길이',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_view_width'),
+                    min: 0,
+                    max: 500,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_view_width', value, true)
+                }
+            ]
+        },
     ];
 
-    const settingListElem = settingList.map(({ name, values }, idx) => {
+    const settingListElem = settingList.map(({ name, disable, values }, idx) => {
+        if (disable) return;
         const valueElem = values.map(({ type, value, options, inputType, min, max, cb }, idx) => {
 
             let contentElem;
