@@ -3,10 +3,11 @@ import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
 import { T_SETTING } from './@types';
+import ChatTemplate from '@Templates/ChatTemplate';
 
 const App = () => {
     const mainStore = useMainStore();
-    const [isSetting, setIsSetting] = useState(true);
+    const [isSetting, setIsSetting] = useState(false);
     const chatUpdate = useRef<number | null>(null);
 
     const toggleSetting = () => {
@@ -17,6 +18,7 @@ const App = () => {
         GM_listValues().map((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
+        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩' });
     };
 
     const updateChatMessages = () => {
@@ -25,21 +27,20 @@ const App = () => {
         if (!chatArea) return;
 
         const chatItems = chatArea.querySelectorAll('.chatting-list-item');
-        const recentChats = Array.from(chatItems).slice(-10); // 최근 10개만 가져옴
+        const recentChats = Array.from(chatItems).slice(-10);
 
         if (recentChats.length <= 1) return;
 
         recentChats.forEach(chat => {
             const username = chat.querySelector('.username .author')?.textContent || null;
-
-            if (!username) return;
-
             const message = chat.querySelector('.message-text');
-            const id = message?.id || 0;
+
+            if (!username || !message) return;
+
+            const id = Number(message?.id) || 0;
             const messageText = chat.querySelector('.msg')?.textContent || '';
 
-            console.log(id, username, messageText);
-
+            mainStore.addChat({ id, username, messageText });
         });
     };
 
@@ -48,7 +49,7 @@ const App = () => {
 
         chatUpdate.current = setInterval(() => {
             updateChatMessages();
-        }, 500);
+        }, 300);
 
         return () => {
             if (chatUpdate.current) clearInterval(chatUpdate.current);
@@ -59,6 +60,7 @@ const App = () => {
         <>
             <SettingMenu isSetting={isSetting} toggleSetting={toggleSetting} />
             <SettingTemplate isSetting={isSetting} toggleSetting={toggleSetting} />
+            <ChatTemplate />
         </>
     );
 };

@@ -3,10 +3,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     position: fixed !important;
-    width: 300px;
+    // width: 300px;
     background-color: #fff;
     display: none;
-    z-index: 1000;
+    z-index: 10001;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 12px;
     border: 1px solid rgba(117, 123, 138, .2);
@@ -45,6 +45,11 @@
                 width: 28px;
                 height: 100%;
                 transition-duration: .1s;
+
+                svg {
+                    width: 60%;
+                    height: 100%;
+                }
 
                 &:hover {
                     cursor: pointer;

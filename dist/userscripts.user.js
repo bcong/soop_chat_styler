@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241118010933
+// @version      20241120010127
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -18,8 +18,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
-
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const t=document.createElement("style");t.textContent=n,document.head.append(t)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -62,13 +61,6 @@ img {
   user-select: none;
   -webkit-user-drag: none;
 }
-i {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 0;
-  color: #646464;
-}
 p {
   color: #000000;
 }
@@ -90,25 +82,23 @@ p {
   font-weight: 800;
   line-height: 1;
 }
-._SettingTemplate_1f3a4_1 {
+._SettingTemplate_1b951_1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  position: fixed;
-  width: 300px;
+  position: fixed !important;
   background-color: #fff;
   display: none;
-  z-index: 1000;
+  z-index: 10001;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 12px;
   border: 1px solid rgba(117, 123, 138, 0.2);
-  overflow: hidden;
   flex-direction: column;
 }
-._SettingTemplate_1f3a4_1._View_1f3a4_16 {
+._SettingTemplate_1b951_1._View_1b951_14 {
   display: flex;
 }
-._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 {
+._SettingTemplate_1b951_1 ._Header_1b951_17 {
   display: flex;
   align-items: center;
   width: 100%;
@@ -119,15 +109,15 @@ p {
   background-color: rgba(0, 0, 0, 0.02);
   padding-left: 12px;
 }
-._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Title_1f3a4_30 p {
+._SettingTemplate_1b951_1 ._Header_1b951_17 ._Title_1b951_28 p {
   font-size: 14px;
 }
-._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 {
+._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 {
   height: 100%;
   position: absolute;
   right: 0;
 }
-._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33 {
+._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,134 +125,245 @@ p {
   height: 100%;
   transition-duration: 0.1s;
 }
-._SettingTemplate_1f3a4_1 ._Header_1f3a4_19 ._Menus_1f3a4_33 ._Menu_1f3a4_33:hover {
+._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31 svg {
+  width: 60%;
+  height: 100%;
+}
+._SettingTemplate_1b951_1 ._Header_1b951_17 ._Menus_1b951_31 ._Menu_1b951_31:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.03);
 }
-._SettingTemplate_1f3a4_1 ._Content_1f3a4_50 {
+._SettingTemplate_1b951_1 ._Content_1b951_52 {
   flex: 1;
 }
-._ToggleButton_1wlxv_1 {
+._ToggleButton_6twf4_1 {
   width: 46px;
-  height: 25px;
+  height: 24px;
   border-radius: 36px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #d8dadf;
   position: relative;
+  transition-duration: 0.2s;
 }
-._ToggleButton_1wlxv_1:hover {
+._ToggleButton_6twf4_1:hover {
   cursor: pointer;
 }
-._ToggleButton_1wlxv_1 ._Circle_1wlxv_11 {
+._ToggleButton_6twf4_1._Enable_6twf4_12 {
+  background-color: #0388ff;
+}
+._ToggleButton_6twf4_1._Enable_6twf4_12 ._Circle_6twf4_15 {
+  transform: translate(134%, -50%);
+}
+._ToggleButton_6twf4_1 ._Circle_6twf4_15 {
   position: absolute;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #bebebe, #d2d2d2);
+  background: #fff;
   top: 50%;
   left: 0px;
-  transform: translate(14%, -50%);
+  transform: translate(20%, -50%);
   transition-duration: 0.2s;
 }
-._ToggleButton_1wlxv_1 ._Circle_1wlxv_11._Enable_1wlxv_22 {
-  transform: translate(130%, -50%);
-  background: linear-gradient(45deg, #0388ff, #48dcb6);
-}
-._Setting_1jr3g_1 {
+._Setting_1oj11_1 {
   flex: 1;
 }
-._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 {
+._Setting_1oj11_1 ._Menus_1oj11_4 {
+  padding: 0 12px;
+  margin-bottom: 6px;
+}
+._Setting_1oj11_1 ._Menus_1oj11_4 ._Menu_1oj11_4 {
   display: flex;
   align-items: center;
   width: 100%;
   height: 40px;
-  padding: 0 12px;
 }
-._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 {
+._Setting_1oj11_1 ._Menus_1oj11_4 ._Menu_1oj11_4 ._Name_1oj11_14 {
   width: 120px;
 }
-._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Name_1jr3g_11 p {
+._Setting_1oj11_1 ._Menus_1oj11_4 ._Menu_1oj11_4 ._Name_1oj11_14 p {
   font-weight: 500;
   font-size: 14px;
 }
-._Setting_1jr3g_1 ._Menus_1jr3g_4 ._Menu_1jr3g_4 ._Value_1jr3g_18 {
+._Setting_1oj11_1 ._Menus_1oj11_4 ._Menu_1oj11_4 ._Value_1oj11_21 {
   display: flex;
   justify-content: right;
   align-items: center;
   flex: 1;
   height: 100%;
 }
-._Setting_gdazf_1 {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: fixed;
-  width: 300px;
-  background-color: #fff;
-  display: none;
-  z-index: 1000;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 12px;
-  border: 1px solid rgba(117, 123, 138, 0.2);
-  overflow: hidden;
-  flex-direction: column;
-}
-._Setting_gdazf_1._View_gdazf_16 {
-  display: flex;
-}
-._Setting_gdazf_1 ._Header_gdazf_19 {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 28px;
-  flex-direction: row;
+._ListBox_g79p9_1 {
   position: relative;
-  border-bottom: 1px solid rgba(117, 123, 138, 0.1);
-  background-color: rgba(0, 0, 0, 0.015);
-  padding-left: 8px;
 }
-._Setting_gdazf_1 ._Header_gdazf_19 ._Title_gdazf_30 p {
+._ListBox_g79p9_1 ._ListValue_g79p9_4 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100px;
+  height: 26px;
+  overflow: hidden;
+  padding: 0 8px;
+  position: relative;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+._ListBox_g79p9_1 ._ListValue_g79p9_4:hover {
+  cursor: pointer;
+}
+._ListBox_g79p9_1 ._ListValue_g79p9_4 p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
   font-size: 14px;
 }
-._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 {
-  height: 100%;
-  position: absolute;
+._ListBox_g79p9_1 ._ListValue_g79p9_4 svg {
+  top: 0;
   right: 0;
+  position: absolute;
 }
-._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33 {
+._ListBox_g79p9_1 ._Options_g79p9_31 {
+  display: none;
+  position: absolute;
+  width: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 6px;
+  top: 100%;
+  transform: translate(0%, 5%);
+  overflow: hidden;
+  z-index: 100;
+}
+._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31 {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
-  width: 28px;
+  width: 100%;
+  height: 30px;
+  padding: 0 8px;
+}
+._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31 p {
+  font-size: 14px;
+  font-weight: 500;
+}
+._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31._Selected_g79p9_55 {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31._Selected_g79p9_55 p {
+  color: #969696;
+}
+._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31:not(._ListBox_g79p9_1 ._Options_g79p9_31 ._Option_g79p9_31._Selected_g79p9_55):hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+}
+._ListBox_g79p9_1 ._Options_g79p9_31._View_g79p9_65 {
+  display: block;
+}
+._InputBox_1a5to_1 {
+  position: relative;
+}
+._InputBox_1a5to_1 ._InputValue_1a5to_4 {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100px;
+  height: 26px;
+  overflow: hidden;
+  padding: 0 8px;
+  position: relative;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+._InputBox_1a5to_1 ._InputValue_1a5to_4:hover {
+  cursor: text;
+}
+._InputBox_1a5to_1 ._InputValue_1a5to_4 input {
+  text-align: right;
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+}
+._InputBox_1a5to_1 ._Tip_1a5to_25 {
+  display: none;
+  position: absolute;
+  background-color: #ef0e0e;
+  border-radius: 8px;
+  padding: 4px 6px;
+  bottom: 0%;
+  transform: translate(0%, 110%);
+}
+._InputBox_1a5to_1 ._Tip_1a5to_25 p {
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+._InputBox_1a5to_1 ._Tip_1a5to_25._View_1a5to_39 {
+  display: flex;
+}
+._SliderBar_pao52_1 {
+  width: 150px;
+  margin: 20px auto;
+}
+._SliderBar_pao52_1 ._SliderTrack_pao52_5 {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background-color: #d8dadf;
+  border-radius: 4px;
+}
+._SliderBar_pao52_1 ._SliderTrack_pao52_5 ._SliderFilled_pao52_12 {
+  position: absolute;
   height: 100%;
+  background-color: #0388ff;
+  border-radius: inherit;
   transition-duration: 0.1s;
 }
-._Setting_gdazf_1 ._Header_gdazf_19 ._Menus_gdazf_33 ._Menu_gdazf_33:hover {
+._SliderBar_pao52_1 ._SliderTrack_pao52_5 ._SliderThumb_pao52_19 {
+  position: absolute;
+  top: -4px;
+  width: 28px;
+  height: 14px;
+  background-color: #0388ff;
+  border-radius: 6px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.03);
+  z-index: 10;
+  transform: translate(-50%, 0%);
+  transition-duration: 0.1s;
+  transform-origin: 0;
 }
-._Setting_gdazf_1 ._Content_gdazf_50 {
-  flex: 1;
+._SliderBar_pao52_1 ._SliderTrack_pao52_5 ._SliderThumb_pao52_19:hover {
+  scale: 1.15;
 }
-._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 {
+._SliderBar_pao52_1 ._SliderTrack_pao52_5 ._SliderThumb_pao52_19::after {
   display: flex;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  padding: 0 12px;
+  justify-content: center;
+  content: attr(data-value);
+  color: #fff;
+  font-weight: 600;
 }
-._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 {
-  width: 120px;
+._OverlayChat_gwyj3_1 {
+  position: fixed;
+  z-index: 10000;
+  overflow: hidden;
+  cursor: move;
+  width: 300px;
+  left: 0;
+  bottom: 0;
 }
-._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Name_gdazf_60 p {
-  font-weight: 500;
+._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  text-wrap: wrap;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+}
+._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 p {
   font-size: 14px;
+  font-weight: 600;
+  color: #fff;
 }
-._Setting_gdazf_1 ._Content_gdazf_50 ._Menus_gdazf_33 ._Menu_gdazf_33 ._Value_gdazf_67 {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  flex: 1;
-  height: 100%;
+._OverlayChat_gwyj3_1 ._Chat_gwyj3_10 p span {
+  font-weight: 300;
+  margin-left: 6px;
 } `);
 
 (function () {
@@ -7242,17 +7343,22 @@ p {
       m$1.hydrateRoot;
     }
     const SettingMenu = "_SettingMenu_1enfi_1";
-    const styles$4 = {
+    const styles$7 = {
       SettingMenu
     };
     const SettingMenuComponent = ({
       toggleSetting
     }) => {
+      const id2 = "chat_styler";
       reactExports.useEffect(() => {
         const chatTitleElement = document.querySelector(".chat_title ul");
         if (!chatTitleElement) return;
+        const existingItem = document.getElementById(id2);
+        if (existingItem)
+          existingItem.remove();
         const listItemElement = document.createElement("li");
-        listItemElement.className = styles$4.SettingMenu;
+        listItemElement.className = styles$7.SettingMenu;
+        listItemElement.id = id2;
         const anchorElement = document.createElement("a");
         anchorElement.setAttribute("tip", "채팅 스타일러 설정");
         const paragraphElement = document.createElement("p");
@@ -7267,21 +7373,21 @@ p {
       }, []);
       return null;
     };
-    const SettingTemplate$1 = "_SettingTemplate_1f3a4_1";
-    const View$1 = "_View_1f3a4_16";
-    const Header$1 = "_Header_1f3a4_19";
-    const Title$1 = "_Title_1f3a4_30";
-    const Menus$2 = "_Menus_1f3a4_33";
-    const Menu$2 = "_Menu_1f3a4_33";
-    const Content$1 = "_Content_1f3a4_50";
-    const styles$3 = {
+    const SettingTemplate$1 = "_SettingTemplate_1b951_1";
+    const View$2 = "_View_1b951_14";
+    const Header = "_Header_1b951_17";
+    const Title = "_Title_1b951_28";
+    const Menus$1 = "_Menus_1b951_31";
+    const Menu$1 = "_Menu_1b951_31";
+    const Content = "_Content_1b951_52";
+    const styles$6 = {
       SettingTemplate: SettingTemplate$1,
-      View: View$1,
-      Header: Header$1,
-      Title: Title$1,
-      Menus: Menus$2,
-      Menu: Menu$2,
-      Content: Content$1
+      View: View$2,
+      Header,
+      Title,
+      Menus: Menus$1,
+      Menu: Menu$1,
+      Content
     };
     const classes = (...classes2) => {
       return classes2.filter(Boolean).join(" ");
@@ -7333,6 +7439,68 @@ p {
         delayedProbe();
       });
     }
+    const ToggleButton$1 = "_ToggleButton_6twf4_1";
+    const Enable = "_Enable_6twf4_12";
+    const Circle = "_Circle_6twf4_15";
+    const styles$5 = {
+      ToggleButton: ToggleButton$1,
+      Enable,
+      Circle
+    };
+    const ToggleButton = ({
+      enable = false,
+      setEnable
+    }) => {
+      const handleToggle = () => {
+        setEnable(!enable);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$5.ToggleButton, enable ? styles$5.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Circle }) });
+    };
+    const Setting$1 = "_Setting_1oj11_1";
+    const Menus = "_Menus_1oj11_4";
+    const Menu = "_Menu_1oj11_4";
+    const Name = "_Name_1oj11_14";
+    const Value = "_Value_1oj11_21";
+    const styles$4 = {
+      Setting: Setting$1,
+      Menus,
+      Menu,
+      Name,
+      Value
+    };
+    const ListBox$1 = "_ListBox_g79p9_1";
+    const ListValue = "_ListValue_g79p9_4";
+    const Options = "_Options_g79p9_31";
+    const Option = "_Option_g79p9_31";
+    const Selected = "_Selected_g79p9_55";
+    const View$1 = "_View_g79p9_65";
+    const styles$3 = {
+      ListBox: ListBox$1,
+      ListValue,
+      Options,
+      Option,
+      Selected,
+      View: View$1
+    };
+    const ListBox = ({
+      value = 0,
+      options,
+      setValue
+    }) => {
+      const [isOptions, IsOptions] = reactExports.useState(false);
+      const handleSetValue = (key) => {
+        setValue(key);
+        IsOptions(false);
+      };
+      const optionsElem = options.map(({ key, name }) => {
+        const isSelected = value == key;
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$3.Option, isSelected ? styles$3.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.ListBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$3.Options, isOptions ? styles$3.View : false), children: optionsElem })
+      ] });
+    };
     function die(error) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
@@ -11416,25 +11584,46 @@ p {
     class MainStore {
       constructor() {
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
+        __publicField(this, "_chats", []);
         __publicField(this, "setSetting", (key, value, save) => {
-          this._setting.set(key, value);
+          this.setting.set(key, value);
           save && GM_setValue(key, value);
+        });
+        __publicField(this, "addChat", (chat) => {
+          var _a2;
+          const lastId = (_a2 = this.chats[this.chats.length - 1]) == null ? void 0 : _a2.id;
+          if (lastId >= chat.id) return;
+          this.chats.push(chat);
+          if (this.chats.length >= 100)
+            this.chats.shift();
         });
         makeObservable(this);
       }
       get setting() {
         return this._setting;
       }
+      get chats() {
+        return this._chats;
+      }
     }
     __decorateClass([
       observable
     ], MainStore.prototype, "_setting", 2);
     __decorateClass([
+      observable
+    ], MainStore.prototype, "_chats", 2);
+    __decorateClass([
       action
     ], MainStore.prototype, "setSetting", 2);
     __decorateClass([
+      action
+    ], MainStore.prototype, "addChat", 2);
+    __decorateClass([
       computed
     ], MainStore.prototype, "setting", 1);
+    __decorateClass([
+      computed
+    ], MainStore.prototype, "chats", 1);
     class RootStore {
       constructor() {
         __publicField(this, "mainStore");
@@ -11454,58 +11643,6 @@ p {
     };
     const StoreProvider = ({ children }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(StoreContext.Provider, { value: rootStore, children });
-    };
-    const ToggleButton$1 = "_ToggleButton_1wlxv_1";
-    const Circle = "_Circle_1wlxv_11";
-    const Enable = "_Enable_1wlxv_22";
-    const styles$2 = {
-      ToggleButton: ToggleButton$1,
-      Circle,
-      Enable
-    };
-    const ToggleButton = ({
-      enable = false,
-      setEnable
-    }) => {
-      const handleToggle = () => {
-        setEnable(!enable);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.ToggleButton, onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$2.Circle, enable ? styles$2.Enable : false) }) });
-    };
-    const Setting$2 = "_Setting_1jr3g_1";
-    const Menus$1 = "_Menus_1jr3g_4";
-    const Menu$1 = "_Menu_1jr3g_4";
-    const Name$1 = "_Name_1jr3g_11";
-    const Value$1 = "_Value_1jr3g_18";
-    const styles$1 = {
-      Setting: Setting$2,
-      Menus: Menus$1,
-      Menu: Menu$1,
-      Name: Name$1,
-      Value: Value$1
-    };
-    const Setting$1 = "_Setting_gdazf_1";
-    const View = "_View_gdazf_16";
-    const Header = "_Header_gdazf_19";
-    const Title = "_Title_gdazf_30";
-    const Menus = "_Menus_gdazf_33";
-    const Menu = "_Menu_gdazf_33";
-    const Content = "_Content_gdazf_50";
-    const Name = "_Name_gdazf_60";
-    const Value = "_Value_gdazf_67";
-    const styles = {
-      Setting: Setting$1,
-      View,
-      Header,
-      Title,
-      Menus,
-      Menu,
-      Content,
-      Name,
-      Value
-    };
-    const ListBox = () => {
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.ListBox });
     };
     if (!reactExports.useState) {
       throw new Error("mobx-react-lite requires React with Hooks support");
@@ -11803,11 +11940,101 @@ p {
     observerBatching(reactDomExports.unstable_batchedUpdates);
     (_a = observerFinalizationRegistry["finalizeAllImmediately"]) !== null && _a !== void 0 ? _a : function() {
     };
+    const InputBox$1 = "_InputBox_1a5to_1";
+    const InputValue = "_InputValue_1a5to_4";
+    const Tip = "_Tip_1a5to_25";
+    const View = "_View_1a5to_39";
+    const styles$2 = {
+      InputBox: InputBox$1,
+      InputValue,
+      Tip,
+      View
+    };
+    const InputBox = ({
+      value,
+      type,
+      max,
+      min,
+      setValue
+    }) => {
+      const [tip, setTip] = reactExports.useState("");
+      const handleChange = (e2) => {
+        let newValue = e2.target.value;
+        if (e2.target.type == "number") {
+          if (!/^\d*$/.test(newValue)) return;
+          if (newValue.length > 1 && newValue.startsWith("0")) {
+            newValue = newValue.replace(/^0+/, "");
+          }
+          newValue = Number(newValue);
+          if (max && max < newValue || min && min > newValue) {
+            setTip(`${min} ~ ${max} 사이 값을 입력해주세요.`);
+          } else {
+            setTip("");
+          }
+        }
+        setValue(newValue);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.InputBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.InputValue, children: /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type, value: String(value), onChange: handleChange }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$2.Tip, tip.length > 0 ? styles$2.View : false), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: tip }) })
+      ] });
+    };
+    const SliderBar$1 = "_SliderBar_pao52_1";
+    const SliderTrack = "_SliderTrack_pao52_5";
+    const SliderFilled = "_SliderFilled_pao52_12";
+    const SliderThumb = "_SliderThumb_pao52_19";
+    const styles$1 = {
+      SliderBar: SliderBar$1,
+      SliderTrack,
+      SliderFilled,
+      SliderThumb
+    };
+    const SliderBar = ({
+      value,
+      min = 0,
+      max = 0,
+      setValue
+    }) => {
+      const sliderRef = reactExports.useRef(null);
+      const handleMouseMove = (e2) => {
+        if (!sliderRef.current) return;
+        const slider = sliderRef.current;
+        const rect = slider.getBoundingClientRect();
+        const offsetX = e2.clientX - rect.left;
+        const newValue = Math.min(Math.max(min, offsetX / rect.width * max), max);
+        setValue(Math.round(newValue));
+      };
+      const handleMouseDown = (e2) => {
+        handleMouseMove(e2.nativeEvent);
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener(
+          "mouseup",
+          () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+          },
+          { once: true }
+        );
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderBar, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.SliderTrack, ref: sliderRef, onMouseDown: handleMouseDown, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderThumb, "data-value": value, style: { left: `${value / max * 100}%` } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderFilled, style: { width: `${value / max * 100}%` } })
+      ] }) });
+    };
     const Setting = observer(() => {
       const mainStore = useMainStore();
+      const opitons = [
+        {
+          key: 0,
+          name: "오버레이"
+        },
+        {
+          key: 1,
+          name: "프레임"
+        }
+      ];
       const settingList = [
         {
-          name: "스타일러 사용",
+          name: "스타일러 활성화",
           values: [
             {
               type: "toggle",
@@ -11822,36 +12049,55 @@ p {
             {
               type: "list",
               value: mainStore.setting.get("chat_style"),
+              options: opitons,
               cb: (value) => mainStore.setSetting("chat_style", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 표시 개수",
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_view_count"),
+              min: 1,
+              max: 20,
+              cb: (value) => mainStore.setSetting("overlay_view_count", value, true)
             }
           ]
         }
       ];
-      const settingListElem = settingList.map(({ name, values }) => {
-        const valueElem = values.map(({ type, value, cb: cb2 }) => {
+      const settingListElem = settingList.map(({ name, values }, idx) => {
+        const valueElem = values.map(({ type, value, options, inputType, min, max, cb: cb2 }, idx2) => {
           let contentElem;
           switch (type) {
             case "toggle":
               contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(ToggleButton, { enable: value, setEnable: cb2 });
               break;
             case "list":
-              contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(ListBox, {});
+              contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(ListBox, { value, options, setValue: cb2 });
+              break;
+            case "input":
+              contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(InputBox, { value, setValue: cb2, type: inputType, min, max });
+              break;
+            case "slider":
+              contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(SliderBar, { value, setValue: cb2, min, max });
               break;
           }
-          return contentElem;
+          return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Value, children: contentElem }, idx2);
         });
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.Menu, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Name, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Value, children: valueElem })
-        ] });
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.Menu, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Name, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }),
+          valueElem
+        ] }, idx);
       });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Setting, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Menus, children: settingListElem }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Setting, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Menus, children: settingListElem }) });
     });
+    const SvgCrossSmall = (props) => /* @__PURE__ */ reactExports.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", id: "Outline", viewBox: "0 0 24 24", width: 512, height: 512, ...props }, /* @__PURE__ */ reactExports.createElement("path", { d: "M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z" }));
     const SettingTemplate = ({
       isSetting,
       toggleSetting
     }) => {
-      useMainStore();
       const settingRef = reactExports.useRef(null);
       const [isDragging, setIsDragging] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
@@ -11898,37 +12144,130 @@ p {
           "div",
           {
             ref: settingRef,
-            className: classes(styles$3.SettingTemplate, isSetting ? styles$3.View : false),
+            className: classes(styles$6.SettingTemplate, isSetting ? styles$6.View : false),
             style: { position: "absolute" },
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.Header, onMouseDown: handleMouseDown, children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.Header, onMouseDown: handleMouseDown, children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "div",
                   {
-                    className: styles$3.Menus,
+                    className: styles$6.Menus,
                     onMouseDown: (e2) => e2.stopPropagation(),
                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                       "div",
                       {
-                        className: styles$3.Menu,
+                        className: styles$6.Menu,
                         onClick: toggleSetting,
-                        children: /* @__PURE__ */ jsxRuntimeExports.jsx("i", { className: "fi fi-rr-cross-small" })
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" })
                       }
                     )
                   }
                 )
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
             ]
           }
         ),
         document.body
       );
     };
+    const OverlayChat$1 = "_OverlayChat_gwyj3_1";
+    const Chat$1 = "_Chat_gwyj3_10";
+    const styles = {
+      OverlayChat: OverlayChat$1,
+      Chat: Chat$1
+    };
+    const OverlayChat = observer(() => {
+      const mainStore = useMainStore();
+      const chatRef = reactExports.useRef(null);
+      const [isDragging, setIsDragging] = reactExports.useState(false);
+      const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
+      const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
+      const [translate, setTranslate] = reactExports.useState({ x: 0, y: 0 });
+      const overlayViewCount = mainStore.setting.get("overlay_view_count");
+      const handleMouseDown = (e2) => {
+        if (!chatRef.current) return;
+        setIsDragging(true);
+        setInitialPosition({
+          x: e2.clientX,
+          y: e2.clientY
+        });
+        setOffset({
+          x: translate.x,
+          y: translate.y
+        });
+      };
+      const handleMouseMove = (e2) => {
+        if (!isDragging || !chatRef.current) return;
+        const currentX = e2.clientX - initialPosition.x;
+        const currentY = e2.clientY - initialPosition.y;
+        const newTranslateX = offset.x + currentX;
+        const newTranslateY = offset.y + currentY;
+        setTranslate({ x: newTranslateX, y: newTranslateY });
+        chatRef.current.style.transform = `translate(${newTranslateX}px, ${newTranslateY}px)`;
+      };
+      const handleMouseUp = () => {
+        setIsDragging(false);
+        mainStore.setSetting("overlay_x", translate.x, true);
+        mainStore.setSetting("overlay_y", translate.y, true);
+      };
+      reactExports.useEffect(() => {
+        if (isDragging) {
+          document.addEventListener("mousemove", handleMouseMove);
+          document.addEventListener("mouseup", handleMouseUp);
+        } else {
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("mouseup", handleMouseUp);
+        }
+        return () => {
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("mouseup", handleMouseUp);
+        };
+      }, [isDragging]);
+      reactExports.useEffect(() => {
+        if (!chatRef.current) return;
+        const left = mainStore.setting.get("overlay_x");
+        const top = mainStore.setting.get("overlay_y");
+        setTranslate({ x: left || 0, y: top || 0 });
+        chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
+      }, []);
+      const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText }) => {
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Chat, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+          username,
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: messageText })
+        ] }) }, id2);
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          ref: chatRef,
+          className: styles.OverlayChat,
+          onMouseDown: handleMouseDown,
+          style: { transform: `translate(${translate.x}px, ${translate.y}px)` },
+          children: chatsElem
+        }
+      );
+    });
+    const Chat = observer(() => {
+      const mainStore = useMainStore();
+      const enable = mainStore.setting.get("enable");
+      const chat_style = mainStore.setting.get("chat_style");
+      let chatElem;
+      switch (chat_style) {
+        case 0:
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, {});
+          break;
+      }
+      return ReactDOM.createPortal(
+        enable && chatElem,
+        document.body
+      );
+    });
     const App = () => {
       const mainStore = useMainStore();
-      const [isSetting, setIsSetting] = reactExports.useState(true);
+      const [isSetting, setIsSetting] = reactExports.useState(false);
+      const chatUpdate = reactExports.useRef(null);
       const toggleSetting = () => {
         setIsSetting((prevIsSetting) => !prevIsSetting);
       };
@@ -11936,13 +12275,37 @@ p {
         GM_listValues().map((v2) => {
           mainStore.setSetting(v2, GM_getValue(v2), false);
         });
+        mainStore.addChat({ id: -1, username: "제작자", messageText: "비콩" });
+      };
+      const updateChatMessages = () => {
+        const chatArea = document.querySelector("#chat_area");
+        if (!chatArea) return;
+        const chatItems = chatArea.querySelectorAll(".chatting-list-item");
+        const recentChats = Array.from(chatItems).slice(-10);
+        if (recentChats.length <= 1) return;
+        recentChats.forEach((chat) => {
+          var _a2, _b2;
+          const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
+          const message = chat.querySelector(".message-text");
+          if (!username || !message) return;
+          const id2 = Number(message == null ? void 0 : message.id) || 0;
+          const messageText = ((_b2 = chat.querySelector(".msg")) == null ? void 0 : _b2.textContent) || "";
+          mainStore.addChat({ id: id2, username, messageText });
+        });
       };
       reactExports.useEffect(() => {
         initSetting();
+        chatUpdate.current = setInterval(() => {
+          updateChatMessages();
+        }, 300);
+        return () => {
+          if (chatUpdate.current) clearInterval(chatUpdate.current);
+        };
       }, []);
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(SettingMenuComponent, { isSetting, toggleSetting }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(SettingTemplate, { isSetting, toggleSetting })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SettingTemplate, { isSetting, toggleSetting }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Chat, {})
       ] });
     };
     log("SOOP 채팅 스타일러 - 비콩");

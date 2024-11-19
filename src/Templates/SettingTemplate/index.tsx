@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.module.less';
 import { classes } from '@Utils/index';
-import { useMainStore } from '@Stores/index';
 import { I_GLOBAL_PROPS } from '@Types/index';
 import Setting from '@Views/Setting';
 import CloseImg from '@Assets/Img/cross-small.svg?react';
@@ -13,7 +12,6 @@ const SettingTemplate: React.FC<I_PROPS> = ({
     isSetting,
     toggleSetting,
 }) => {
-    const mainStore = useMainStore();
     const settingRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -81,7 +79,7 @@ const SettingTemplate: React.FC<I_PROPS> = ({
                         className={styles.Menu}
                         onClick={toggleSetting}
                     >
-                        <CloseImg width={'60%'} fill={'rgb(70, 70, 70)'} />
+                        <CloseImg fill={'rgb(70, 70, 70)'} />
                     </div>
                 </div>
             </div>

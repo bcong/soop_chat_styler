@@ -9,12 +9,21 @@ interface I_PROPS extends I_GLOBAL_PROPS {
 const SettingMenuComponent: React.FC<I_PROPS> = ({
     toggleSetting
 }) => {
+    const id = 'chat_styler';
+
     useEffect(() => {
         const chatTitleElement = document.querySelector('.chat_title ul');
+
         if (!chatTitleElement) return;
+
+        const existingItem = document.getElementById(id);
+
+        if (existingItem)
+            existingItem.remove();
 
         const listItemElement = document.createElement('li');
         listItemElement.className = styles.SettingMenu;
+        listItemElement.id = id;
 
         const anchorElement = document.createElement('a');
         anchorElement.setAttribute('tip', '채팅 스타일러 설정');

@@ -1,9 +1,12 @@
-import { T_SETTING } from "@Types/index";
+import { I_CHAT, T_SETTING } from "@Types/index";
 import { makeObservable, observable, action, computed } from "mobx";
 
 export default class MainStore {
     @observable
     private _setting = new Map();
+
+    @observable
+    private _chats: I_CHAT[] = [];
 
     constructor() {
         makeObservable(this);
@@ -11,12 +14,29 @@ export default class MainStore {
 
     @action
     setSetting = (key: T_SETTING, value: unknown, save: boolean) => {
-        this._setting.set(key, value);
+        this.setting.set(key, value);
         save && GM_setValue(key, value);
+    };
+
+    @action
+    addChat = (chat: I_CHAT) => {
+        const lastId = this.chats[this.chats.length - 1]?.id;
+
+        if (lastId >= chat.id) return;
+
+        this.chats.push(chat);
+
+        if (this.chats.length >= 100)
+            this.chats.shift();
     };
 
     @computed
     get setting() {
         return this._setting;
+    }
+
+    @computed
+    get chats() {
+        return this._chats;
     }
 }

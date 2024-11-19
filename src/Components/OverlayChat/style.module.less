@@ -1,0 +1,28 @@
+.OverlayChat {
+    position: fixed;
+    z-index: 10000;
+    overflow: hidden;
+    cursor: move;
+    width: 300px;
+    left: 0;
+    bottom: 0;
+
+    .Chat {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        text-wrap: wrap;
+        padding: 6px 8px;
+        margin-bottom: 6px;
+
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+
+            span {
+                font-weight: 300;
+                margin-left: 6px;
+            }
+        }
+    }
+}
