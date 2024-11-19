@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120020442
+// @version      20241120021351
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12369,14 +12369,21 @@ p {
       ] });
     };
     log("SOOP 채팅 스타일러 - 비콩");
+    let root = null;
     async function main() {
       const body = await awaitElement("body > div");
-      const container = document.createElement("div");
-      body.appendChild(container);
-      const root = createRoot(container);
-      root.render(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(StoreProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
-      );
+      let container = document.querySelector("#soop-chat-container");
+      if (!container) {
+        container = document.createElement("div");
+        container.id = "soop-chat-container";
+        body.appendChild(container);
+      }
+      if (!root) {
+        root = createRoot(container);
+        root.render(
+          /* @__PURE__ */ jsxRuntimeExports.jsx(StoreProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
+        );
+      }
     }
     addLocationChangeCallback(() => {
       main().catch((e2) => {

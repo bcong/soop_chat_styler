@@ -12,7 +12,7 @@ const Chat = observer(() => {
 
     useEffect(() => {
         const sideElement = document.querySelector('#webplayer_contents .wrapping.side') as HTMLElement;
-        if (sideElement)
+        if (sideElement) 
             sideElement.style.display = defalut_chat_enable ? 'block' : 'none';
     }, [defalut_chat_enable]);
 

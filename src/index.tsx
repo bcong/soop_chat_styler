@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 import "./global.less";
 import App from "./App";
 import { awaitElement, log, addLocationChangeCallback } from "./Utils";
@@ -7,16 +7,29 @@ import { StoreProvider } from "./Stores";
 
 log("SOOP 채팅 스타일러 - 비콩");
 
+let root: Root | null = null; // 전역 변수로 root 상태 관리
+
 async function main() {
     const body = await awaitElement("body > div");
-    const container = document.createElement("div");
-    body.appendChild(container);
-    const root = createRoot(container);
-    root.render(
-        <StoreProvider>
-            <App />
-        </StoreProvider>
-    );
+
+    // 이미 생성된 컨테이너가 있는지 확인
+    let container = document.querySelector("#soop-chat-container");
+
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "soop-chat-container"; // 중복 생성을 방지하기 위해 ID 설정
+        body.appendChild(container);
+    }
+
+    // root가 아직 생성되지 않았으면 생성
+    if (!root) {
+        root = createRoot(container);
+        root.render(
+            <StoreProvider>
+                <App />
+            </StoreProvider>
+        );
+    }
 }
 
 addLocationChangeCallback(() => {
