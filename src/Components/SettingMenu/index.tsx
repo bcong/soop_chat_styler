@@ -37,7 +37,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
         buttonElement.setAttribute('tip', '채팅 스타일러 설정');
 
         const spanElement = document.createElement('p');
-        spanElement.textContent = 'S'; // S 텍스트 추가
+        spanElement.textContent = 'S';
         buttonElement.appendChild(spanElement);
 
         newDivElement.appendChild(buttonElement);
