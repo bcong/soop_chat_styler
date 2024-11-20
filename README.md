@@ -32,4 +32,5 @@
 
 -  방송 화면에 **해당 버튼**이 보이는 경우, 버튼을 클릭하여 기존 채팅창을 표시해 주세요.
 
-   ![image](https://github.com/user-attachments/assets/8f8bd8f6-977a-4162-9030-5dcf410401c3)
+![image](https://github.com/user-attachments/assets/b659c4d1-023c-40d0-95c9-2ec67fc1566c)
+
