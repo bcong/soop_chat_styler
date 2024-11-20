@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120025545
+// @version      20241120192933
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -344,7 +344,65 @@ p {
   color: #fff;
   font-weight: 600;
 }
-._OverlayChat_1s65x_1 {
+._FrameChat_1qfaf_1 {
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 4px;
+  padding: 8px 0 8px 8px;
+}
+._FrameChat_1qfaf_1._Top_1qfaf_9 {
+  top: 0;
+}
+._FrameChat_1qfaf_1._Bottom_1qfaf_12 {
+  bottom: 0;
+}
+._FrameChat_1qfaf_1._Left_1qfaf_15 {
+  left: 0;
+}
+._FrameChat_1qfaf_1._Right_1qfaf_18 {
+  right: 0;
+}
+._FrameChat_1qfaf_1._Right_1qfaf_18 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
+  justify-content: right;
+}
+._FrameChat_1qfaf_1._Left_1qfaf_15,
+._FrameChat_1qfaf_1._Right_1qfaf_18 {
+  justify-content: end;
+  height: 100%;
+}
+._FrameChat_1qfaf_1._Left_1qfaf_15 ._Chat_1qfaf_21 p._Message_1qfaf_21,
+._FrameChat_1qfaf_1._Right_1qfaf_18 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
+  flex: 1;
+}
+._FrameChat_1qfaf_1 ._Chat_1qfaf_21 {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p {
+  display: flex;
+  font-size: 14px;
+  text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
+  z-index: 1;
+  padding: 2px 8px;
+}
+._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p._Username_1qfaf_45 {
+  font-weight: 700;
+  white-space: wrap;
+  border-radius: 8px 0 0 8px;
+}
+._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
+  font-weight: 500;
+  color: #f6f9ff;
+  border-radius: 0 8px 8px 0;
+  white-space: wrap;
+}
+._FrameChat_1qfaf_1 ._Chat_1qfaf_21._Background_1qfaf_56 p {
+  padding: 4px 8px;
+}
+._OverlayChat_eelvl_1 {
   position: fixed;
   z-index: 998;
   overflow: hidden;
@@ -353,20 +411,29 @@ p {
   left: 0;
   bottom: 0;
 }
-._OverlayChat_1s65x_1 ._Chat_1s65x_10 {
+._OverlayChat_eelvl_1 ._Chat_eelvl_10 {
+  display: flex;
+  flex-direction: row;
   border-radius: 10px;
-  text-wrap: wrap;
   padding: 6px 10px;
   margin-bottom: 6px;
 }
-._OverlayChat_1s65x_1 ._Chat_1s65x_10 p {
+._OverlayChat_eelvl_1 ._Chat_eelvl_10 p {
+  display: flex;
+  flex-direction: row;
   font-size: 14px;
-  font-weight: 600;
+  text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
 }
-._OverlayChat_1s65x_1 ._Chat_1s65x_10 p span {
-  color: #fff;
-  font-weight: 300;
+._OverlayChat_eelvl_1 ._Chat_eelvl_10 p._Username_eelvl_23 {
+  font-weight: 700;
+  white-space: wrap;
+}
+._OverlayChat_eelvl_1 ._Chat_eelvl_10 p._Message_eelvl_27 {
+  white-space: wrap;
+  font-weight: 500;
+  color: #f6f9ff;
   margin-left: 10px;
+  flex: 1;
 } `);
 
 (function () {
@@ -7346,7 +7413,7 @@ p {
       m$1.hydrateRoot;
     }
     const SettingMenu = "_SettingMenu_1f6w4_1";
-    const styles$7 = {
+    const styles$8 = {
       SettingMenu
     };
     const SettingMenuComponent = ({
@@ -7367,7 +7434,7 @@ p {
           existingItem.remove();
         const newDivElement = document.createElement("div");
         newDivElement.id = id2;
-        newDivElement.className = styles$7.SettingMenu;
+        newDivElement.className = styles$8.SettingMenu;
         const buttonElement = document.createElement("button");
         buttonElement.setAttribute("tip", "채팅 스타일러 설정");
         const spanElement = document.createElement("p");
@@ -7389,7 +7456,7 @@ p {
     const Menus$1 = "_Menus_15fst_32";
     const Menu$1 = "_Menu_15fst_32";
     const Content = "_Content_15fst_53";
-    const styles$6 = {
+    const styles$7 = {
       SettingTemplate: SettingTemplate$1,
       View: View$2,
       Header,
@@ -7451,7 +7518,7 @@ p {
     const ToggleButton$1 = "_ToggleButton_6twf4_1";
     const Enable = "_Enable_6twf4_12";
     const Circle = "_Circle_6twf4_15";
-    const styles$5 = {
+    const styles$6 = {
       ToggleButton: ToggleButton$1,
       Enable,
       Circle
@@ -7463,14 +7530,14 @@ p {
       const handleToggle = () => {
         setEnable(!enable);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$5.ToggleButton, enable ? styles$5.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Circle }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$6.ToggleButton, enable ? styles$6.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Circle }) });
     };
     const Setting$1 = "_Setting_1oj11_1";
     const Menus = "_Menus_1oj11_4";
     const Menu = "_Menu_1oj11_4";
     const Name = "_Name_1oj11_14";
     const Value = "_Value_1oj11_21";
-    const styles$4 = {
+    const styles$5 = {
       Setting: Setting$1,
       Menus,
       Menu,
@@ -7483,7 +7550,7 @@ p {
     const Option = "_Option_g79p9_31";
     const Selected = "_Selected_g79p9_55";
     const View$1 = "_View_g79p9_65";
-    const styles$3 = {
+    const styles$4 = {
       ListBox: ListBox$1,
       ListValue,
       Options,
@@ -7503,11 +7570,11 @@ p {
       };
       const optionsElem = options.map(({ key, name }) => {
         const isSelected = value == key;
-        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$3.Option, isSelected ? styles$3.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Option, isSelected ? styles$4.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
       });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.ListBox, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$3.Options, isOptions ? styles$3.View : false), children: optionsElem })
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.ListBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Options, isOptions ? styles$4.View : false), children: optionsElem })
       ] });
     };
     function die(error) {
@@ -11609,6 +11676,7 @@ p {
             key: "defalut_chat_enable",
             value: true
           },
+          // 오버레이
           {
             key: "overlay_background_opacity",
             value: 0
@@ -11624,6 +11692,47 @@ p {
           {
             key: "overlay_view_width",
             value: 300
+          },
+          {
+            key: "overlay_sort_chat_messages",
+            value: false
+          },
+          // 프레임
+          {
+            key: "frame_chat_position",
+            value: 1
+          },
+          {
+            key: "frame_random_username",
+            value: true
+          },
+          {
+            key: "frame_chat_background",
+            value: false
+          },
+          {
+            key: "frame_view_count",
+            value: 3
+          },
+          {
+            key: "frame_chat_opacity",
+            value: 80
+          },
+          {
+            key: "frame_background_opacity",
+            value: 70
+          },
+          {
+            key: "frame_background_area",
+            value: 0
+          },
+          {
+            key: "frame_view_width",
+            value: 300
+          },
+          {
+            key: "frame_sort_chat_messages",
+            value: false
           }
         ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
@@ -12005,7 +12114,7 @@ p {
     const InputValue = "_InputValue_1a5to_4";
     const Tip = "_Tip_1a5to_25";
     const View = "_View_1a5to_39";
-    const styles$2 = {
+    const styles$3 = {
       InputBox: InputBox$1,
       InputValue,
       Tip,
@@ -12035,16 +12144,16 @@ p {
         }
         setValue(newValue);
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.InputBox, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.InputValue, children: /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type, value: String(value), onChange: handleChange }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$2.Tip, tip.length > 0 ? styles$2.View : false), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: tip }) })
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.InputBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.InputValue, children: /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type, value: String(value), onChange: handleChange }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$3.Tip, tip.length > 0 ? styles$3.View : false), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: tip }) })
       ] });
     };
     const SliderBar$1 = "_SliderBar_pao52_1";
     const SliderTrack = "_SliderTrack_pao52_5";
     const SliderFilled = "_SliderFilled_pao52_12";
     const SliderThumb = "_SliderThumb_pao52_19";
-    const styles$1 = {
+    const styles$2 = {
       SliderBar: SliderBar$1,
       SliderTrack,
       SliderFilled,
@@ -12076,9 +12185,9 @@ p {
           { once: true }
         );
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderBar, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.SliderTrack, ref: sliderRef, onMouseDown: handleMouseDown, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderThumb, "data-value": value, style: { left: `${value / max * 100}%` } }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.SliderFilled, style: { width: `${value / max * 100}%` } })
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderBar, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.SliderTrack, ref: sliderRef, onMouseDown: handleMouseDown, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderThumb, "data-value": value, style: { left: `${value / max * 100}%` } }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderFilled, style: { width: `${value / max * 100}%` } })
       ] }) });
     };
     const Setting = observer(() => {
@@ -12094,6 +12203,24 @@ p {
           name: "프레임"
         }
       ];
+      const frameChatPositionOpitons = [
+        {
+          key: 0,
+          name: "상단"
+        },
+        {
+          key: 1,
+          name: "하단"
+        },
+        {
+          key: 2,
+          name: "좌측"
+        },
+        {
+          key: 3,
+          name: "우측"
+        }
+      ];
       const settingList = [
         {
           name: "스타일러 활성화",
@@ -12106,7 +12233,7 @@ p {
           ]
         },
         {
-          name: "기존 채팅 활성화",
+          name: "기존 채팅 표시",
           values: [
             {
               type: "toggle",
@@ -12126,8 +12253,10 @@ p {
             }
           ]
         },
+        // 오버레이
         {
           name: "닉네임 랜덤 색상",
+          disable: chat_style != 0,
           values: [
             {
               type: "toggle",
@@ -12187,6 +12316,128 @@ p {
               cb: (value) => mainStore.setSetting("overlay_view_width", value, true)
             }
           ]
+        },
+        {
+          name: "채팅 메시지 정렬",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_sort_chat_messages"),
+              cb: (value) => mainStore.setSetting("overlay_sort_chat_messages", value, true)
+            }
+          ]
+        },
+        // 프레임
+        {
+          name: "채팅창 위치",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "list",
+              value: mainStore.setting.get("frame_chat_position"),
+              options: frameChatPositionOpitons,
+              cb: (value) => mainStore.setSetting("frame_chat_position", value, true)
+            }
+          ]
+        },
+        {
+          name: "닉네임 랜덤 색상",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("frame_random_username"),
+              cb: (value) => mainStore.setSetting("frame_random_username", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 배경 표시",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("frame_chat_background"),
+              cb: (value) => mainStore.setSetting("frame_chat_background", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 표시 개수",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_view_count"),
+              min: 1,
+              max: 20,
+              cb: (value) => mainStore.setSetting("frame_view_count", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 배경 투명도",
+          disable: chat_style != 1 || !mainStore.setting.get("frame_chat_background"),
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_chat_opacity"),
+              min: 0,
+              max: 100,
+              cb: (value) => mainStore.setSetting("frame_chat_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "배경 투명도",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_background_opacity"),
+              min: 0,
+              max: 100,
+              cb: (value) => mainStore.setSetting("frame_background_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "배경 영역",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_background_area"),
+              min: 0,
+              max: 100,
+              cb: (value) => mainStore.setSetting("frame_background_area", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅창 길이",
+          disable: chat_style != 1 || mainStore.setting.get("frame_chat_position") != 2 && mainStore.setting.get("frame_chat_position") != 3,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_view_width"),
+              min: 0,
+              max: 500,
+              cb: (value) => mainStore.setSetting("frame_view_width", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 메시지 정렬",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("frame_sort_chat_messages"),
+              cb: (value) => mainStore.setSetting("frame_sort_chat_messages", value, true)
+            }
+          ]
         }
       ];
       const settingListElem = settingList.map(({ name, disable, values }, idx) => {
@@ -12207,14 +12458,14 @@ p {
               contentElem = /* @__PURE__ */ jsxRuntimeExports.jsx(SliderBar, { value, setValue: cb2, min, max });
               break;
           }
-          return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Value, children: contentElem }, idx2);
+          return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Value, children: contentElem }, idx2);
         });
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.Menu, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Name, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }),
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.Menu, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Name, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }),
           valueElem
         ] }, idx);
       });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Setting, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.Menus, children: settingListElem }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Setting, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Menus, children: settingListElem }) });
     });
     const SvgCrossSmall = (props) => /* @__PURE__ */ reactExports.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", id: "Outline", viewBox: "0 0 24 24", width: 512, height: 512, ...props }, /* @__PURE__ */ reactExports.createElement("path", { d: "M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z" }));
     const SettingTemplate = ({
@@ -12267,20 +12518,20 @@ p {
           "div",
           {
             ref: settingRef,
-            className: classes(styles$6.SettingTemplate, isSetting ? styles$6.View : false),
+            className: classes(styles$7.SettingTemplate, isSetting ? styles$7.View : false),
             style: { position: "absolute" },
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.Header, onMouseDown: handleMouseDown, children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Header, onMouseDown: handleMouseDown, children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "div",
                   {
-                    className: styles$6.Menus,
+                    className: styles$7.Menus,
                     onMouseDown: (e2) => e2.stopPropagation(),
                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                       "div",
                       {
-                        className: styles$6.Menu,
+                        className: styles$7.Menu,
                         onClick: toggleSetting,
                         children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" })
                       }
@@ -12288,18 +12539,100 @@ p {
                   }
                 )
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
             ]
           }
         ),
         document.body
       );
     };
-    const OverlayChat$1 = "_OverlayChat_1s65x_1";
-    const Chat$1 = "_Chat_1s65x_10";
+    const FrameChat$1 = "_FrameChat_1qfaf_1";
+    const Top = "_Top_1qfaf_9";
+    const Bottom = "_Bottom_1qfaf_12";
+    const Left = "_Left_1qfaf_15";
+    const Right = "_Right_1qfaf_18";
+    const Chat$2 = "_Chat_1qfaf_21";
+    const Message$1 = "_Message_1qfaf_21";
+    const Username$1 = "_Username_1qfaf_45";
+    const Background = "_Background_1qfaf_56";
+    const styles$1 = {
+      FrameChat: FrameChat$1,
+      Top,
+      Bottom,
+      Left,
+      Right,
+      Chat: Chat$2,
+      Message: Message$1,
+      Username: Username$1,
+      Background
+    };
+    const FrameChat = observer(() => {
+      const mainStore = useMainStore();
+      const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(null);
+      const frameChatPosition = mainStore.setting.get("frame_chat_position");
+      const frameRandomUsername = mainStore.setting.get("frame_random_username");
+      const frameViewCount = mainStore.setting.get("frame_view_count");
+      const frameChatOpacity = mainStore.setting.get("frame_chat_opacity");
+      const frameBackgroundOpacity = mainStore.setting.get("frame_background_opacity");
+      const frameBackgroundArea = mainStore.setting.get("frame_background_area");
+      const frameChatBackground = mainStore.setting.get("frame_chat_background");
+      const frameViewWidth = mainStore.setting.get("frame_view_width");
+      const frameSortChatMessages = mainStore.setting.get("frame_sort_chat_messages");
+      reactExports.useEffect(() => {
+        const div = document.querySelector("#videoLayer");
+        if (div) {
+          setPlayerSizeDiv(div);
+        }
+      }, []);
+      const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, messageText, color }) => {
+        const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: classes(styles$1.Chat, frameChatBackground ? styles$1.Background : false), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Username, style: {
+            width: frameSortChatMessages ? "130px" : "",
+            color: frameRandomUsername ? color : "#9dd9a5",
+            background
+          }, children: username }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { background }, children: messageText })
+        ] }, id2);
+      });
+      let frameChatPositionCls = "", frameChatDegree, frameWidth;
+      switch (frameChatPosition) {
+        case 0:
+          frameChatPositionCls = styles$1.Top;
+          frameChatDegree = 180;
+          frameWidth = `100%`;
+          break;
+        case 1:
+          frameChatPositionCls = styles$1.Bottom;
+          frameChatDegree = 0;
+          frameWidth = `100%`;
+          break;
+        case 2:
+          frameChatPositionCls = styles$1.Left;
+          frameChatDegree = 90;
+          frameWidth = `${frameViewWidth}px`;
+          break;
+        case 3:
+          frameChatPositionCls = styles$1.Right;
+          frameChatDegree = 270;
+          frameWidth = `${frameViewWidth}px`;
+          break;
+      }
+      const frameChatBackgroundStyle = `linear-gradient(${frameChatDegree}deg, rgba(0, 0, 0, ${frameBackgroundOpacity}%) ${frameBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
+      return playerSizeDiv ? ReactDOM.createPortal(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$1.FrameChat, frameChatPositionCls), style: { background: frameChatBackgroundStyle, width: frameWidth }, children: chatsElem }),
+        playerSizeDiv
+      ) : null;
+    });
+    const OverlayChat$1 = "_OverlayChat_eelvl_1";
+    const Chat$1 = "_Chat_eelvl_10";
+    const Username = "_Username_eelvl_23";
+    const Message = "_Message_eelvl_27";
     const styles = {
       OverlayChat: OverlayChat$1,
-      Chat: Chat$1
+      Chat: Chat$1,
+      Username,
+      Message
     };
     const OverlayChat = observer(() => {
       const mainStore = useMainStore();
@@ -12313,6 +12646,7 @@ p {
       const overlayBackgroundOpacity = mainStore.setting.get("overlay_background_opacity");
       const overlayRandomUsername = mainStore.setting.get("overlay_random_username");
       const overlayViewWidth = mainStore.setting.get("overlay_view_width");
+      const overlaySortChatMessages = mainStore.setting.get("overlay_sort_chat_messages");
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -12360,20 +12694,26 @@ p {
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
       }, []);
       const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText, color }) => {
-        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: { color: overlayRandomUsername ? color : "#9dd9a5" }, children: [
-          username,
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: messageText })
-        ] }) }, id2);
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Username, style: {
+            width: overlaySortChatMessages ? "130px" : "",
+            color: overlayRandomUsername ? color : "#9dd9a5"
+          }, children: username }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Message, children: messageText })
+        ] }, id2);
       });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "div",
-        {
-          ref: chatRef,
-          className: styles.OverlayChat,
-          onMouseDown: handleMouseDown,
-          style: { transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` },
-          children: chatsElem
-        }
+      return ReactDOM.createPortal(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            ref: chatRef,
+            className: styles.OverlayChat,
+            onMouseDown: handleMouseDown,
+            style: { transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` },
+            children: chatsElem
+          }
+        ),
+        document.body
       );
     });
     const Chat = observer(() => {
@@ -12391,11 +12731,11 @@ p {
         case 0:
           chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, {});
           break;
+        case 1:
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, {});
+          break;
       }
-      return ReactDOM.createPortal(
-        enable && chatElem,
-        document.body
-      );
+      return enable && chatElem;
     });
     const App = () => {
       const mainStore = useMainStore();
@@ -12412,13 +12752,7 @@ p {
         "#c88ed9",
         "#a2f7f7",
         "#f798f2",
-        "#ddfa85",
-        "#fcdede",
-        "#ffb3ba",
-        "#ffdfba",
-        "#ffffba",
-        "#baffc9",
-        "#bae1ff"
+        "#ddfa85"
       ];
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
