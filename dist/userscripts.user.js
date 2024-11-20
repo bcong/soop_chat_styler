@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120205339
+// @version      20241120212537
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -85,7 +85,7 @@ p {
 ._SettingMenu_1f6w4_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
-._SettingTemplate_15fst_1 {
+._SettingTemplate_1v6zt_1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -98,11 +98,12 @@ p {
   border-radius: 12px;
   border: 1px solid rgba(117, 123, 138, 0.2);
   flex-direction: column;
+  overflow: hidden;
 }
-._SettingTemplate_15fst_1._View_15fst_15 {
+._SettingTemplate_1v6zt_1._View_1v6zt_16 {
   display: flex;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 {
   display: flex;
   align-items: center;
   width: 100%;
@@ -113,15 +114,15 @@ p {
   background-color: rgba(0, 0, 0, 0.02);
   padding-left: 12px;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 ._Title_15fst_29 p {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 ._Title_1v6zt_30 p {
   font-size: 14px;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 ._Menus_1v6zt_33 {
   height: 100%;
   position: absolute;
   right: 0;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32 {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 ._Menus_1v6zt_33 ._Menu_1v6zt_33 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,15 +130,15 @@ p {
   height: 100%;
   transition-duration: 0.1s;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32 svg {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 ._Menus_1v6zt_33 ._Menu_1v6zt_33 svg {
   width: 60%;
   height: 100%;
 }
-._SettingTemplate_15fst_1 ._Header_15fst_18 ._Menus_15fst_32 ._Menu_15fst_32:hover {
+._SettingTemplate_1v6zt_1 ._Header_1v6zt_19 ._Menus_1v6zt_33 ._Menu_1v6zt_33:hover {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0.05);
 }
-._SettingTemplate_15fst_1 ._Content_15fst_53 {
+._SettingTemplate_1v6zt_1 ._Content_1v6zt_54 {
   flex: 1;
 }
 ._ToggleButton_6twf4_1 {
@@ -7460,13 +7461,13 @@ p {
       }, []);
       return null;
     };
-    const SettingTemplate$1 = "_SettingTemplate_15fst_1";
-    const View$2 = "_View_15fst_15";
-    const Header = "_Header_15fst_18";
-    const Title = "_Title_15fst_29";
-    const Menus$1 = "_Menus_15fst_32";
-    const Menu$1 = "_Menu_15fst_32";
-    const Content = "_Content_15fst_53";
+    const SettingTemplate$1 = "_SettingTemplate_1v6zt_1";
+    const View$2 = "_View_1v6zt_16";
+    const Header = "_Header_1v6zt_19";
+    const Title = "_Title_1v6zt_30";
+    const Menus$1 = "_Menus_1v6zt_33";
+    const Menu$1 = "_Menu_1v6zt_33";
+    const Content = "_Content_1v6zt_54";
     const styles$7 = {
       SettingTemplate: SettingTemplate$1,
       View: View$2,
