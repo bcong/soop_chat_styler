@@ -30,18 +30,26 @@ const FrameChat = observer(() => {
         .map(({ id, username, messageText, color }) => {
             const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : '';
 
+            const userNameElem = (
+                <p className={styles.Username} style={{
+                    width: frameSortChatMessages ? '130px' : '',
+                    color: frameRandomUsername ? color : '#9dd9a5',
+                    background: background
+                }}>
+                    {username}
+                </p>
+            );
+
+            const messageElem = (
+                <p className={styles.Message} style={{ background: background }}>
+                    {messageText}
+                </p>
+            );
+
             return (
                 <div key={id} className={classes(styles.Chat, frameChatBackground ? styles.Background : false)}>
-                    <p className={styles.Username} style={{
-                        width: frameSortChatMessages ? '130px' : '',
-                        color: frameRandomUsername ? color : '#9dd9a5',
-                        background: background
-                    }}>
-                        {username}
-                    </p>
-                    <p className={styles.Message} style={{ background: background }}>
-                        {messageText}
-                    </p>
+                    {userNameElem}
+                    {messageElem}
                 </div>
             );
         });

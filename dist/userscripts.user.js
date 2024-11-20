@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120192933
+// @version      20241120205339
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -344,65 +344,74 @@ p {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_1qfaf_1 {
+._FrameChat_1nhta_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
-  padding: 8px 0 8px 8px;
+  padding: 8px;
 }
-._FrameChat_1qfaf_1._Top_1qfaf_9 {
+._FrameChat_1nhta_1._Top_1nhta_9 {
   top: 0;
 }
-._FrameChat_1qfaf_1._Bottom_1qfaf_12 {
+._FrameChat_1nhta_1._Bottom_1nhta_12 {
   bottom: 0;
 }
-._FrameChat_1qfaf_1._Left_1qfaf_15 {
+._FrameChat_1nhta_1._Left_1nhta_15 {
   left: 0;
 }
-._FrameChat_1qfaf_1._Right_1qfaf_18 {
+._FrameChat_1nhta_1._Right_1nhta_18 {
   right: 0;
 }
-._FrameChat_1qfaf_1._Right_1qfaf_18 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
-  justify-content: right;
-}
-._FrameChat_1qfaf_1._Left_1qfaf_15,
-._FrameChat_1qfaf_1._Right_1qfaf_18 {
+._FrameChat_1nhta_1._Left_1nhta_15,
+._FrameChat_1nhta_1._Right_1nhta_18 {
   justify-content: end;
   height: 100%;
 }
-._FrameChat_1qfaf_1._Left_1qfaf_15 ._Chat_1qfaf_21 p._Message_1qfaf_21,
-._FrameChat_1qfaf_1._Right_1qfaf_18 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
+._FrameChat_1nhta_1._Left_1nhta_15 ._Chat_1nhta_26 p._Message_1nhta_26,
+._FrameChat_1nhta_1._Right_1nhta_18 ._Chat_1nhta_26 p._Message_1nhta_26 {
   flex: 1;
 }
-._FrameChat_1qfaf_1 ._Chat_1qfaf_21 {
+._FrameChat_1nhta_1 ._Chat_1nhta_26 {
   position: relative;
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p {
+._FrameChat_1nhta_1 ._Chat_1nhta_26 p {
   display: flex;
   font-size: 14px;
   text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
   z-index: 1;
-  padding: 2px 8px;
 }
-._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p._Username_1qfaf_45 {
+._FrameChat_1nhta_1 ._Chat_1nhta_26 p._Username_1nhta_41 {
   font-weight: 700;
-  white-space: wrap;
   border-radius: 8px 0 0 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
-._FrameChat_1qfaf_1 ._Chat_1qfaf_21 p._Message_1qfaf_21 {
+._FrameChat_1nhta_1 ._Chat_1nhta_26 p._Message_1nhta_26 {
   font-weight: 500;
   color: #f6f9ff;
   border-radius: 0 8px 8px 0;
-  white-space: wrap;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 8px;
+  overflow: hidden;
+  text-wrap: wrap;
 }
-._FrameChat_1qfaf_1 ._Chat_1qfaf_21._Background_1qfaf_56 p {
-  padding: 4px 8px;
+._FrameChat_1nhta_1 ._Chat_1nhta_26._Background_1nhta_60 p._Username_1nhta_41 {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
-._OverlayChat_eelvl_1 {
+._FrameChat_1nhta_1 ._Chat_1nhta_26._Background_1nhta_60 p._Message_1nhta_26 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+._OverlayChat_1ghi9_1 {
   position: fixed;
   z-index: 998;
   overflow: hidden;
@@ -411,29 +420,31 @@ p {
   left: 0;
   bottom: 0;
 }
-._OverlayChat_eelvl_1 ._Chat_eelvl_10 {
+._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 {
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  padding: 6px 10px;
+  padding: 4px 10px;
   margin-bottom: 6px;
 }
-._OverlayChat_eelvl_1 ._Chat_eelvl_10 p {
+._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p {
   display: flex;
   flex-direction: row;
   font-size: 14px;
   text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
 }
-._OverlayChat_eelvl_1 ._Chat_eelvl_10 p._Username_eelvl_23 {
+._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p._Username_1ghi9_23 {
   font-weight: 700;
   white-space: wrap;
 }
-._OverlayChat_eelvl_1 ._Chat_eelvl_10 p._Message_eelvl_27 {
+._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p._Message_1ghi9_27 {
   white-space: wrap;
   font-weight: 500;
   color: #f6f9ff;
   margin-left: 10px;
   flex: 1;
+  overflow: hidden;
+  text-wrap: wrap;
 } `);
 
 (function () {
@@ -12546,15 +12557,15 @@ p {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_1qfaf_1";
-    const Top = "_Top_1qfaf_9";
-    const Bottom = "_Bottom_1qfaf_12";
-    const Left = "_Left_1qfaf_15";
-    const Right = "_Right_1qfaf_18";
-    const Chat$2 = "_Chat_1qfaf_21";
-    const Message$1 = "_Message_1qfaf_21";
-    const Username$1 = "_Username_1qfaf_45";
-    const Background = "_Background_1qfaf_56";
+    const FrameChat$1 = "_FrameChat_1nhta_1";
+    const Top = "_Top_1nhta_9";
+    const Bottom = "_Bottom_1nhta_12";
+    const Left = "_Left_1nhta_15";
+    const Right = "_Right_1nhta_18";
+    const Chat$2 = "_Chat_1nhta_26";
+    const Message$1 = "_Message_1nhta_26";
+    const Username$1 = "_Username_1nhta_41";
+    const Background = "_Background_1nhta_60";
     const styles$1 = {
       FrameChat: FrameChat$1,
       Top,
@@ -12586,13 +12597,15 @@ p {
       }, []);
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, messageText, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
+        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Username, style: {
+          width: frameSortChatMessages ? "130px" : "",
+          color: frameRandomUsername ? color : "#9dd9a5",
+          background
+        }, children: username });
+        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { background }, children: messageText });
         return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: classes(styles$1.Chat, frameChatBackground ? styles$1.Background : false), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Username, style: {
-            width: frameSortChatMessages ? "130px" : "",
-            color: frameRandomUsername ? color : "#9dd9a5",
-            background
-          }, children: username }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { background }, children: messageText })
+          userNameElem,
+          messageElem
         ] }, id2);
       });
       let frameChatPositionCls = "", frameChatDegree, frameWidth;
@@ -12624,10 +12637,10 @@ p {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_eelvl_1";
-    const Chat$1 = "_Chat_eelvl_10";
-    const Username = "_Username_eelvl_23";
-    const Message = "_Message_eelvl_27";
+    const OverlayChat$1 = "_OverlayChat_1ghi9_1";
+    const Chat$1 = "_Chat_1ghi9_10";
+    const Username = "_Username_1ghi9_23";
+    const Message = "_Message_1ghi9_27";
     const styles = {
       OverlayChat: OverlayChat$1,
       Chat: Chat$1,
