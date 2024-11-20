@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120220116
+// @version      20241120220503
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7439,29 +7439,33 @@ p {
         }
       }, []);
       reactExports.useEffect(() => {
-        const test = document.getElementById("topInnerHeader");
-        console.log(test);
-        const serviceUtilElement = document.querySelector(".serviceUtil");
-        console.log(serviceUtilElement);
-        if (!serviceUtilElement) return;
-        const existingItem = document.getElementById(id2);
-        if (existingItem)
-          existingItem.remove();
-        const newDivElement = document.createElement("div");
-        newDivElement.id = id2;
-        newDivElement.className = styles$8.SettingMenu;
-        console.log(newDivElement);
-        const buttonElement = document.createElement("button");
-        buttonElement.setAttribute("tip", "채팅 스타일러 설정");
-        const spanElement = document.createElement("p");
-        spanElement.textContent = "S";
-        buttonElement.appendChild(spanElement);
-        newDivElement.appendChild(buttonElement);
-        serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
-        newDivElement.addEventListener("click", toggleSetting);
-        return () => {
-          newDivElement.removeEventListener("click", toggleSetting);
+        const checkAndInsertElement = () => {
+          const serviceUtilElement = document.querySelector(".serviceUtil");
+          console.log(serviceUtilElement);
+          if (!serviceUtilElement) {
+            setTimeout(checkAndInsertElement, 1e3);
+            return;
+          }
+          const existingItem = document.getElementById(id2);
+          if (existingItem)
+            existingItem.remove();
+          const newDivElement = document.createElement("div");
+          newDivElement.id = id2;
+          newDivElement.className = styles$8.SettingMenu;
+          console.log(newDivElement);
+          const buttonElement = document.createElement("button");
+          buttonElement.setAttribute("tip", "채팅 스타일러 설정");
+          const spanElement = document.createElement("p");
+          spanElement.textContent = "S";
+          buttonElement.appendChild(spanElement);
+          newDivElement.appendChild(buttonElement);
+          serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
+          newDivElement.addEventListener("click", toggleSetting);
+          return () => {
+            newDivElement.removeEventListener("click", toggleSetting);
+          };
         };
+        checkAndInsertElement();
       }, []);
       return null;
     };
