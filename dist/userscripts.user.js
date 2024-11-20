@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120220503
+// @version      20241120220609
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7441,7 +7441,6 @@ p {
       reactExports.useEffect(() => {
         const checkAndInsertElement = () => {
           const serviceUtilElement = document.querySelector(".serviceUtil");
-          console.log(serviceUtilElement);
           if (!serviceUtilElement) {
             setTimeout(checkAndInsertElement, 1e3);
             return;
@@ -7452,7 +7451,6 @@ p {
           const newDivElement = document.createElement("div");
           newDivElement.id = id2;
           newDivElement.className = styles$8.SettingMenu;
-          console.log(newDivElement);
           const buttonElement = document.createElement("button");
           buttonElement.setAttribute("tip", "채팅 스타일러 설정");
           const spanElement = document.createElement("p");

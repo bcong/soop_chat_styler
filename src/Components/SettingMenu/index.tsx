@@ -22,7 +22,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
     useEffect(() => {
         const checkAndInsertElement = () => {
             const serviceUtilElement = document.querySelector('.serviceUtil');
-            console.log(serviceUtilElement)
+
             if (!serviceUtilElement) {
                 setTimeout(checkAndInsertElement, 1000);
                 return;
@@ -36,8 +36,6 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
             const newDivElement = document.createElement('div');
             newDivElement.id = id;
             newDivElement.className = styles.SettingMenu;
-
-            console.log(newDivElement);
 
             const buttonElement = document.createElement('button');
             buttonElement.setAttribute('tip', '채팅 스타일러 설정');
