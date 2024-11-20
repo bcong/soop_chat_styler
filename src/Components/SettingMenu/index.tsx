@@ -20,6 +20,10 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
     }, []);
 
     useEffect(() => {
+        const test = document.getElementById('topInnerHeader');
+
+        console.log(test)
+
         const serviceUtilElement = document.querySelector('.serviceUtil');
 
         console.log(serviceUtilElement)
