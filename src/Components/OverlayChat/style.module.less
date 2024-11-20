@@ -8,19 +8,29 @@
     bottom: 0;
 
     .Chat {
+        display: flex;
+        flex-direction: row;
         border-radius: 10px;
-        text-wrap: wrap;
         padding: 6px 10px;
         margin-bottom: 6px;
 
         p {
+            display: flex;
+            flex-direction: row;
             font-size: 14px;
-            font-weight: 600;
+            text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
 
-            span {
-                color: #fff;
-                font-weight: 300;
+            &.Username {
+                font-weight: 700;
+                white-space: wrap;
+            }
+
+            &.Message {
+                white-space: wrap;
+                font-weight: 500;
+                color: #f6f9ff;
                 margin-left: 10px;
+                flex: 1;
             }
         }
     }

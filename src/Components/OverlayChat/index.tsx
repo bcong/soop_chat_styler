@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import styles from './style.module.less';
 import { useMainStore } from '@Stores/index';
 import { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 const OverlayChat = observer(() => {
     const mainStore = useMainStore();
@@ -15,6 +16,7 @@ const OverlayChat = observer(() => {
     const overlayBackgroundOpacity = mainStore.setting.get('overlay_background_opacity');
     const overlayRandomUsername = mainStore.setting.get('overlay_random_username');
     const overlayViewWidth = mainStore.setting.get('overlay_view_width');
+    const overlaySortChatMessages = mainStore.setting.get('overlay_sort_chat_messages');
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!chatRef.current) return;
@@ -78,25 +80,30 @@ const OverlayChat = observer(() => {
         .map(({ id, username, messageText, color }) => {
             return (
                 <div key={id} className={styles.Chat} style={{ backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }}>
-                    <p style={{ color: overlayRandomUsername ? color : '#9dd9a5' }}>
+                    <p className={styles.Username} style={{
+                        width: overlaySortChatMessages ? '130px' : '',
+                        color: overlayRandomUsername ? color : '#9dd9a5',
+                    }}>
                         {username}
-                        <span>
-                            {messageText}
-                        </span>
+                    </p>
+                    <p className={styles.Message} >
+                        {messageText}
                     </p>
                 </div >
             );
         });
 
     return (
-        <div
-            ref={chatRef}
-            className={styles.OverlayChat}
-            onMouseDown={handleMouseDown}
-            style={{ transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` }}
-        >
-            {chatsElem}
-        </div>
+        ReactDOM.createPortal(
+            <div
+                ref={chatRef}
+                className={styles.OverlayChat}
+                onMouseDown={handleMouseDown}
+                style={{ transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` }}
+            >
+                {chatsElem}
+            </div>
+            , document.body)
     );
 });
 

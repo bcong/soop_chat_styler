@@ -22,12 +22,6 @@ const App = () => {
         '#a2f7f7',
         '#f798f2',
         '#ddfa85',
-        '#fcdede',
-        '#ffb3ba',
-        '#ffdfba',
-        '#ffffba',
-        '#baffc9',
-        '#bae1ff'
     ];
 
     const toggleSetting = () => {

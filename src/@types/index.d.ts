@@ -6,14 +6,28 @@ export interface I_GLOBAL_PROPS {
 export type T_SETTING =
     | 'enable'
     | 'chat_style'
+    | 'defalut_chat_enable'
+
+    // 오버레이
     | 'overlay_x'
     | 'overlay_y'
     | 'overlay_view_count'
-    | 'defalut_chat_enable'
     | 'overlay_random_username'
     | 'overlay_view_width'
     | 'overlay_background_opacity'
     | 'overlay_chat_opacity'
+    | 'overlay_sort_chat_messages'
+
+    // 프레임
+    | 'frame_chat_position'
+    | 'frame_random_username'
+    | 'frame_view_count'
+    | 'frame_chat_opacity'
+    | 'frame_background_opacity'
+    | 'frame_background_area'
+    | 'frame_chat_background'
+    | 'frame_view_width'
+    | 'frame_sort_chat_messages'
 
 export type T_SETTING_TYPE =
     | 'toggle'

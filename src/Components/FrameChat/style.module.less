@@ -1,0 +1,79 @@
+.FrameChat {
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    gap: 4px;
+    padding: 8px 0 8px 8px;
+
+    &.Top {
+        top: 0;
+    }
+
+    &.Bottom {
+        bottom: 0;
+    }
+
+    &.Left {
+        left: 0;
+    }
+
+    &.Right {
+        right: 0;
+
+        .Chat {
+            p {
+                &.Message {
+                    justify-content: right;
+                }
+            }
+        }
+    }
+
+    &.Left,
+    &.Right {
+        justify-content: end;
+        height: 100%;
+
+        .Chat {
+            p {
+                &.Message {
+                    flex: 1;
+                }
+            }
+        }
+    }
+
+    .Chat {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+
+        p {
+            display: flex;
+            font-size: 14px;
+            text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
+            z-index: 1;
+            padding: 2px 8px;
+
+            &.Username {
+                font-weight: 700;
+                white-space: wrap;
+                border-radius: 8px 0 0 8px;
+            }
+
+            &.Message {
+                font-weight: 500;
+                color: #f6f9ff;
+                border-radius: 0 8px 8px 0;
+                white-space: wrap;
+            }
+        }
+
+        &.Background {
+            p {
+                padding: 4px 8px;
+            }
+        }
+    }
+}
