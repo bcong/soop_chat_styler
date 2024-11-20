@@ -20,43 +20,44 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
     }, []);
 
     useEffect(() => {
-        const test = document.getElementById('topInnerHeader');
+        const checkAndInsertElement = () => {
+            const serviceUtilElement = document.querySelector('.serviceUtil');
+            console.log(serviceUtilElement)
+            if (!serviceUtilElement) {
+                setTimeout(checkAndInsertElement, 1000);
+                return;
+            }
 
-        console.log(test)
+            const existingItem = document.getElementById(id);
 
-        const serviceUtilElement = document.querySelector('.serviceUtil');
+            if (existingItem)
+                existingItem.remove();
 
-        console.log(serviceUtilElement)
+            const newDivElement = document.createElement('div');
+            newDivElement.id = id;
+            newDivElement.className = styles.SettingMenu;
 
-        if (!serviceUtilElement) return;
+            console.log(newDivElement);
 
-        const existingItem = document.getElementById(id);
+            const buttonElement = document.createElement('button');
+            buttonElement.setAttribute('tip', '채팅 스타일러 설정');
 
-        if (existingItem)
-            existingItem.remove();
+            const spanElement = document.createElement('p');
+            spanElement.textContent = 'S';
+            buttonElement.appendChild(spanElement);
 
-        const newDivElement = document.createElement('div');
-        newDivElement.id = id;
-        newDivElement.className = styles.SettingMenu;
+            newDivElement.appendChild(buttonElement);
 
-        console.log(newDivElement)
+            serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
 
-        const buttonElement = document.createElement('button');
-        buttonElement.setAttribute('tip', '채팅 스타일러 설정');
+            newDivElement.addEventListener('click', toggleSetting);
 
-        const spanElement = document.createElement('p');
-        spanElement.textContent = 'S';
-        buttonElement.appendChild(spanElement);
-
-        newDivElement.appendChild(buttonElement);
-
-        serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
-
-        newDivElement.addEventListener('click', toggleSetting);
-
-        return () => {
-            newDivElement.removeEventListener('click', toggleSetting);
+            return () => {
+                newDivElement.removeEventListener('click', toggleSetting);
+            };
         };
+
+        checkAndInsertElement();
     }, []);
 
     return null;
