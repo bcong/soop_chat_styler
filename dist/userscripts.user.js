@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241122030344
+// @version      20241122031533
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -345,70 +345,69 @@ p {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_lkp12_1 {
+._FrameChat_v686n_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
   padding: 8px 4px;
-  margin: 4px;
   border-radius: 8px;
 }
-._FrameChat_lkp12_1._LeftTop_lkp12_11 {
+._FrameChat_v686n_1._LeftTop_v686n_10 {
   top: 0;
 }
-._FrameChat_lkp12_1._LeftBottom_lkp12_14 {
+._FrameChat_v686n_1._LeftBottom_v686n_13 {
   bottom: 0;
 }
-._FrameChat_lkp12_1._RightTop_lkp12_17 {
+._FrameChat_v686n_1._RightTop_v686n_16 {
   right: 0;
   top: 0;
 }
-._FrameChat_lkp12_1._RightBottom_lkp12_21 {
+._FrameChat_v686n_1._RightBottom_v686n_20 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 {
+._FrameChat_v686n_1 ._Chat_v686n_24 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 {
+._FrameChat_v686n_1 ._Chat_v686n_24._Sorted_v686n_30 ._MessageContainer_v686n_30 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 ._Username_lkp12_35 {
+._FrameChat_v686n_1 ._Chat_v686n_24._Sorted_v686n_30 ._MessageContainer_v686n_30 ._Username_v686n_34 {
   width: 126px;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 ._Message_lkp12_31 {
+._FrameChat_v686n_1 ._Chat_v686n_24._Sorted_v686n_30 ._MessageContainer_v686n_30 ._Message_v686n_30 {
   flex: 1;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 {
+._FrameChat_v686n_1 ._Chat_v686n_24 ._MessageContainer_v686n_30 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Username_lkp12_35 {
+._FrameChat_v686n_1 ._Chat_v686n_24 ._MessageContainer_v686n_30 ._Username_v686n_34 {
   display: inline;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Username_lkp12_35 p {
+._FrameChat_v686n_1 ._Chat_v686n_24 ._MessageContainer_v686n_30 ._Username_v686n_34 p {
   display: inline;
   font-weight: 700;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Message_lkp12_31 {
+._FrameChat_v686n_1 ._Chat_v686n_24 ._MessageContainer_v686n_30 ._Message_v686n_30 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Message_lkp12_31 p {
+._FrameChat_v686n_1 ._Chat_v686n_24 ._MessageContainer_v686n_30 ._Message_v686n_30 p {
   display: inline;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_lkp12_1 ._Chat_lkp12_25._Background_lkp12_64 ._MessageContainer_lkp12_31 {
+._FrameChat_v686n_1 ._Chat_v686n_24._Background_v686n_63 ._MessageContainer_v686n_30 {
   padding: 4px 8px;
 }
 ._OverlayChat_oqjno_1 {
@@ -12691,17 +12690,17 @@ p {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_lkp12_1";
-    const LeftTop = "_LeftTop_lkp12_11";
-    const LeftBottom = "_LeftBottom_lkp12_14";
-    const RightTop = "_RightTop_lkp12_17";
-    const RightBottom = "_RightBottom_lkp12_21";
-    const Chat$2 = "_Chat_lkp12_25";
-    const Sorted$1 = "_Sorted_lkp12_31";
-    const MessageContainer$1 = "_MessageContainer_lkp12_31";
-    const Username$1 = "_Username_lkp12_35";
-    const Message$1 = "_Message_lkp12_31";
-    const Background$1 = "_Background_lkp12_64";
+    const FrameChat$1 = "_FrameChat_v686n_1";
+    const LeftTop = "_LeftTop_v686n_10";
+    const LeftBottom = "_LeftBottom_v686n_13";
+    const RightTop = "_RightTop_v686n_16";
+    const RightBottom = "_RightBottom_v686n_20";
+    const Chat$2 = "_Chat_v686n_24";
+    const Sorted$1 = "_Sorted_v686n_30";
+    const MessageContainer$1 = "_MessageContainer_v686n_30";
+    const Username$1 = "_Username_v686n_34";
+    const Message$1 = "_Message_v686n_30";
+    const Background$1 = "_Background_v686n_63";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
