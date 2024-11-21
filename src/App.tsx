@@ -68,10 +68,14 @@ const App = () => {
     };
 
     const checkViewChat = () => {
-        const button = document.querySelector(".view_ctrl .btn_chat button") as HTMLButtonElement;
-        if (button) {
-            button.click();
-        }
+        const buttonElement = document.querySelector(".view_ctrl .btn_chat") as HTMLLIElement;
+        const computedStyle = window.getComputedStyle(buttonElement) as CSSStyleDeclaration;
+        const button = buttonElement.querySelector("button") as HTMLButtonElement;
+
+        if (!button)
+            return;
+
+        computedStyle.display == 'block' && button.click();
     };
 
     useEffect(() => {
