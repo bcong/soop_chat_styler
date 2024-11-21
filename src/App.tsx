@@ -67,8 +67,16 @@ const App = () => {
         });
     };
 
+    const checkViewChat = () => {
+        const button = document.querySelector(".view_ctrl .btn_chat button") as HTMLButtonElement;
+        if (button) {
+            button.click();
+        }
+    };
+
     useEffect(() => {
         initSetting();
+        checkViewChat();
 
         chatUpdate.current = setInterval(() => {
             updateChatMessages();
