@@ -17,6 +17,7 @@ const FrameChat = observer(() => {
     const frameChatBackground = mainStore.setting.get('frame_chat_background');
     const frameViewWidth = mainStore.setting.get('frame_view_width');
     const frameSortChatMessages = mainStore.setting.get('frame_sort_chat_messages');
+    const frameFontSize = mainStore.setting.get('frame_font_size');
 
     useEffect(() => {
         const div = document.querySelector('#videoLayer');
@@ -34,14 +35,15 @@ const FrameChat = observer(() => {
                 <p className={styles.Username} style={{
                     width: frameSortChatMessages ? '130px' : '',
                     color: frameRandomUsername ? color : '#9dd9a5',
-                    background: background
+                    background: background,
+                    fontSize: `${frameFontSize}px`
                 }}>
                     {username}
                 </p>
             );
 
             const messageElem = (
-                <p className={styles.Message} style={{ background: background }}>
+                <p className={styles.Message} style={{ fontSize: `${frameFontSize}px`, background: background }}>
                     {messageText}
                 </p>
             );

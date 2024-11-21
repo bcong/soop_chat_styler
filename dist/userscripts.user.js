@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241120220609
+// @version      20241121175622
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11715,6 +11715,10 @@ p {
             key: "overlay_sort_chat_messages",
             value: false
           },
+          {
+            key: "overlay_font_size",
+            value: 14
+          },
           // 프레임
           {
             key: "frame_chat_position",
@@ -11751,6 +11755,10 @@ p {
           {
             key: "frame_sort_chat_messages",
             value: false
+          },
+          {
+            key: "frame_font_size",
+            value: 14
           }
         ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
@@ -12346,6 +12354,19 @@ p {
             }
           ]
         },
+        {
+          name: "폰트 크기",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_font_size"),
+              min: 0,
+              max: 28,
+              cb: (value) => mainStore.setSetting("overlay_font_size", value, true)
+            }
+          ]
+        },
         // 프레임
         {
           name: "채팅창 위치",
@@ -12454,6 +12475,19 @@ p {
               type: "toggle",
               value: mainStore.setting.get("frame_sort_chat_messages"),
               cb: (value) => mainStore.setSetting("frame_sort_chat_messages", value, true)
+            }
+          ]
+        },
+        {
+          name: "폰트 크기",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_font_size"),
+              min: 0,
+              max: 28,
+              cb: (value) => mainStore.setSetting("frame_font_size", value, true)
             }
           ]
         }
@@ -12596,6 +12630,7 @@ p {
       const frameChatBackground = mainStore.setting.get("frame_chat_background");
       const frameViewWidth = mainStore.setting.get("frame_view_width");
       const frameSortChatMessages = mainStore.setting.get("frame_sort_chat_messages");
+      const frameFontSize = mainStore.setting.get("frame_font_size");
       reactExports.useEffect(() => {
         const div = document.querySelector("#videoLayer");
         if (div) {
@@ -12607,9 +12642,10 @@ p {
         const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Username, style: {
           width: frameSortChatMessages ? "130px" : "",
           color: frameRandomUsername ? color : "#9dd9a5",
-          background
+          background,
+          fontSize: `${frameFontSize}px`
         }, children: username });
-        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { background }, children: messageText });
+        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { fontSize: `${frameFontSize}px`, background }, children: messageText });
         return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: classes(styles$1.Chat, frameChatBackground ? styles$1.Background : false), children: [
           userNameElem,
           messageElem
@@ -12667,6 +12703,7 @@ p {
       const overlayRandomUsername = mainStore.setting.get("overlay_random_username");
       const overlayViewWidth = mainStore.setting.get("overlay_view_width");
       const overlaySortChatMessages = mainStore.setting.get("overlay_sort_chat_messages");
+      const overlayFontSize = mainStore.setting.get("overlay_font_size");
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -12716,10 +12753,11 @@ p {
       const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText, color }) => {
         return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Username, style: {
+            fontSize: `${overlayFontSize}px`,
             width: overlaySortChatMessages ? "130px" : "",
             color: overlayRandomUsername ? color : "#9dd9a5"
           }, children: username }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Message, children: messageText })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Message, style: { fontSize: `${overlayFontSize}px` }, children: messageText })
         ] }, id2);
       });
       return ReactDOM.createPortal(

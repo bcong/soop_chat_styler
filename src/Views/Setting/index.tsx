@@ -149,6 +149,19 @@ const Setting = observer(() => {
                 }
             ]
         },
+        {
+            name: '폰트 크기',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_font_size'),
+                    min: 0,
+                    max: 28,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_font_size', value, true)
+                }
+            ]
+        },
 
         // 프레임
         {
@@ -258,6 +271,19 @@ const Setting = observer(() => {
                     type: 'toggle',
                     value: mainStore.setting.get('frame_sort_chat_messages'),
                     cb: (value: unknown) => mainStore.setSetting('frame_sort_chat_messages', value, true)
+                }
+            ]
+        },
+        {
+            name: '폰트 크기',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_font_size'),
+                    min: 0,
+                    max: 28,
+                    cb: (value: unknown) => mainStore.setSetting('frame_font_size', value, true)
                 }
             ]
         },

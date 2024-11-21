@@ -17,6 +17,7 @@ export type T_SETTING =
     | 'overlay_background_opacity'
     | 'overlay_chat_opacity'
     | 'overlay_sort_chat_messages'
+    | 'overlay_font_size'
 
     // 프레임
     | 'frame_chat_position'
@@ -28,6 +29,7 @@ export type T_SETTING =
     | 'frame_chat_background'
     | 'frame_view_width'
     | 'frame_sort_chat_messages'
+    | 'frame_font_size'
 
 export type T_SETTING_TYPE =
     | 'toggle'

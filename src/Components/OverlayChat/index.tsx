@@ -17,6 +17,7 @@ const OverlayChat = observer(() => {
     const overlayRandomUsername = mainStore.setting.get('overlay_random_username');
     const overlayViewWidth = mainStore.setting.get('overlay_view_width');
     const overlaySortChatMessages = mainStore.setting.get('overlay_sort_chat_messages');
+    const overlayFontSize = mainStore.setting.get('overlay_font_size');
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!chatRef.current) return;
@@ -81,12 +82,13 @@ const OverlayChat = observer(() => {
             return (
                 <div key={id} className={styles.Chat} style={{ backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }}>
                     <p className={styles.Username} style={{
+                        fontSize: `${overlayFontSize}px`,
                         width: overlaySortChatMessages ? '130px' : '',
                         color: overlayRandomUsername ? color : '#9dd9a5',
                     }}>
                         {username}
                     </p>
-                    <p className={styles.Message} >
+                    <p className={styles.Message} style={{ fontSize: `${overlayFontSize}px` }} >
                         {messageText}
                     </p>
                 </div >
