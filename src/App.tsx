@@ -37,7 +37,9 @@ const App = () => {
     };
 
     const updateChatMessages = () => {
-        const chatArea = document.querySelector('#chat_area');
+        const chatAreaElements = document.querySelectorAll('#chat_area');
+
+        const chatArea = chatAreaElements[chatAreaElements.length - 1];
 
         if (!chatArea) return;
 
