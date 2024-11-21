@@ -94,7 +94,7 @@ const Setting = observer(() => {
                     type: 'slider',
                     value: mainStore.setting.get('overlay_view_count'),
                     min: 1,
-                    max: 20,
+                    max: mainStore.maxChats,
                     cb: (value: unknown) => mainStore.setSetting('overlay_view_count', value, true)
                 }
             ]
@@ -206,7 +206,7 @@ const Setting = observer(() => {
                     type: 'slider',
                     value: mainStore.setting.get('frame_view_count'),
                     min: 1,
-                    max: 20,
+                    max: mainStore.maxChats,
                     cb: (value: unknown) => mainStore.setSetting('frame_view_count', value, true)
                 }
             ]

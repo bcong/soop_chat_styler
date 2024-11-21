@@ -95,6 +95,9 @@ export default class MainStore {
     @observable
     private _chats: I_CHAT[] = [];
 
+    @observable
+    private _maxChats = 20;
+
     constructor() {
         makeObservable(this);
         this.init();
@@ -117,7 +120,7 @@ export default class MainStore {
     addChat = (chat: I_CHAT) => {
         this.chats.push(chat);
 
-        if (this.chats.length >= 100)
+        if (this.chats.length >= this.maxChats + 10)
             this.chats.shift();
     };
 
@@ -139,5 +142,10 @@ export default class MainStore {
     @computed
     get chats() {
         return this._chats;
+    }
+
+    @computed
+    get maxChats() {
+        return this._maxChats;
     }
 }

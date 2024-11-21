@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241121215445
+// @version      20241121222020
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11767,6 +11767,7 @@ p {
         ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
         __publicField(this, "_chats", []);
+        __publicField(this, "_maxChats", 20);
         __publicField(this, "init", () => {
           for (const setting of this.initSetting) {
             this.setting.set(setting.key, setting.value);
@@ -11778,7 +11779,7 @@ p {
         });
         __publicField(this, "addChat", (chat) => {
           this.chats.push(chat);
-          if (this.chats.length >= 100)
+          if (this.chats.length >= this.maxChats + 10)
             this.chats.shift();
         });
         __publicField(this, "lastChat", () => {
@@ -11796,6 +11797,9 @@ p {
       get chats() {
         return this._chats;
       }
+      get maxChats() {
+        return this._maxChats;
+      }
     }
     __decorateClass([
       observable
@@ -11803,6 +11807,9 @@ p {
     __decorateClass([
       observable
     ], MainStore.prototype, "_chats", 2);
+    __decorateClass([
+      observable
+    ], MainStore.prototype, "_maxChats", 2);
     __decorateClass([
       action
     ], MainStore.prototype, "init", 2);
@@ -11824,6 +11831,9 @@ p {
     __decorateClass([
       computed
     ], MainStore.prototype, "chats", 1);
+    __decorateClass([
+      computed
+    ], MainStore.prototype, "maxChats", 1);
     class RootStore {
       constructor() {
         __publicField(this, "mainStore");
@@ -12303,7 +12313,7 @@ p {
               type: "slider",
               value: mainStore.setting.get("overlay_view_count"),
               min: 1,
-              max: 20,
+              max: mainStore.maxChats,
               cb: (value) => mainStore.setSetting("overlay_view_count", value, true)
             }
           ]
@@ -12414,7 +12424,7 @@ p {
               type: "slider",
               value: mainStore.setting.get("frame_view_count"),
               min: 1,
-              max: 20,
+              max: mainStore.maxChats,
               cb: (value) => mainStore.setSetting("frame_view_count", value, true)
             }
           ]
