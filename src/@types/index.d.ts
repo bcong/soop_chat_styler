@@ -15,9 +15,12 @@ export type T_SETTING =
     | 'overlay_random_username'
     | 'overlay_view_width'
     | 'overlay_background_opacity'
+    | 'overlay_background_area'
     | 'overlay_chat_opacity'
     | 'overlay_sort_chat_messages'
     | 'overlay_font_size'
+    | 'overlay_chat_background'
+    | 'overlay_background'
 
     // 프레임
     | 'frame_chat_position'
@@ -27,6 +30,7 @@ export type T_SETTING =
     | 'frame_background_opacity'
     | 'frame_background_area'
     | 'frame_chat_background'
+    | 'frame_background'
     | 'frame_view_width'
     | 'frame_sort_chat_messages'
     | 'frame_font_size'

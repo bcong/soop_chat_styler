@@ -20,6 +20,9 @@ const OverlayChat = observer(() => {
     const overlayViewWidth = mainStore.setting.get('overlay_view_width');
     const overlaySortChatMessages = mainStore.setting.get('overlay_sort_chat_messages');
     const overlayFontSize = mainStore.setting.get('overlay_font_size');
+    const overlayChatBackground = mainStore.setting.get('overlay_chat_background');
+    const overlayBackground = mainStore.setting.get('overlay_background');
+    const overlayBackgroundArea = mainStore.setting.get('overlay_background_area');
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!chatRef.current) return;
@@ -111,23 +114,54 @@ const OverlayChat = observer(() => {
     }, []);
 
     const chatsElem = mainStore.chats
-        .slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1)
+        .slice(-overlayViewCount)
         .map(({ id, username, messageText, color }) => {
-            return (
-                <div key={id} className={styles.Chat} style={{ backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }}>
-                    <p className={styles.Username} style={{
-                        fontSize: `${overlayFontSize}px`,
-                        width: overlaySortChatMessages ? '130px' : '',
+            const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : '';
+            const fontSize = `${overlayFontSize}px`;
+
+            const userNameElem = (
+                <div className={styles.Username}>
+                    <p style={{
                         color: overlayRandomUsername ? color : '#9dd9a5',
+                        fontSize: fontSize
                     }}>
                         {username}
                     </p>
-                    <p className={styles.Message} style={{ fontSize: `${overlayFontSize}px` }} >
+                </div>
+            );
+
+            const messageElem = (
+                <div className={styles.Message}>
+                    <p style={{
+                        fontSize: fontSize
+                    }}>
                         {messageText}
                     </p>
-                </div >
+                </div>
+            );
+
+            return (
+                <div key={id}
+                    className={classes(styles.Chat,
+                        overlayChatBackground ? styles.Background : false,
+                        overlaySortChatMessages ? styles.Sorted : false
+                    )}
+                    style={{
+                        width: `${overlayViewWidth}px`,
+                    }}
+                >
+                    <div className={styles.MessageContainer}
+                        style={{
+                            background: background
+                        }}>
+                        {userNameElem}
+                        {messageElem}
+                    </div>
+                </div>
             );
         });
+
+    const chatBackgroundStyle = `linear-gradient(0deg, rgba(0, 0, 0, ${overlayBackgroundOpacity}%) ${overlayBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
 
     return (
         ReactDOM.createPortal(
@@ -135,7 +169,10 @@ const OverlayChat = observer(() => {
                 ref={chatRef}
                 className={classes(styles.OverlayChat, isView ? styles.View : false)}
                 onMouseDown={handleMouseDown}
-                style={{ transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` }}
+                style={{
+                    transform: `translate(${translate.x}px, ${translate.y}px)`,
+                    background: overlayBackground ? chatBackgroundStyle : '',
+                }}
             >
                 {chatsElem}
             </div>

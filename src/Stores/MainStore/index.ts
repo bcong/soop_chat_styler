@@ -30,12 +30,16 @@ export default class MainStore {
             value: 80
         },
         {
+            key: 'overlay_background_area',
+            value: 0
+        },
+        {
             key: 'overlay_random_username',
             value: true,
         },
         {
             key: 'overlay_view_width',
-            value: 300
+            value: 500
         },
         {
             key: 'overlay_sort_chat_messages',
@@ -44,6 +48,14 @@ export default class MainStore {
         {
             key: 'overlay_font_size',
             value: 14,
+        },
+        {
+            key: 'overlay_chat_background',
+            value: true,
+        },
+        {
+            key: 'overlay_background',
+            value: false,
         },
 
         // 프레임
@@ -57,7 +69,7 @@ export default class MainStore {
         },
         {
             key: 'frame_chat_background',
-            value: false,
+            value: true,
         },
         {
             key: 'frame_view_count',
@@ -77,7 +89,7 @@ export default class MainStore {
         },
         {
             key: 'frame_view_width',
-            value: 300
+            value: 500
         },
         {
             key: 'frame_sort_chat_messages',
@@ -86,6 +98,10 @@ export default class MainStore {
         {
             key: 'frame_font_size',
             value: 14,
+        },
+        {
+            key: 'frame_background',
+            value: false,
         },
     ];
 

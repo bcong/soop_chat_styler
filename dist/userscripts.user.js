@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241121222203
+// @version      20241122015945
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -18,7 +18,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const t=document.createElement("style");t.textContent=n,document.head.append(t)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const _=document.createElement("style");_.textContent=n,document.head.append(_)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -345,111 +345,128 @@ p {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_1nhta_1 {
+._FrameChat_lkp12_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
-  padding: 8px;
+  padding: 8px 4px;
+  margin: 4px;
+  border-radius: 8px;
 }
-._FrameChat_1nhta_1._Top_1nhta_9 {
+._FrameChat_lkp12_1._LeftTop_lkp12_11 {
   top: 0;
 }
-._FrameChat_1nhta_1._Bottom_1nhta_12 {
+._FrameChat_lkp12_1._LeftBottom_lkp12_14 {
   bottom: 0;
 }
-._FrameChat_1nhta_1._Left_1nhta_15 {
-  left: 0;
-}
-._FrameChat_1nhta_1._Right_1nhta_18 {
+._FrameChat_lkp12_1._RightTop_lkp12_17 {
   right: 0;
+  top: 0;
 }
-._FrameChat_1nhta_1._Left_1nhta_15,
-._FrameChat_1nhta_1._Right_1nhta_18 {
-  justify-content: end;
-  height: 100%;
+._FrameChat_lkp12_1._RightBottom_lkp12_21 {
+  right: 0;
+  bottom: 0;
 }
-._FrameChat_1nhta_1._Left_1nhta_15 ._Chat_1nhta_26 p._Message_1nhta_26,
-._FrameChat_1nhta_1._Right_1nhta_18 ._Chat_1nhta_26 p._Message_1nhta_26 {
-  flex: 1;
-}
-._FrameChat_1nhta_1 ._Chat_1nhta_26 {
+._FrameChat_lkp12_1 ._Chat_lkp12_25 {
+  display: flex;
   position: relative;
+  z-index: 1;
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+}
+._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1nhta_1 ._Chat_1nhta_26 p {
-  display: flex;
-  font-size: 14px;
-  text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
-  z-index: 1;
+._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 ._Username_lkp12_35 {
+  width: 126px;
 }
-._FrameChat_1nhta_1 ._Chat_1nhta_26 p._Username_1nhta_41 {
+._FrameChat_lkp12_1 ._Chat_lkp12_25._Sorted_lkp12_31 ._MessageContainer_lkp12_31 ._Message_lkp12_31 {
+  flex: 1;
+}
+._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 {
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Username_lkp12_35 {
+  display: inline;
+  word-break: break-all;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Username_lkp12_35 p {
+  display: inline;
   font-weight: 700;
-  border-radius: 8px 0 0 8px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 8px;
-  padding-right: 8px;
 }
-._FrameChat_1nhta_1 ._Chat_1nhta_26 p._Message_1nhta_26 {
+._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Message_lkp12_31 {
+  display: inline;
+  word-break: break-all;
+}
+._FrameChat_lkp12_1 ._Chat_lkp12_25 ._MessageContainer_lkp12_31 ._Message_lkp12_31 p {
+  display: inline;
   font-weight: 500;
   color: #f6f9ff;
-  border-radius: 0 8px 8px 0;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 0;
-  padding-right: 8px;
-  overflow: hidden;
-  text-wrap: wrap;
 }
-._FrameChat_1nhta_1 ._Chat_1nhta_26._Background_1nhta_60 p._Username_1nhta_41 {
-  padding-top: 4px;
-  padding-bottom: 4px;
+._FrameChat_lkp12_1 ._Chat_lkp12_25._Background_lkp12_64 ._MessageContainer_lkp12_31 {
+  padding: 4px 8px;
 }
-._FrameChat_1nhta_1 ._Chat_1nhta_26._Background_1nhta_60 p._Message_1nhta_26 {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-._OverlayChat_130b5_1 {
+._OverlayChat_1p3wx_1 {
   position: fixed;
+  flex-direction: column;
   z-index: 998;
-  overflow: hidden;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: move;
   left: 0;
   top: 0;
   display: none;
+  gap: 4px;
+  padding: 8px 4px;
 }
-._OverlayChat_130b5_1._View_130b5_11 {
-  display: block;
+._OverlayChat_1p3wx_1._View_1p3wx_13 {
+  display: flex;
 }
-._OverlayChat_130b5_1 ._Chat_130b5_14 {
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 {
   display: flex;
   flex-direction: row;
-  border-radius: 10px;
-  padding: 4px 10px;
-  margin-bottom: 6px;
 }
-._OverlayChat_130b5_1 ._Chat_130b5_14 p {
-  display: flex;
-  flex-direction: row;
-  font-size: 14px;
-  text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 {
+  width: 126px;
 }
-._OverlayChat_130b5_1 ._Chat_130b5_14 p._Username_130b5_27 {
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 {
+  flex: 1;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Background_1p3wx_32 ._MessageContainer_1p3wx_22 {
+  padding: 4px 8px;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 {
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 {
+  display: inline;
+  word-break: break-all;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 p {
+  display: inline;
   font-weight: 700;
-  white-space: wrap;
 }
-._OverlayChat_130b5_1 ._Chat_130b5_14 p._Message_130b5_31 {
-  white-space: wrap;
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 {
+  display: inline;
+  word-break: break-all;
+}
+._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 p {
+  display: inline;
   font-weight: 500;
   color: #f6f9ff;
-  margin-left: 10px;
-  flex: 1;
-  overflow: hidden;
-  text-wrap: wrap;
 } `);
 
 (function () {
@@ -11708,12 +11725,16 @@ p {
             value: 80
           },
           {
+            key: "overlay_background_area",
+            value: 0
+          },
+          {
             key: "overlay_random_username",
             value: true
           },
           {
             key: "overlay_view_width",
-            value: 300
+            value: 500
           },
           {
             key: "overlay_sort_chat_messages",
@@ -11722,6 +11743,14 @@ p {
           {
             key: "overlay_font_size",
             value: 14
+          },
+          {
+            key: "overlay_chat_background",
+            value: true
+          },
+          {
+            key: "overlay_background",
+            value: false
           },
           // 프레임
           {
@@ -11734,7 +11763,7 @@ p {
           },
           {
             key: "frame_chat_background",
-            value: false
+            value: true
           },
           {
             key: "frame_view_count",
@@ -11754,7 +11783,7 @@ p {
           },
           {
             key: "frame_view_width",
-            value: 300
+            value: 500
           },
           {
             key: "frame_sort_chat_messages",
@@ -11763,6 +11792,10 @@ p {
           {
             key: "frame_font_size",
             value: 14
+          },
+          {
+            key: "frame_background",
+            value: false
           }
         ]);
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
@@ -12246,19 +12279,19 @@ p {
       const frameChatPositionOpitons = [
         {
           key: 0,
-          name: "상단"
+          name: "좌측 상단"
         },
         {
           key: 1,
-          name: "하단"
+          name: "좌측 하단"
         },
         {
           key: 2,
-          name: "좌측"
+          name: "우측 상단"
         },
         {
           key: 3,
-          name: "우측"
+          name: "우측 하단"
         }
       ];
       const settingList = [
@@ -12295,17 +12328,6 @@ p {
         },
         // 오버레이
         {
-          name: "닉네임 랜덤 색상",
-          disable: chat_style != 0,
-          values: [
-            {
-              type: "toggle",
-              value: mainStore.setting.get("overlay_random_username"),
-              cb: (value) => mainStore.setSetting("overlay_random_username", value, true)
-            }
-          ]
-        },
-        {
           name: "채팅 표시 개수",
           disable: chat_style != 0,
           values: [
@@ -12319,7 +12341,66 @@ p {
           ]
         },
         {
-          name: "채팅 투명도",
+          name: "채팅 길이",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_view_width"),
+              min: 0,
+              max: 500,
+              cb: (value) => mainStore.setSetting("overlay_view_width", value, true)
+            }
+          ]
+        },
+        {
+          name: "폰트 크기",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("overlay_font_size"),
+              min: 0,
+              max: 28,
+              cb: (value) => mainStore.setSetting("overlay_font_size", value, true)
+            }
+          ]
+        },
+        {
+          name: "닉네임 랜덤 색상",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_random_username"),
+              cb: (value) => mainStore.setSetting("overlay_random_username", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 메시지 정렬",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_sort_chat_messages"),
+              cb: (value) => mainStore.setSetting("overlay_sort_chat_messages", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 배경 표시",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_chat_background"),
+              cb: (value) => mainStore.setSetting("overlay_chat_background", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 배경 투명도",
           disable: chat_style != 0,
           values: [
             {
@@ -12328,6 +12409,17 @@ p {
               min: 0,
               max: 100,
               cb: (value) => mainStore.setSetting("overlay_chat_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "배경 표시",
+          disable: chat_style != 0,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("overlay_background"),
+              cb: (value) => mainStore.setSetting("overlay_background", value, true)
             }
           ]
         },
@@ -12345,39 +12437,15 @@ p {
           ]
         },
         {
-          name: "채팅창 길이",
+          name: "배경 영역",
           disable: chat_style != 0,
           values: [
             {
               type: "slider",
-              value: mainStore.setting.get("overlay_view_width"),
+              value: mainStore.setting.get("overlay_background_area"),
               min: 0,
-              max: 500,
-              cb: (value) => mainStore.setSetting("overlay_view_width", value, true)
-            }
-          ]
-        },
-        {
-          name: "채팅 메시지 정렬",
-          disable: chat_style != 0,
-          values: [
-            {
-              type: "toggle",
-              value: mainStore.setting.get("overlay_sort_chat_messages"),
-              cb: (value) => mainStore.setSetting("overlay_sort_chat_messages", value, true)
-            }
-          ]
-        },
-        {
-          name: "폰트 크기",
-          disable: chat_style != 0,
-          values: [
-            {
-              type: "slider",
-              value: mainStore.setting.get("overlay_font_size"),
-              min: 0,
-              max: 28,
-              cb: (value) => mainStore.setSetting("overlay_font_size", value, true)
+              max: 100,
+              cb: (value) => mainStore.setSetting("overlay_background_area", value, true)
             }
           ]
         },
@@ -12395,6 +12463,45 @@ p {
           ]
         },
         {
+          name: "채팅 표시 개수",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_view_count"),
+              min: 1,
+              max: mainStore.maxChats,
+              cb: (value) => mainStore.setSetting("frame_view_count", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 길이",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_view_width"),
+              min: 0,
+              max: 500,
+              cb: (value) => mainStore.setSetting("frame_view_width", value, true)
+            }
+          ]
+        },
+        {
+          name: "폰트 크기",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_font_size"),
+              min: 0,
+              max: 28,
+              cb: (value) => mainStore.setSetting("frame_font_size", value, true)
+            }
+          ]
+        },
+        {
           name: "닉네임 랜덤 색상",
           disable: chat_style != 1,
           values: [
@@ -12402,6 +12509,17 @@ p {
               type: "toggle",
               value: mainStore.setting.get("frame_random_username"),
               cb: (value) => mainStore.setSetting("frame_random_username", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 메시지 정렬",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("frame_sort_chat_messages"),
+              cb: (value) => mainStore.setSetting("frame_sort_chat_messages", value, true)
             }
           ]
         },
@@ -12417,21 +12535,8 @@ p {
           ]
         },
         {
-          name: "채팅 표시 개수",
-          disable: chat_style != 1,
-          values: [
-            {
-              type: "slider",
-              value: mainStore.setting.get("frame_view_count"),
-              min: 1,
-              max: mainStore.maxChats,
-              cb: (value) => mainStore.setSetting("frame_view_count", value, true)
-            }
-          ]
-        },
-        {
           name: "채팅 배경 투명도",
-          disable: chat_style != 1 || !mainStore.setting.get("frame_chat_background"),
+          disable: chat_style != 1,
           values: [
             {
               type: "slider",
@@ -12439,6 +12544,17 @@ p {
               min: 0,
               max: 100,
               cb: (value) => mainStore.setSetting("frame_chat_opacity", value, true)
+            }
+          ]
+        },
+        {
+          name: "배경 표시",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("frame_background"),
+              cb: (value) => mainStore.setSetting("frame_background", value, true)
             }
           ]
         },
@@ -12465,43 +12581,6 @@ p {
               min: 0,
               max: 100,
               cb: (value) => mainStore.setSetting("frame_background_area", value, true)
-            }
-          ]
-        },
-        {
-          name: "채팅창 길이",
-          disable: chat_style != 1 || mainStore.setting.get("frame_chat_position") != 2 && mainStore.setting.get("frame_chat_position") != 3,
-          values: [
-            {
-              type: "slider",
-              value: mainStore.setting.get("frame_view_width"),
-              min: 0,
-              max: 500,
-              cb: (value) => mainStore.setSetting("frame_view_width", value, true)
-            }
-          ]
-        },
-        {
-          name: "채팅 메시지 정렬",
-          disable: chat_style != 1,
-          values: [
-            {
-              type: "toggle",
-              value: mainStore.setting.get("frame_sort_chat_messages"),
-              cb: (value) => mainStore.setSetting("frame_sort_chat_messages", value, true)
-            }
-          ]
-        },
-        {
-          name: "폰트 크기",
-          disable: chat_style != 1,
-          values: [
-            {
-              type: "slider",
-              value: mainStore.setting.get("frame_font_size"),
-              min: 0,
-              max: 28,
-              cb: (value) => mainStore.setSetting("frame_font_size", value, true)
             }
           ]
         }
@@ -12612,25 +12691,29 @@ p {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_1nhta_1";
-    const Top = "_Top_1nhta_9";
-    const Bottom = "_Bottom_1nhta_12";
-    const Left = "_Left_1nhta_15";
-    const Right = "_Right_1nhta_18";
-    const Chat$2 = "_Chat_1nhta_26";
-    const Message$1 = "_Message_1nhta_26";
-    const Username$1 = "_Username_1nhta_41";
-    const Background = "_Background_1nhta_60";
+    const FrameChat$1 = "_FrameChat_lkp12_1";
+    const LeftTop = "_LeftTop_lkp12_11";
+    const LeftBottom = "_LeftBottom_lkp12_14";
+    const RightTop = "_RightTop_lkp12_17";
+    const RightBottom = "_RightBottom_lkp12_21";
+    const Chat$2 = "_Chat_lkp12_25";
+    const Sorted$1 = "_Sorted_lkp12_31";
+    const MessageContainer$1 = "_MessageContainer_lkp12_31";
+    const Username$1 = "_Username_lkp12_35";
+    const Message$1 = "_Message_lkp12_31";
+    const Background$1 = "_Background_lkp12_64";
     const styles$1 = {
       FrameChat: FrameChat$1,
-      Top,
-      Bottom,
-      Left,
-      Right,
+      LeftTop,
+      LeftBottom,
+      RightTop,
+      RightBottom,
       Chat: Chat$2,
-      Message: Message$1,
+      Sorted: Sorted$1,
+      MessageContainer: MessageContainer$1,
       Username: Username$1,
-      Background
+      Message: Message$1,
+      Background: Background$1
     };
     const FrameChat = observer(() => {
       const mainStore = useMainStore();
@@ -12645,6 +12728,7 @@ p {
       const frameViewWidth = mainStore.setting.get("frame_view_width");
       const frameSortChatMessages = mainStore.setting.get("frame_sort_chat_messages");
       const frameFontSize = mainStore.setting.get("frame_font_size");
+      const frameBackground = mainStore.setting.get("frame_background");
       reactExports.useEffect(() => {
         const div = document.querySelector("#videoLayer");
         if (div) {
@@ -12653,58 +12737,93 @@ p {
       }, []);
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, messageText, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
-        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Username, style: {
-          width: frameSortChatMessages ? "130px" : "",
+        const fontSize = `${frameFontSize}px`;
+        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
           color: frameRandomUsername ? color : "#9dd9a5",
-          background,
-          fontSize: `${frameFontSize}px`
-        }, children: username });
-        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.Message, style: { fontSize: `${frameFontSize}px`, background }, children: messageText });
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: classes(styles$1.Chat, frameChatBackground ? styles$1.Background : false), children: [
-          userNameElem,
-          messageElem
-        ] }, id2);
+          fontSize
+        }, children: username }) });
+        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Message, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
+          fontSize
+        }, children: messageText }) });
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: classes(
+              styles$1.Chat,
+              frameChatBackground ? styles$1.Background : false,
+              frameSortChatMessages ? styles$1.Sorted : false
+            ),
+            style: {
+              width: `${frameViewWidth}px`
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: styles$1.MessageContainer,
+                style: {
+                  background
+                },
+                children: [
+                  userNameElem,
+                  messageElem
+                ]
+              }
+            )
+          },
+          id2
+        );
       });
-      let frameChatPositionCls = "", frameChatDegree, frameWidth;
+      let frameChatPositionCls = "", frameChatDegree;
       switch (frameChatPosition) {
         case 0:
-          frameChatPositionCls = styles$1.Top;
+          frameChatPositionCls = styles$1.LeftTop;
           frameChatDegree = 180;
-          frameWidth = `100%`;
           break;
         case 1:
-          frameChatPositionCls = styles$1.Bottom;
+          frameChatPositionCls = styles$1.LeftBottom;
           frameChatDegree = 0;
-          frameWidth = `100%`;
           break;
         case 2:
-          frameChatPositionCls = styles$1.Left;
-          frameChatDegree = 90;
-          frameWidth = `${frameViewWidth}px`;
+          frameChatPositionCls = styles$1.RightTop;
+          frameChatDegree = 180;
           break;
         case 3:
-          frameChatPositionCls = styles$1.Right;
-          frameChatDegree = 270;
-          frameWidth = `${frameViewWidth}px`;
+          frameChatPositionCls = styles$1.RightBottom;
+          frameChatDegree = 0;
           break;
       }
-      const frameChatBackgroundStyle = `linear-gradient(${frameChatDegree}deg, rgba(0, 0, 0, ${frameBackgroundOpacity}%) ${frameBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
+      const chatBackgroundStyle = `linear-gradient(${frameChatDegree}deg, rgba(0, 0, 0, ${frameBackgroundOpacity}%) ${frameBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
       return playerSizeDiv ? ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$1.FrameChat, frameChatPositionCls), style: { background: frameChatBackgroundStyle, width: frameWidth }, children: chatsElem }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: classes(styles$1.FrameChat, frameChatPositionCls),
+            style: {
+              background: frameBackground ? chatBackgroundStyle : ""
+            },
+            children: chatsElem
+          }
+        ),
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_130b5_1";
-    const View = "_View_130b5_11";
-    const Chat$1 = "_Chat_130b5_14";
-    const Username = "_Username_130b5_27";
-    const Message = "_Message_130b5_31";
+    const OverlayChat$1 = "_OverlayChat_1p3wx_1";
+    const View = "_View_1p3wx_13";
+    const Chat$1 = "_Chat_1p3wx_16";
+    const Sorted = "_Sorted_1p3wx_22";
+    const MessageContainer = "_MessageContainer_1p3wx_22";
+    const Username = "_Username_1p3wx_26";
+    const Message = "_Message_1p3wx_22";
+    const Background = "_Background_1p3wx_32";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
       Chat: Chat$1,
+      Sorted,
+      MessageContainer,
       Username,
-      Message
+      Message,
+      Background
     };
     const OverlayChat = observer(() => {
       const mainStore = useMainStore();
@@ -12721,6 +12840,9 @@ p {
       const overlayViewWidth = mainStore.setting.get("overlay_view_width");
       const overlaySortChatMessages = mainStore.setting.get("overlay_sort_chat_messages");
       const overlayFontSize = mainStore.setting.get("overlay_font_size");
+      const overlayChatBackground = mainStore.setting.get("overlay_chat_background");
+      const overlayBackground = mainStore.setting.get("overlay_background");
+      const overlayBackgroundArea = mainStore.setting.get("overlay_background_area");
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -12790,16 +12912,45 @@ p {
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
         IsView(true);
       }, []);
-      const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText, color }) => {
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Username, style: {
-            fontSize: `${overlayFontSize}px`,
-            width: overlaySortChatMessages ? "130px" : "",
-            color: overlayRandomUsername ? color : "#9dd9a5"
-          }, children: username }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.Message, style: { fontSize: `${overlayFontSize}px` }, children: messageText })
-        ] }, id2);
+      const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id: id2, username, messageText, color }) => {
+        const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : "";
+        const fontSize = `${overlayFontSize}px`;
+        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
+          color: overlayRandomUsername ? color : "#9dd9a5",
+          fontSize
+        }, children: username }) });
+        const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Message, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
+          fontSize
+        }, children: messageText }) });
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: classes(
+              styles.Chat,
+              overlayChatBackground ? styles.Background : false,
+              overlaySortChatMessages ? styles.Sorted : false
+            ),
+            style: {
+              width: `${overlayViewWidth}px`
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "div",
+              {
+                className: styles.MessageContainer,
+                style: {
+                  background
+                },
+                children: [
+                  userNameElem,
+                  messageElem
+                ]
+              }
+            )
+          },
+          id2
+        );
       });
+      const chatBackgroundStyle = `linear-gradient(0deg, rgba(0, 0, 0, ${overlayBackgroundOpacity}%) ${overlayBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
       return ReactDOM.createPortal(
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
@@ -12807,7 +12958,10 @@ p {
             ref: chatRef,
             className: classes(styles.OverlayChat, isView ? styles.View : false),
             onMouseDown: handleMouseDown,
-            style: { transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` },
+            style: {
+              transform: `translate(${translate.x}px, ${translate.y}px)`,
+              background: overlayBackground ? chatBackgroundStyle : ""
+            },
             children: chatsElem
           }
         ),
@@ -12884,10 +13038,10 @@ p {
       };
       const checkViewChat = () => {
         const buttonElement = document.querySelector(".view_ctrl .btn_chat");
+        if (!buttonElement) return;
         const computedStyle = window.getComputedStyle(buttonElement);
         const button = buttonElement.querySelector("button");
-        if (!button)
-          return;
+        if (!button) return;
         computedStyle.display == "block" && button.click();
       };
       reactExports.useEffect(() => {

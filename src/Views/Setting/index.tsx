@@ -25,19 +25,19 @@ const Setting = observer(() => {
     const frameChatPositionOpitons: I_OPTION[] = [
         {
             key: 0,
-            name: '상단',
+            name: '좌측 상단',
         },
         {
             key: 1,
-            name: '하단',
+            name: '좌측 하단',
         },
         {
             key: 2,
-            name: '좌측',
+            name: '우측 상단',
         },
         {
             key: 3,
-            name: '우측',
+            name: '우측 하단',
         },
     ];
 
@@ -76,17 +76,6 @@ const Setting = observer(() => {
 
         // 오버레이
         {
-            name: '닉네임 랜덤 색상',
-            disable: chat_style != 0,
-            values: [
-                {
-                    type: 'toggle',
-                    value: mainStore.setting.get('overlay_random_username'),
-                    cb: (value: unknown) => mainStore.setSetting('overlay_random_username', value, true)
-                }
-            ]
-        },
-        {
             name: '채팅 표시 개수',
             disable: chat_style != 0,
             values: [
@@ -100,7 +89,66 @@ const Setting = observer(() => {
             ]
         },
         {
-            name: '채팅 투명도',
+            name: '채팅 길이',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_view_width'),
+                    min: 0,
+                    max: 500,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_view_width', value, true)
+                }
+            ]
+        },
+        {
+            name: '폰트 크기',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('overlay_font_size'),
+                    min: 0,
+                    max: 28,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_font_size', value, true)
+                }
+            ]
+        },
+        {
+            name: '닉네임 랜덤 색상',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('overlay_random_username'),
+                    cb: (value: unknown) => mainStore.setSetting('overlay_random_username', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 메시지 정렬',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('overlay_sort_chat_messages'),
+                    cb: (value: unknown) => mainStore.setSetting('overlay_sort_chat_messages', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 배경 표시',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('overlay_chat_background'),
+                    cb: (value: unknown) => mainStore.setSetting('overlay_chat_background', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 배경 투명도',
             disable: chat_style != 0,
             values: [
                 {
@@ -109,6 +157,17 @@ const Setting = observer(() => {
                     min: 0,
                     max: 100,
                     cb: (value: unknown) => mainStore.setSetting('overlay_chat_opacity', value, true)
+                }
+            ]
+        },
+        {
+            name: '배경 표시',
+            disable: chat_style != 0,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('overlay_background'),
+                    cb: (value: unknown) => mainStore.setSetting('overlay_background', value, true)
                 }
             ]
         },
@@ -126,39 +185,15 @@ const Setting = observer(() => {
             ]
         },
         {
-            name: '채팅창 길이',
+            name: '배경 영역',
             disable: chat_style != 0,
             values: [
                 {
                     type: 'slider',
-                    value: mainStore.setting.get('overlay_view_width'),
+                    value: mainStore.setting.get('overlay_background_area'),
                     min: 0,
-                    max: 500,
-                    cb: (value: unknown) => mainStore.setSetting('overlay_view_width', value, true)
-                }
-            ]
-        },
-        {
-            name: '채팅 메시지 정렬',
-            disable: chat_style != 0,
-            values: [
-                {
-                    type: 'toggle',
-                    value: mainStore.setting.get('overlay_sort_chat_messages'),
-                    cb: (value: unknown) => mainStore.setSetting('overlay_sort_chat_messages', value, true)
-                }
-            ]
-        },
-        {
-            name: '폰트 크기',
-            disable: chat_style != 0,
-            values: [
-                {
-                    type: 'slider',
-                    value: mainStore.setting.get('overlay_font_size'),
-                    min: 0,
-                    max: 28,
-                    cb: (value: unknown) => mainStore.setSetting('overlay_font_size', value, true)
+                    max: 100,
+                    cb: (value: unknown) => mainStore.setSetting('overlay_background_area', value, true)
                 }
             ]
         },
@@ -177,6 +212,45 @@ const Setting = observer(() => {
             ]
         },
         {
+            name: '채팅 표시 개수',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_view_count'),
+                    min: 1,
+                    max: mainStore.maxChats,
+                    cb: (value: unknown) => mainStore.setSetting('frame_view_count', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 길이',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_view_width'),
+                    min: 0,
+                    max: 500,
+                    cb: (value: unknown) => mainStore.setSetting('frame_view_width', value, true)
+                }
+            ]
+        },
+        {
+            name: '폰트 크기',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_font_size'),
+                    min: 0,
+                    max: 28,
+                    cb: (value: unknown) => mainStore.setSetting('frame_font_size', value, true)
+                }
+            ]
+        },
+        {
             name: '닉네임 랜덤 색상',
             disable: chat_style != 1,
             values: [
@@ -184,6 +258,17 @@ const Setting = observer(() => {
                     type: 'toggle',
                     value: mainStore.setting.get('frame_random_username'),
                     cb: (value: unknown) => mainStore.setSetting('frame_random_username', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 메시지 정렬',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('frame_sort_chat_messages'),
+                    cb: (value: unknown) => mainStore.setSetting('frame_sort_chat_messages', value, true)
                 }
             ]
         },
@@ -199,21 +284,8 @@ const Setting = observer(() => {
             ]
         },
         {
-            name: '채팅 표시 개수',
-            disable: chat_style != 1,
-            values: [
-                {
-                    type: 'slider',
-                    value: mainStore.setting.get('frame_view_count'),
-                    min: 1,
-                    max: mainStore.maxChats,
-                    cb: (value: unknown) => mainStore.setSetting('frame_view_count', value, true)
-                }
-            ]
-        },
-        {
             name: '채팅 배경 투명도',
-            disable: chat_style != 1 || !mainStore.setting.get('frame_chat_background'),
+            disable: chat_style != 1,
             values: [
                 {
                     type: 'slider',
@@ -221,6 +293,17 @@ const Setting = observer(() => {
                     min: 0,
                     max: 100,
                     cb: (value: unknown) => mainStore.setSetting('frame_chat_opacity', value, true)
+                }
+            ]
+        },
+        {
+            name: '배경 표시',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('frame_background'),
+                    cb: (value: unknown) => mainStore.setSetting('frame_background', value, true)
                 }
             ]
         },
@@ -247,43 +330,6 @@ const Setting = observer(() => {
                     min: 0,
                     max: 100,
                     cb: (value: unknown) => mainStore.setSetting('frame_background_area', value, true)
-                }
-            ]
-        },
-        {
-            name: '채팅창 길이',
-            disable: chat_style != 1 || (mainStore.setting.get('frame_chat_position') != 2 && mainStore.setting.get('frame_chat_position') != 3),
-            values: [
-                {
-                    type: 'slider',
-                    value: mainStore.setting.get('frame_view_width'),
-                    min: 0,
-                    max: 500,
-                    cb: (value: unknown) => mainStore.setSetting('frame_view_width', value, true)
-                }
-            ]
-        },
-        {
-            name: '채팅 메시지 정렬',
-            disable: chat_style != 1,
-            values: [
-                {
-                    type: 'toggle',
-                    value: mainStore.setting.get('frame_sort_chat_messages'),
-                    cb: (value: unknown) => mainStore.setSetting('frame_sort_chat_messages', value, true)
-                }
-            ]
-        },
-        {
-            name: '폰트 크기',
-            disable: chat_style != 1,
-            values: [
-                {
-                    type: 'slider',
-                    value: mainStore.setting.get('frame_font_size'),
-                    min: 0,
-                    max: 28,
-                    cb: (value: unknown) => mainStore.setSetting('frame_font_size', value, true)
                 }
             ]
         },
