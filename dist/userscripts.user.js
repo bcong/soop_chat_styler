@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241121222020
+// @version      20241121222203
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11779,7 +11779,7 @@ p {
         });
         __publicField(this, "addChat", (chat) => {
           this.chats.push(chat);
-          if (this.chats.length >= this.maxChats + 10)
+          if (this.chats.length >= this.maxChats)
             this.chats.shift();
         });
         __publicField(this, "lastChat", () => {

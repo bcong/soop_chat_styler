@@ -120,7 +120,7 @@ export default class MainStore {
     addChat = (chat: I_CHAT) => {
         this.chats.push(chat);
 
-        if (this.chats.length >= this.maxChats + 10)
+        if (this.chats.length >= this.maxChats)
             this.chats.shift();
     };
 
