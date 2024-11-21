@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241122015945
+// @version      20241122030344
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -411,10 +411,10 @@ p {
 ._FrameChat_lkp12_1 ._Chat_lkp12_25._Background_lkp12_64 ._MessageContainer_lkp12_31 {
   padding: 4px 8px;
 }
-._OverlayChat_1p3wx_1 {
+._OverlayChat_oqjno_1 {
   position: fixed;
   flex-direction: column;
-  z-index: 998;
+  z-index: 1502;
   border-radius: 8px;
   cursor: move;
   left: 0;
@@ -423,47 +423,47 @@ p {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1p3wx_1._View_1p3wx_13 {
+._OverlayChat_oqjno_1._View_oqjno_13 {
   display: flex;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16._Sorted_oqjno_22 ._MessageContainer_oqjno_22 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16._Sorted_oqjno_22 ._MessageContainer_oqjno_22 ._Username_oqjno_26 {
   width: 126px;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Sorted_1p3wx_22 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16._Sorted_oqjno_22 ._MessageContainer_oqjno_22 ._Message_oqjno_22 {
   flex: 1;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16._Background_1p3wx_32 ._MessageContainer_1p3wx_22 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16._Background_oqjno_32 ._MessageContainer_oqjno_22 {
   padding: 4px 8px;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 ._MessageContainer_oqjno_22 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 ._MessageContainer_oqjno_22 ._Username_oqjno_26 {
   display: inline;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Username_1p3wx_26 p {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 ._MessageContainer_oqjno_22 ._Username_oqjno_26 p {
   display: inline;
   font-weight: 700;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 ._MessageContainer_oqjno_22 ._Message_oqjno_22 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1p3wx_1 ._Chat_1p3wx_16 ._MessageContainer_1p3wx_22 ._Message_1p3wx_22 p {
+._OverlayChat_oqjno_1 ._Chat_oqjno_16 ._MessageContainer_oqjno_22 ._Message_oqjno_22 p {
   display: inline;
   font-weight: 500;
   color: #f6f9ff;
@@ -12807,14 +12807,14 @@ p {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1p3wx_1";
-    const View = "_View_1p3wx_13";
-    const Chat$1 = "_Chat_1p3wx_16";
-    const Sorted = "_Sorted_1p3wx_22";
-    const MessageContainer = "_MessageContainer_1p3wx_22";
-    const Username = "_Username_1p3wx_26";
-    const Message = "_Message_1p3wx_22";
-    const Background = "_Background_1p3wx_32";
+    const OverlayChat$1 = "_OverlayChat_oqjno_1";
+    const View = "_View_oqjno_13";
+    const Chat$1 = "_Chat_oqjno_16";
+    const Sorted = "_Sorted_oqjno_22";
+    const MessageContainer = "_MessageContainer_oqjno_22";
+    const Username = "_Username_oqjno_26";
+    const Message = "_Message_oqjno_22";
+    const Background = "_Background_oqjno_32";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
@@ -12832,7 +12832,7 @@ p {
       const [isDragging, setIsDragging] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
-      const [translate, setTranslate] = reactExports.useState({ x: 0, y: 0 });
+      const [position, setPosition] = reactExports.useState({ left: 0, top: 0 });
       const overlayViewCount = mainStore.setting.get("overlay_view_count");
       const overlayViewOpacity = mainStore.setting.get("overlay_chat_opacity");
       const overlayBackgroundOpacity = mainStore.setting.get("overlay_background_opacity");
@@ -12851,23 +12851,24 @@ p {
           y: e2.clientY
         });
         setOffset({
-          x: translate.x,
-          y: translate.y
+          x: position.left,
+          y: position.top
         });
       };
       const handleMouseMove = (e2) => {
         if (!isDragging || !chatRef.current) return;
         const currentX = e2.clientX - initialPosition.x;
         const currentY = e2.clientY - initialPosition.y;
-        const newTranslateX = offset.x + currentX;
-        const newTranslateY = offset.y + currentY;
-        setTranslate({ x: newTranslateX, y: newTranslateY });
-        chatRef.current.style.transform = `translate(${newTranslateX}px, ${newTranslateY}px)`;
+        const newLeft = offset.x + currentX;
+        const newTop = offset.y + currentY;
+        setPosition({ left: newLeft, top: newTop });
+        chatRef.current.style.left = `${newLeft}px`;
+        chatRef.current.style.top = `${newTop}px`;
       };
       const handleMouseUp = () => {
         setIsDragging(false);
-        mainStore.setSetting("overlay_x", translate.x, true);
-        mainStore.setSetting("overlay_y", translate.y, true);
+        mainStore.setSetting("overlay_x", position.left, true);
+        mainStore.setSetting("overlay_y", position.top, true);
       };
       reactExports.useEffect(() => {
         if (isDragging) {
@@ -12881,35 +12882,41 @@ p {
           document.removeEventListener("mousemove", handleMouseMove);
           document.removeEventListener("mouseup", handleMouseUp);
         };
-      }, [translate, isDragging]);
+      }, [position, isDragging]);
       reactExports.useEffect(() => {
         const handleResize = () => {
           if (!chatRef.current) return;
           const rect = chatRef.current.getBoundingClientRect();
           const windowWidth = window.innerWidth;
           const windowHeight = window.innerHeight;
-          let newX = translate.x;
-          let newY = translate.y;
-          if (rect.left < 0) newX = 0;
-          if (rect.right > windowWidth) newX = windowWidth - rect.width;
-          if (rect.top < 0) newY = 0;
-          if (rect.bottom > windowHeight) newY = windowHeight - rect.height;
-          setTranslate({ x: newX, y: newY });
-          chatRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
-          mainStore.setSetting("overlay_x", newX, true);
-          mainStore.setSetting("overlay_y", newY, true);
+          let newLeft = position.left;
+          let newTop = position.top;
+          if (rect.left < 0 || rect.right > windowWidth) {
+            if (rect.left < 0) newLeft = 0;
+            if (rect.right > windowWidth) newLeft = windowWidth - rect.width;
+          }
+          if (rect.top < 0 || rect.bottom > windowHeight) {
+            if (rect.top < 0) newTop = 0;
+            if (rect.bottom > windowHeight) newTop = windowHeight - rect.height;
+          }
+          setPosition({ left: newLeft, top: newTop });
+          chatRef.current.style.left = `${newLeft}px`;
+          chatRef.current.style.top = `${newTop}px`;
+          mainStore.setSetting("overlay_x", newLeft, true);
+          mainStore.setSetting("overlay_y", newTop, true);
         };
         window.addEventListener("resize", handleResize);
         return () => {
           window.removeEventListener("resize", handleResize);
         };
-      }, [translate]);
+      }, [position]);
       reactExports.useEffect(() => {
         if (!chatRef.current) return;
-        const left = mainStore.setting.get("overlay_x");
-        const top = mainStore.setting.get("overlay_y");
-        setTranslate({ x: left || 0, y: top || 0 });
-        chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
+        const left = mainStore.setting.get("overlay_x") || 0;
+        const top = mainStore.setting.get("overlay_y") || 0;
+        setPosition({ left, top });
+        chatRef.current.style.left = `${left}px`;
+        chatRef.current.style.top = `${top}px`;
         IsView(true);
       }, []);
       const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id: id2, username, messageText, color }) => {
@@ -12959,7 +12966,8 @@ p {
             className: classes(styles.OverlayChat, isView ? styles.View : false),
             onMouseDown: handleMouseDown,
             style: {
-              transform: `translate(${translate.x}px, ${translate.y}px)`,
+              left: `${position.left}px`,
+              top: `${position.top}px`,
               background: overlayBackground ? chatBackgroundStyle : ""
             },
             children: chatsElem

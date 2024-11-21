@@ -12,7 +12,8 @@ const OverlayChat = observer(() => {
     const [isDragging, setIsDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
-    const [translate, setTranslate] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({ left: 0, top: 0 });
+
     const overlayViewCount = mainStore.setting.get('overlay_view_count');
     const overlayViewOpacity = mainStore.setting.get('overlay_chat_opacity');
     const overlayBackgroundOpacity = mainStore.setting.get('overlay_background_opacity');
@@ -32,8 +33,8 @@ const OverlayChat = observer(() => {
             y: e.clientY
         });
         setOffset({
-            x: translate.x,
-            y: translate.y
+            x: position.left,
+            y: position.top
         });
     };
 
@@ -41,18 +42,20 @@ const OverlayChat = observer(() => {
         if (!isDragging || !chatRef.current) return;
         const currentX = e.clientX - initialPosition.x;
         const currentY = e.clientY - initialPosition.y;
-        const newTranslateX = offset.x + currentX;
-        const newTranslateY = offset.y + currentY;
 
-        setTranslate({ x: newTranslateX, y: newTranslateY });
+        const newLeft = offset.x + currentX;
+        const newTop = offset.y + currentY;
 
-        chatRef.current.style.transform = `translate(${newTranslateX}px, ${newTranslateY}px)`;
+        setPosition({ left: newLeft, top: newTop });
+
+        chatRef.current.style.left = `${newLeft}px`;
+        chatRef.current.style.top = `${newTop}px`;
     };
 
     const handleMouseUp = () => {
         setIsDragging(false);
-        mainStore.setSetting('overlay_x', translate.x, true);
-        mainStore.setSetting('overlay_y', translate.y, true);
+        mainStore.setSetting('overlay_x', position.left, true);
+        mainStore.setSetting('overlay_y', position.top, true);
     };
 
     useEffect(() => {
@@ -68,7 +71,7 @@ const OverlayChat = observer(() => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [translate, isDragging]);
+    }, [position, isDragging]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -78,20 +81,26 @@ const OverlayChat = observer(() => {
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
 
-            let newX = translate.x;
-            let newY = translate.y;
+            let newLeft = position.left;
+            let newTop = position.top;
 
-            if (rect.left < 0) newX = 0;
-            if (rect.right > windowWidth) newX = windowWidth - rect.width;
-            if (rect.top < 0) newY = 0;
-            if (rect.bottom > windowHeight) newY = windowHeight - rect.height;
+            if (rect.left < 0 || rect.right > windowWidth) {
+                if (rect.left < 0) newLeft = 0;
+                if (rect.right > windowWidth) newLeft = windowWidth - rect.width;
+            }
 
-            setTranslate({ x: newX, y: newY });
+            if (rect.top < 0 || rect.bottom > windowHeight) {
+                if (rect.top < 0) newTop = 0;
+                if (rect.bottom > windowHeight) newTop = windowHeight - rect.height;
+            }
 
-            chatRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+            setPosition({ left: newLeft, top: newTop });
 
-            mainStore.setSetting('overlay_x', newX, true);
-            mainStore.setSetting('overlay_y', newY, true);
+            chatRef.current.style.left = `${newLeft}px`;
+            chatRef.current.style.top = `${newTop}px`;
+
+            mainStore.setSetting('overlay_x', newLeft, true);
+            mainStore.setSetting('overlay_y', newTop, true);
         };
 
         window.addEventListener("resize", handleResize);
@@ -99,17 +108,18 @@ const OverlayChat = observer(() => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [translate]);
+    }, [position]);
 
     useEffect(() => {
         if (!chatRef.current) return;
 
-        const left = mainStore.setting.get('overlay_x');
-        const top = mainStore.setting.get('overlay_y');
+        const left = mainStore.setting.get('overlay_x') || 0;
+        const top = mainStore.setting.get('overlay_y') || 0;
 
-        setTranslate({ x: left || 0, y: top || 0 });
+        setPosition({ left, top });
 
-        chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
+        chatRef.current.style.left = `${left}px`;
+        chatRef.current.style.top = `${top}px`;
         IsView(true);
     }, []);
 
@@ -170,7 +180,8 @@ const OverlayChat = observer(() => {
                 className={classes(styles.OverlayChat, isView ? styles.View : false)}
                 onMouseDown={handleMouseDown}
                 style={{
-                    transform: `translate(${translate.x}px, ${translate.y}px)`,
+                    left: `${position.left}px`,
+                    top: `${position.top}px`,
                     background: overlayBackground ? chatBackgroundStyle : '',
                 }}
             >
