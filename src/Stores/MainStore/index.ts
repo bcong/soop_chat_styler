@@ -41,6 +41,10 @@ export default class MainStore {
             key: 'overlay_sort_chat_messages',
             value: false,
         },
+        {
+            key: 'overlay_font_size',
+            value: 14,
+        },
 
         // 프레임
         {
@@ -78,6 +82,10 @@ export default class MainStore {
         {
             key: 'frame_sort_chat_messages',
             value: false,
+        },
+        {
+            key: 'frame_font_size',
+            value: 14,
         },
     ];
 
