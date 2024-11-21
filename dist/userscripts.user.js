@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241121175622
+// @version      20241121203612
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -412,33 +412,37 @@ p {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-._OverlayChat_1ghi9_1 {
+._OverlayChat_130b5_1 {
   position: fixed;
   z-index: 998;
   overflow: hidden;
   border-radius: 10px;
   cursor: move;
   left: 0;
-  bottom: 0;
+  top: 0;
+  display: none;
 }
-._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 {
+._OverlayChat_130b5_1._View_130b5_11 {
+  display: block;
+}
+._OverlayChat_130b5_1 ._Chat_130b5_14 {
   display: flex;
   flex-direction: row;
   border-radius: 10px;
   padding: 4px 10px;
   margin-bottom: 6px;
 }
-._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p {
+._OverlayChat_130b5_1 ._Chat_130b5_14 p {
   display: flex;
   flex-direction: row;
   font-size: 14px;
   text-shadow: -1px 0px #000, 0px 1px #000, 1px 0px #000, 0px -1px #000;
 }
-._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p._Username_1ghi9_23 {
+._OverlayChat_130b5_1 ._Chat_130b5_14 p._Username_130b5_27 {
   font-weight: 700;
   white-space: wrap;
 }
-._OverlayChat_1ghi9_1 ._Chat_1ghi9_10 p._Message_1ghi9_27 {
+._OverlayChat_130b5_1 ._Chat_130b5_14 p._Message_130b5_31 {
   white-space: wrap;
   font-weight: 500;
   color: #f6f9ff;
@@ -7468,7 +7472,7 @@ p {
       return null;
     };
     const SettingTemplate$1 = "_SettingTemplate_1v6zt_1";
-    const View$2 = "_View_1v6zt_16";
+    const View$3 = "_View_1v6zt_16";
     const Header = "_Header_1v6zt_19";
     const Title = "_Title_1v6zt_30";
     const Menus$1 = "_Menus_1v6zt_33";
@@ -7476,7 +7480,7 @@ p {
     const Content = "_Content_1v6zt_54";
     const styles$7 = {
       SettingTemplate: SettingTemplate$1,
-      View: View$2,
+      View: View$3,
       Header,
       Title,
       Menus: Menus$1,
@@ -7567,14 +7571,14 @@ p {
     const Options = "_Options_g79p9_31";
     const Option = "_Option_g79p9_31";
     const Selected = "_Selected_g79p9_55";
-    const View$1 = "_View_g79p9_65";
+    const View$2 = "_View_g79p9_65";
     const styles$4 = {
       ListBox: ListBox$1,
       ListValue,
       Options,
       Option,
       Selected,
-      View: View$1
+      View: View$2
     };
     const ListBox = ({
       value = 0,
@@ -12139,12 +12143,12 @@ p {
     const InputBox$1 = "_InputBox_1a5to_1";
     const InputValue = "_InputValue_1a5to_4";
     const Tip = "_Tip_1a5to_25";
-    const View = "_View_1a5to_39";
+    const View$1 = "_View_1a5to_39";
     const styles$3 = {
       InputBox: InputBox$1,
       InputValue,
       Tip,
-      View
+      View: View$1
     };
     const InputBox = ({
       value,
@@ -12680,12 +12684,14 @@ p {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1ghi9_1";
-    const Chat$1 = "_Chat_1ghi9_10";
-    const Username = "_Username_1ghi9_23";
-    const Message = "_Message_1ghi9_27";
+    const OverlayChat$1 = "_OverlayChat_130b5_1";
+    const View = "_View_130b5_11";
+    const Chat$1 = "_Chat_130b5_14";
+    const Username = "_Username_130b5_27";
+    const Message = "_Message_130b5_31";
     const styles = {
       OverlayChat: OverlayChat$1,
+      View,
       Chat: Chat$1,
       Username,
       Message
@@ -12693,6 +12699,7 @@ p {
     const OverlayChat = observer(() => {
       const mainStore = useMainStore();
       const chatRef = reactExports.useRef(null);
+      const [isView, IsView] = reactExports.useState(false);
       const [isDragging, setIsDragging] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
@@ -12744,11 +12751,34 @@ p {
         };
       }, [translate, isDragging]);
       reactExports.useEffect(() => {
+        const handleResize = () => {
+          if (!chatRef.current) return;
+          const rect = chatRef.current.getBoundingClientRect();
+          const windowWidth = window.innerWidth;
+          const windowHeight = window.innerHeight;
+          let newX = translate.x;
+          let newY = translate.y;
+          if (rect.left < 0) newX = 0;
+          if (rect.right > windowWidth) newX = windowWidth - rect.width;
+          if (rect.top < 0) newY = 0;
+          if (rect.bottom > windowHeight) newY = windowHeight - rect.height;
+          setTranslate({ x: newX, y: newY });
+          chatRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+          mainStore.setSetting("overlay_x", newX, true);
+          mainStore.setSetting("overlay_y", newY, true);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+          window.removeEventListener("resize", handleResize);
+        };
+      }, [translate]);
+      reactExports.useEffect(() => {
         if (!chatRef.current) return;
         const left = mainStore.setting.get("overlay_x");
         const top = mainStore.setting.get("overlay_y");
         setTranslate({ x: left || 0, y: top || 0 });
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
+        IsView(true);
       }, []);
       const chatsElem = mainStore.chats.slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1).map(({ id: id2, username, messageText, color }) => {
         return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.Chat, style: { backgroundColor: `rgba(0,0,0,${overlayViewOpacity}%)` }, children: [
@@ -12765,7 +12795,7 @@ p {
           "div",
           {
             ref: chatRef,
-            className: styles.OverlayChat,
+            className: classes(styles.OverlayChat, isView ? styles.View : false),
             onMouseDown: handleMouseDown,
             style: { transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` },
             children: chatsElem

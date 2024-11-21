@@ -3,10 +3,12 @@ import styles from './style.module.less';
 import { useMainStore } from '@Stores/index';
 import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { classes } from '@Utils/index';
 
 const OverlayChat = observer(() => {
     const mainStore = useMainStore();
     const chatRef = useRef<HTMLDivElement | null>(null);
+    const [isView, IsView] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
@@ -66,6 +68,37 @@ const OverlayChat = observer(() => {
     }, [translate, isDragging]);
 
     useEffect(() => {
+        const handleResize = () => {
+            if (!chatRef.current) return;
+
+            const rect = chatRef.current.getBoundingClientRect();
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let newX = translate.x;
+            let newY = translate.y;
+
+            if (rect.left < 0) newX = 0;
+            if (rect.right > windowWidth) newX = windowWidth - rect.width;
+            if (rect.top < 0) newY = 0;
+            if (rect.bottom > windowHeight) newY = windowHeight - rect.height;
+
+            setTranslate({ x: newX, y: newY });
+
+            chatRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+
+            mainStore.setSetting('overlay_x', newX, true);
+            mainStore.setSetting('overlay_y', newY, true);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [translate]);
+
+    useEffect(() => {
         if (!chatRef.current) return;
 
         const left = mainStore.setting.get('overlay_x');
@@ -74,19 +107,7 @@ const OverlayChat = observer(() => {
         setTranslate({ x: left || 0, y: top || 0 });
 
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
-    }, []);
-
-    useEffect(() => {
-        console.log('resize')
-        const handleResize = () => {
-            console.log(window.innerWidth, window.innerHeight);
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
+        IsView(true);
     }, []);
 
     const chatsElem = mainStore.chats
@@ -112,7 +133,7 @@ const OverlayChat = observer(() => {
         ReactDOM.createPortal(
             <div
                 ref={chatRef}
-                className={styles.OverlayChat}
+                className={classes(styles.OverlayChat, isView ? styles.View : false)}
                 onMouseDown={handleMouseDown}
                 style={{ transform: `translate(${translate.x}px, ${translate.y}px)`, width: overlayViewWidth, backgroundColor: `rgba(0,0,0,${overlayBackgroundOpacity}%)` }}
             >
