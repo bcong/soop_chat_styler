@@ -75,6 +75,19 @@ const OverlayChat = observer(() => {
         chatRef.current.style.transform = `translate(${left}px, ${top}px)`;
     }, []);
 
+    useEffect(() => {
+        console.log('resize')
+        const handleResize = () => {
+            console.log(window.innerWidth, window.innerHeight);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const chatsElem = mainStore.chats
         .slice(overlayViewCount > 20 ? -20 : -overlayViewCount || -1)
         .map(({ id, username, messageText, color }) => {
