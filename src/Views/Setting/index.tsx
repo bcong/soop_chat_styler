@@ -251,6 +251,19 @@ const Setting = observer(() => {
             ]
         },
         {
+            name: '채팅 오프셋',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_offset'),
+                    min: 0,
+                    max: 50,
+                    cb: (value: unknown) => mainStore.setSetting('frame_offset', value, true)
+                }
+            ]
+        },
+        {
             name: '닉네임 랜덤 색상',
             disable: chat_style != 1,
             values: [

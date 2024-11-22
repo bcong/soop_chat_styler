@@ -19,6 +19,7 @@ const FrameChat = observer(() => {
     const frameSortChatMessages = mainStore.setting.get('frame_sort_chat_messages');
     const frameFontSize = mainStore.setting.get('frame_font_size');
     const frameBackground = mainStore.setting.get('frame_background');
+    const frameOffset = mainStore.setting.get('frame_offset');
 
     useEffect(() => {
         const div = document.querySelector('#videoLayer');
@@ -102,6 +103,7 @@ const FrameChat = observer(() => {
             className={classes(styles.FrameChat, frameChatPositionCls)}
             style={{
                 background: frameBackground ? chatBackgroundStyle : '',
+                padding: `${frameOffset}px`
             }}>
             {chatsElem}
         </div>,

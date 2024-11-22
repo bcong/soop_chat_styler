@@ -103,6 +103,10 @@ export default class MainStore {
             key: 'frame_background',
             value: false,
         },
+        {
+            key: 'frame_offset',
+            value: 14,
+        }
     ];
 
     @observable

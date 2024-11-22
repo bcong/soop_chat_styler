@@ -34,6 +34,7 @@ export type T_SETTING =
     | 'frame_view_width'
     | 'frame_sort_chat_messages'
     | 'frame_font_size'
+    | 'frame_offset'
 
 export type T_SETTING_TYPE =
     | 'toggle'
