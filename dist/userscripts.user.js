@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241124222548
+// @version      20241124222755
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12532,7 +12532,7 @@ p {
           values: [
             {
               type: "slider",
-              value: mainStore.setting.get("frame_offset"),
+              value: mainStore.setting.get("frame_offset_x"),
               min: 0,
               max: 50,
               cb: (value) => mainStore.setSetting("frame_offset_x", value, true)
@@ -12545,7 +12545,7 @@ p {
           values: [
             {
               type: "slider",
-              value: mainStore.setting.get("frame_offset"),
+              value: mainStore.setting.get("frame_offset_y"),
               min: 0,
               max: 50,
               cb: (value) => mainStore.setSetting("frame_offset_y", value, true)
