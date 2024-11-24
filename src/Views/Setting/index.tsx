@@ -256,7 +256,7 @@ const Setting = observer(() => {
             values: [
                 {
                     type: 'slider',
-                    value: mainStore.setting.get('frame_offset'),
+                    value: mainStore.setting.get('frame_offset_x'),
                     min: 0,
                     max: 50,
                     cb: (value: unknown) => mainStore.setSetting('frame_offset_x', value, true)
@@ -269,7 +269,7 @@ const Setting = observer(() => {
             values: [
                 {
                     type: 'slider',
-                    value: mainStore.setting.get('frame_offset'),
+                    value: mainStore.setting.get('frame_offset_y'),
                     min: 0,
                     max: 50,
                     cb: (value: unknown) => mainStore.setSetting('frame_offset_y', value, true)
