@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241122223630
+// @version      20241124222548
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11815,7 +11815,11 @@ p {
             value: false
           },
           {
-            key: "frame_offset",
+            key: "frame_offset_x",
+            value: 14
+          },
+          {
+            key: "frame_offset_y",
             value: 14
           }
         ]);
@@ -12523,7 +12527,7 @@ p {
           ]
         },
         {
-          name: "채팅 오프셋",
+          name: "채팅 오프셋 X축",
           disable: chat_style != 1,
           values: [
             {
@@ -12531,7 +12535,20 @@ p {
               value: mainStore.setting.get("frame_offset"),
               min: 0,
               max: 50,
-              cb: (value) => mainStore.setSetting("frame_offset", value, true)
+              cb: (value) => mainStore.setSetting("frame_offset_x", value, true)
+            }
+          ]
+        },
+        {
+          name: "채팅 오프셋 Y축",
+          disable: chat_style != 1,
+          values: [
+            {
+              type: "slider",
+              value: mainStore.setting.get("frame_offset"),
+              min: 0,
+              max: 50,
+              cb: (value) => mainStore.setSetting("frame_offset_y", value, true)
             }
           ]
         },
@@ -12763,7 +12780,8 @@ p {
       const frameSortChatMessages = mainStore.setting.get("frame_sort_chat_messages");
       const frameFontSize = mainStore.setting.get("frame_font_size");
       const frameBackground = mainStore.setting.get("frame_background");
-      const frameOffset = mainStore.setting.get("frame_offset");
+      const frameOffsetX = mainStore.setting.get("frame_offset_x");
+      const frameOffsetY = mainStore.setting.get("frame_offset_y");
       reactExports.useEffect(() => {
         const div = document.querySelector("#videoLayer");
         if (div) {
@@ -12835,7 +12853,10 @@ p {
             className: classes(styles$1.FrameChat, frameChatPositionCls),
             style: {
               background: frameBackground ? chatBackgroundStyle : "",
-              padding: `${frameOffset}px`
+              paddingLeft: `${frameOffsetX}px`,
+              paddingRight: `${frameOffsetX}px`,
+              paddingTop: `${frameOffsetY}px`,
+              paddingBottom: `${frameOffsetY}px`
             },
             children: chatsElem
           }

@@ -251,7 +251,7 @@ const Setting = observer(() => {
             ]
         },
         {
-            name: '채팅 오프셋',
+            name: '채팅 오프셋 X축',
             disable: chat_style != 1,
             values: [
                 {
@@ -259,7 +259,20 @@ const Setting = observer(() => {
                     value: mainStore.setting.get('frame_offset'),
                     min: 0,
                     max: 50,
-                    cb: (value: unknown) => mainStore.setSetting('frame_offset', value, true)
+                    cb: (value: unknown) => mainStore.setSetting('frame_offset_x', value, true)
+                }
+            ]
+        },
+        {
+            name: '채팅 오프셋 Y축',
+            disable: chat_style != 1,
+            values: [
+                {
+                    type: 'slider',
+                    value: mainStore.setting.get('frame_offset'),
+                    min: 0,
+                    max: 50,
+                    cb: (value: unknown) => mainStore.setSetting('frame_offset_y', value, true)
                 }
             ]
         },

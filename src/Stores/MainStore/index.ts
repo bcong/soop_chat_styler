@@ -104,7 +104,11 @@ export default class MainStore {
             value: false,
         },
         {
-            key: 'frame_offset',
+            key: 'frame_offset_x',
+            value: 14,
+        },
+        {
+            key: 'frame_offset_y',
             value: 14,
         }
     ];
