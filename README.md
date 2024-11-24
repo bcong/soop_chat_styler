@@ -29,3 +29,9 @@
 - 방송 화면에 **해당 버튼**이 보이는 경우, 버튼을 클릭하여 기존 채팅창을 표시해 주세요.
 - ![image](https://github.com/user-attachments/assets/b659c4d1-023c-40d0-95c9-2ec67fc1566c)
 
+## 사용 예시
+![image](https://github.com/user-attachments/assets/3f08c15d-2a5a-4343-b112-ee85f5d6cbb6)
+
+![image](https://github.com/user-attachments/assets/635cc8a5-daca-4034-abf7-1134aeed1c43)
+
+**(문제 시 수정 하겠습니다)**
