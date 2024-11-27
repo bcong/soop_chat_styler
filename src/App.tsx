@@ -44,7 +44,7 @@ const App = () => {
         if (!chatArea) return;
 
         const chatItems = chatArea.querySelectorAll('.chatting-list-item');
-        const recentChats = Array.from(chatItems).slice(-10);
+        const recentChats = Array.from(chatItems).slice(-mainStore.maxChats);
 
         if (recentChats.length <= 1) return;
 

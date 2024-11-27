@@ -5,7 +5,7 @@
     "type": "module",
     "author": {
         "name": "KyungSub Kim",
-        "email": "sudn_@naver.com"
+        "email": "bcong9455@gmail.com"
     },
     "scripts": {
         "dev": "vite --host 0.0.0.0",
