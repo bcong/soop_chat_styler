@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241215150019
+// @version      20241215150621
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -363,70 +363,70 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_1s8wn_1 {
+._FrameChat_wn5ug_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_1s8wn_1._LeftTop_1s8wn_8 {
+._FrameChat_wn5ug_1._LeftTop_wn5ug_8 {
   top: 0;
 }
-._FrameChat_1s8wn_1._LeftBottom_1s8wn_11 {
+._FrameChat_wn5ug_1._LeftBottom_wn5ug_11 {
   bottom: 0;
 }
-._FrameChat_1s8wn_1._RightTop_1s8wn_14 {
+._FrameChat_wn5ug_1._RightTop_wn5ug_14 {
   right: 0;
   top: 0;
 }
-._FrameChat_1s8wn_1._RightBottom_1s8wn_18 {
+._FrameChat_wn5ug_1._RightBottom_wn5ug_18 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22._Sorted_1s8wn_28 ._MessageContainer_1s8wn_28 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22._Sorted_1s8wn_28 ._MessageContainer_1s8wn_28 ._Username_1s8wn_32 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 {
   width: 126px;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22._Sorted_1s8wn_28 ._MessageContainer_1s8wn_28 ._Message_1s8wn_28 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 {
   flex: 1;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 ._MessageContainer_1s8wn_28 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 ._MessageContainer_1s8wn_28 ._Username_1s8wn_32 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 ._MessageContainer_1s8wn_28 ._Username_1s8wn_32 p {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 p {
   display: inline;
   font-weight: 700;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 ._MessageContainer_1s8wn_28 ._Message_1s8wn_28 {
-  display: inline-block;
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 {
+  display: inline;
   word-break: break-all;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22 ._MessageContainer_1s8wn_28 ._Message_1s8wn_28 p {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 p {
   display: inline;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_1s8wn_1 ._Chat_1s8wn_22._Background_1s8wn_61 ._MessageContainer_1s8wn_28 {
+._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Background_wn5ug_61 ._MessageContainer_wn5ug_28 {
   padding: 4px 8px;
 }
-._OverlayChat_1i2dw_1 {
+._OverlayChat_yyao0_1 {
   position: fixed;
   flex-direction: column;
   z-index: 1502;
@@ -438,47 +438,47 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1i2dw_1._View_1i2dw_13 {
+._OverlayChat_yyao0_1._View_yyao0_13 {
   display: flex;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16._Sorted_1i2dw_22 ._MessageContainer_1i2dw_22 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16._Sorted_1i2dw_22 ._MessageContainer_1i2dw_22 ._Username_1i2dw_26 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 ._Username_yyao0_26 {
   width: 126px;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16._Sorted_1i2dw_22 ._MessageContainer_1i2dw_22 ._Message_1i2dw_22 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 ._Message_yyao0_22 {
   flex: 1;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16._Background_1i2dw_32 ._MessageContainer_1i2dw_22 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16._Background_yyao0_32 ._MessageContainer_yyao0_22 {
   padding: 4px 8px;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 ._MessageContainer_1i2dw_22 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 ._MessageContainer_1i2dw_22 ._Username_1i2dw_26 {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Username_yyao0_26 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 ._MessageContainer_1i2dw_22 ._Username_1i2dw_26 p {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Username_yyao0_26 p {
   display: inline;
   font-weight: 700;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 ._MessageContainer_1i2dw_22 ._Message_1i2dw_22 {
-  display: inline-block;
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Message_yyao0_22 {
+  display: inline;
   word-break: break-all;
 }
-._OverlayChat_1i2dw_1 ._Chat_1i2dw_16 ._MessageContainer_1i2dw_22 ._Message_1i2dw_22 p {
+._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Message_yyao0_22 p {
   display: inline;
   font-weight: 500;
   color: #f6f9ff;
@@ -12740,17 +12740,17 @@ img {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_1s8wn_1";
-    const LeftTop = "_LeftTop_1s8wn_8";
-    const LeftBottom = "_LeftBottom_1s8wn_11";
-    const RightTop = "_RightTop_1s8wn_14";
-    const RightBottom = "_RightBottom_1s8wn_18";
-    const Chat$2 = "_Chat_1s8wn_22";
-    const Sorted$1 = "_Sorted_1s8wn_28";
-    const MessageContainer$1 = "_MessageContainer_1s8wn_28";
-    const Username$1 = "_Username_1s8wn_32";
-    const Message$1 = "_Message_1s8wn_28";
-    const Background$1 = "_Background_1s8wn_61";
+    const FrameChat$1 = "_FrameChat_wn5ug_1";
+    const LeftTop = "_LeftTop_wn5ug_8";
+    const LeftBottom = "_LeftBottom_wn5ug_11";
+    const RightTop = "_RightTop_wn5ug_14";
+    const RightBottom = "_RightBottom_wn5ug_18";
+    const Chat$2 = "_Chat_wn5ug_22";
+    const Sorted$1 = "_Sorted_wn5ug_28";
+    const MessageContainer$1 = "_MessageContainer_wn5ug_28";
+    const Username$1 = "_Username_wn5ug_32";
+    const Message$1 = "_Message_wn5ug_28";
+    const Background$1 = "_Background_wn5ug_61";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
@@ -12867,14 +12867,14 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1i2dw_1";
-    const View = "_View_1i2dw_13";
-    const Chat$1 = "_Chat_1i2dw_16";
-    const Sorted = "_Sorted_1i2dw_22";
-    const MessageContainer = "_MessageContainer_1i2dw_22";
-    const Username = "_Username_1i2dw_26";
-    const Message = "_Message_1i2dw_22";
-    const Background = "_Background_1i2dw_32";
+    const OverlayChat$1 = "_OverlayChat_yyao0_1";
+    const View = "_View_yyao0_13";
+    const Chat$1 = "_Chat_yyao0_16";
+    const Sorted = "_Sorted_yyao0_22";
+    const MessageContainer = "_MessageContainer_yyao0_22";
+    const Username = "_Username_yyao0_26";
+    const Message = "_Message_yyao0_22";
+    const Background = "_Background_yyao0_32";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
