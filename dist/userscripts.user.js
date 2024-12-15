@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241215150621
+// @version      20241215153211
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -363,70 +363,72 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_wn5ug_1 {
+._FrameChat_6tr5x_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_wn5ug_1._LeftTop_wn5ug_8 {
+._FrameChat_6tr5x_1._LeftTop_6tr5x_8 {
   top: 0;
 }
-._FrameChat_wn5ug_1._LeftBottom_wn5ug_11 {
+._FrameChat_6tr5x_1._LeftBottom_6tr5x_11 {
   bottom: 0;
 }
-._FrameChat_wn5ug_1._RightTop_wn5ug_14 {
+._FrameChat_6tr5x_1._RightTop_6tr5x_14 {
   right: 0;
   top: 0;
 }
-._FrameChat_wn5ug_1._RightBottom_wn5ug_18 {
+._FrameChat_6tr5x_1._RightBottom_6tr5x_18 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
   width: 126px;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Sorted_wn5ug_28 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
   flex: 1;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Username_wn5ug_32 p {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 p {
   display: inline;
+  vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22 ._MessageContainer_wn5ug_28 ._Message_wn5ug_28 p {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 p {
   display: inline;
+  vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_wn5ug_1 ._Chat_wn5ug_22._Background_wn5ug_61 ._MessageContainer_wn5ug_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Background_6tr5x_63 ._MessageContainer_6tr5x_28 {
   padding: 4px 8px;
 }
-._OverlayChat_yyao0_1 {
+._OverlayChat_124p1_1 {
   position: fixed;
   flex-direction: column;
   z-index: 1502;
@@ -438,50 +440,52 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_yyao0_1._View_yyao0_13 {
+._OverlayChat_124p1_1._View_124p1_13 {
   display: flex;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 ._Username_yyao0_26 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Username_124p1_26 {
   width: 126px;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16._Sorted_yyao0_22 ._MessageContainer_yyao0_22 ._Message_yyao0_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Message_124p1_22 {
   flex: 1;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16._Background_yyao0_32 ._MessageContainer_yyao0_22 {
-  padding: 4px 8px;
-}
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Username_yyao0_26 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Username_yyao0_26 p {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 p {
   display: inline;
+  vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Message_yyao0_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_yyao0_1 ._Chat_yyao0_16 ._MessageContainer_yyao0_22 ._Message_yyao0_22 p {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 p {
   display: inline;
+  vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
+}
+._OverlayChat_124p1_1 ._Chat_124p1_16._Background_124p1_57 ._MessageContainer_124p1_22 {
+  padding: 4px 8px;
 } `);
 
 (function () {
@@ -12263,12 +12267,13 @@ img {
     }) => {
       const sliderRef = reactExports.useRef(null);
       const handleMouseMove = (e2) => {
-        if (!sliderRef.current) return;
+        if (!sliderRef.current || max <= min) return;
         const slider = sliderRef.current;
         const rect = slider.getBoundingClientRect();
         const offsetX = e2.clientX - rect.left;
-        const newValue = Math.min(Math.max(min, offsetX / rect.width * max), max);
-        setValue(Math.round(newValue));
+        const percentage = Math.min(Math.max(0, offsetX / rect.width), 1);
+        const newValue = Math.round(percentage * (max - min) + min);
+        setValue(newValue);
       };
       const handleMouseDown = (e2) => {
         handleMouseMove(e2.nativeEvent);
@@ -12281,10 +12286,31 @@ img {
           { once: true }
         );
       };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderBar, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.SliderTrack, ref: sliderRef, onMouseDown: handleMouseDown, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderThumb, "data-value": value, style: { left: `${value / max * 100}%` } }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderFilled, style: { width: `${value / max * 100}%` } })
-      ] }) });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.SliderBar, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: styles$2.SliderTrack,
+          ref: sliderRef,
+          onMouseDown: handleMouseDown,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: styles$2.SliderThumb,
+                "data-value": value,
+                style: { left: `${(value - min) / (max - min) * 100}%` }
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: styles$2.SliderFilled,
+                style: { width: `${(value - min) / (max - min) * 100}%` }
+              }
+            )
+          ]
+        }
+      ) });
     };
     const Setting = observer(() => {
       const mainStore = useMainStore();
@@ -12370,7 +12396,7 @@ img {
             {
               type: "slider",
               value: mainStore.setting.get("overlay_view_width"),
-              min: 0,
+              min: 100,
               max: 500,
               cb: (value) => mainStore.setSetting("overlay_view_width", value, true)
             }
@@ -12383,7 +12409,7 @@ img {
             {
               type: "slider",
               value: mainStore.setting.get("overlay_font_size"),
-              min: 0,
+              min: 10,
               max: 28,
               cb: (value) => mainStore.setSetting("overlay_font_size", value, true)
             }
@@ -12505,7 +12531,7 @@ img {
             {
               type: "slider",
               value: mainStore.setting.get("frame_view_width"),
-              min: 0,
+              min: 100,
               max: 500,
               cb: (value) => mainStore.setSetting("frame_view_width", value, true)
             }
@@ -12518,7 +12544,7 @@ img {
             {
               type: "slider",
               value: mainStore.setting.get("frame_font_size"),
-              min: 0,
+              min: 10,
               max: 28,
               cb: (value) => mainStore.setSetting("frame_font_size", value, true)
             }
@@ -12740,17 +12766,17 @@ img {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_wn5ug_1";
-    const LeftTop = "_LeftTop_wn5ug_8";
-    const LeftBottom = "_LeftBottom_wn5ug_11";
-    const RightTop = "_RightTop_wn5ug_14";
-    const RightBottom = "_RightBottom_wn5ug_18";
-    const Chat$2 = "_Chat_wn5ug_22";
-    const Sorted$1 = "_Sorted_wn5ug_28";
-    const MessageContainer$1 = "_MessageContainer_wn5ug_28";
-    const Username$1 = "_Username_wn5ug_32";
-    const Message$1 = "_Message_wn5ug_28";
-    const Background$1 = "_Background_wn5ug_61";
+    const FrameChat$1 = "_FrameChat_6tr5x_1";
+    const LeftTop = "_LeftTop_6tr5x_8";
+    const LeftBottom = "_LeftBottom_6tr5x_11";
+    const RightTop = "_RightTop_6tr5x_14";
+    const RightBottom = "_RightBottom_6tr5x_18";
+    const Chat$2 = "_Chat_6tr5x_22";
+    const Sorted$1 = "_Sorted_6tr5x_28";
+    const MessageContainer$1 = "_MessageContainer_6tr5x_28";
+    const Username$1 = "_Username_6tr5x_32";
+    const Message$1 = "_Message_6tr5x_28";
+    const Background$1 = "_Background_6tr5x_63";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
@@ -12867,14 +12893,14 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_yyao0_1";
-    const View = "_View_yyao0_13";
-    const Chat$1 = "_Chat_yyao0_16";
-    const Sorted = "_Sorted_yyao0_22";
-    const MessageContainer = "_MessageContainer_yyao0_22";
-    const Username = "_Username_yyao0_26";
-    const Message = "_Message_yyao0_22";
-    const Background = "_Background_yyao0_32";
+    const OverlayChat$1 = "_OverlayChat_124p1_1";
+    const View = "_View_124p1_13";
+    const Chat$1 = "_Chat_124p1_16";
+    const Sorted = "_Sorted_124p1_22";
+    const MessageContainer = "_MessageContainer_124p1_22";
+    const Username = "_Username_124p1_26";
+    const Message = "_Message_124p1_22";
+    const Background = "_Background_124p1_57";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
