@@ -32,7 +32,7 @@ const App = () => {
         GM_listValues().map((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
-        mainStore.addChat({ id: -1, username: '제작자', messageText: '비콩 (github.com/bcong)', color: '#e9ab00' });
+        mainStore.addChat({ id: -1, username: '제작자', contentArray: ['비콩 (github.com/bcong)'], color: '#e9ab00' });
         IsInit(true);
     };
 
@@ -60,9 +60,31 @@ const App = () => {
 
             if (lastChat.id >= id) return;
 
-            const messageText = chat.querySelector('.msg')?.textContent || '';
+            const contentArray: string[] = [];
 
-            mainStore.addChat({ id, username, messageText, color: colors[colorIdx] });
+            const messageOriginal = message.querySelector('#message-original');
+
+            if (!messageOriginal) return;
+
+            messageOriginal.childNodes.forEach((node: ChildNode) => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const textContent = node.textContent?.trim();
+                    if (textContent) {
+                        contentArray.push(textContent);
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    const element = node as HTMLElement;
+
+                    if (element.tagName === 'IMG') {
+                        const imgSrc = (element as HTMLImageElement).getAttribute('src');
+                        if (imgSrc) {
+                            contentArray.push(imgSrc);
+                        }
+                    }
+                }
+            });
+
+            mainStore.addChat({ id, username, contentArray, color: colors[colorIdx] });
             colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
         });
     };
