@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241216232517
+// @version      20241227012211
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12822,7 +12822,7 @@ img {
           fontSize
         }, children: username }) });
         const messageContent = contentArray.map((content, index) => {
-          if (content.startsWith("https://")) {
+          if (content.startsWith("http")) {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content, style: { width: fontSize, height: fontSize } }, index);
           } else {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content }, index);
@@ -13015,7 +13015,7 @@ img {
           fontSize
         }, children: username }) });
         const messageContent = contentArray.map((content, index) => {
-          if (content.startsWith("https://")) {
+          if (content.startsWith("http")) {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content, style: { width: fontSize, height: fontSize } }, index);
           } else {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content }, index);
