@@ -65,10 +65,15 @@ export interface I_SETTINGS {
     values: I_SETTING[]
 }
 
+export interface I_CONTENT {
+    content: string
+    type: 'image' | 'text'
+}
+
 export interface I_CHAT {
     id: number
     username: string
-    contentArray: string[]
+    contentArray: I_CONTENT[]
     color: string
 }
 

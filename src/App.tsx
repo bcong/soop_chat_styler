@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
-import { T_SETTING } from './@types';
+import { I_CONTENT, T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
         GM_listValues().map((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
-        mainStore.addChat({ id: -1, username: '제작자', contentArray: ['비콩 (github.com/bcong)'], color: '#e9ab00' });
+        mainStore.addChat({ id: -1, username: '제작자', contentArray: [{ type: 'text', content: '비콩 (github.com/bcong)' }], color: '#e9ab00' });
         IsInit(true);
     };
 
@@ -60,7 +60,7 @@ const App = () => {
 
             if (lastChat.id >= id) return;
 
-            const contentArray: string[] = [];
+            const contentArray: I_CONTENT[] = [];
 
             const messageOriginal = message.querySelector('#message-original');
 
@@ -70,7 +70,7 @@ const App = () => {
                 if (node.nodeType === Node.TEXT_NODE) {
                     const textContent = node.textContent?.trim();
                     if (textContent) {
-                        contentArray.push(textContent);
+                        contentArray.push({ type: 'text', content: textContent });
                     }
                 } else if (node.nodeType === Node.ELEMENT_NODE) {
                     const element = node as HTMLElement;
@@ -78,7 +78,7 @@ const App = () => {
                     if (element.tagName === 'IMG') {
                         const imgSrc = (element as HTMLImageElement).getAttribute('src');
                         if (imgSrc) {
-                            contentArray.push(imgSrc);
+                            contentArray.push({ type: 'image', content: imgSrc });
                         }
                     }
                 }

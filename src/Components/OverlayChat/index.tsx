@@ -141,10 +141,10 @@ const OverlayChat = observer(() => {
             );
 
             const messageContent = contentArray.map((content, index) => {
-                if (content.startsWith('http')) {
-                    return <img key={index} src={content} style={{ width: fontSize, height: fontSize }} />;
+                if (content.type == 'image') {
+                    return <img key={index} src={content.content} style={{ width: fontSize, height: fontSize }} />;
                 } else {
-                    return <p style={{ fontSize: fontSize }} key={index}>{content}</p>;
+                    return <p style={{ fontSize: fontSize }} key={index}>{content.content}</p>;
                 }
             });
 

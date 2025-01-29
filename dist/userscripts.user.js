@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20241227012211
+// @version      20250129174411
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12822,10 +12822,10 @@ img {
           fontSize
         }, children: username }) });
         const messageContent = contentArray.map((content, index) => {
-          if (content.startsWith("http")) {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content, style: { width: fontSize, height: fontSize } }, index);
+          if (content.type == "image") {
+            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
           } else {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content }, index);
+            return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content.content }, index);
           }
         });
         const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Message, children: messageContent });
@@ -13015,10 +13015,10 @@ img {
           fontSize
         }, children: username }) });
         const messageContent = contentArray.map((content, index) => {
-          if (content.startsWith("http")) {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content, style: { width: fontSize, height: fontSize } }, index);
+          if (content.type == "image") {
+            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
           } else {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content }, index);
+            return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content.content }, index);
           }
         });
         const messageElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Message, children: messageContent });
@@ -13114,7 +13114,7 @@ img {
         GM_listValues().map((v2) => {
           mainStore.setSetting(v2, GM_getValue(v2), false);
         });
-        mainStore.addChat({ id: -1, username: "제작자", contentArray: ["비콩 (github.com/bcong)"], color: "#e9ab00" });
+        mainStore.addChat({ id: -1, username: "제작자", contentArray: [{ type: "text", content: "비콩 (github.com/bcong)" }], color: "#e9ab00" });
         IsInit(true);
       };
       const updateChatMessages = () => {
@@ -13140,14 +13140,14 @@ img {
             if (node.nodeType === Node.TEXT_NODE) {
               const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
               if (textContent) {
-                contentArray.push(textContent);
+                contentArray.push({ type: "text", content: textContent });
               }
             } else if (node.nodeType === Node.ELEMENT_NODE) {
               const element = node;
               if (element.tagName === "IMG") {
                 const imgSrc = element.getAttribute("src");
                 if (imgSrc) {
-                  contentArray.push(imgSrc);
+                  contentArray.push({ type: "image", content: imgSrc });
                 }
               }
             }
