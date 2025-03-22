@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323001948
+// @version      20250323012025
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7584,6 +7584,11 @@ img {
       "#f798f2",
       "#ddfa85"
     ];
+    const generateRandomNumber = (receivedTime) => {
+      const baseNumber = Date.parse(receivedTime);
+      const randomDecimal = Math.random().toFixed(10);
+      return Number(`${baseNumber}${randomDecimal.slice(2)}`);
+    };
     const ToggleButton$1 = "_ToggleButton_6twf4_1";
     const Enable = "_Enable_6twf4_12";
     const Circle = "_Circle_6twf4_15";
@@ -13213,7 +13218,7 @@ img {
           console.log("Sent CONNECT packet:", CONNECT_PACKET);
           const receivedTime = (/* @__PURE__ */ new Date()).toISOString();
           mainStore.clearChat();
-          mainStore.addChat({ id: Number(`${Date.parse(receivedTime)}${Math.random()}`), username: "제작자", contentArray: [{ type: "text", content: "비콩 (github.com/bcong)" }], color: "#e9ab00" });
+          mainStore.addChat({ id: generateRandomNumber(receivedTime), username: "제작자", contentArray: [{ type: "text", content: "비콩 (github.com/bcong)" }], color: "#e9ab00" });
         };
         ws.onmessage = (data) => handleMessage(data.data);
         ws.onclose = () => {
@@ -13374,7 +13379,7 @@ img {
           case "0005": {
             const chat = parseChat(packet);
             mainStore.addChat({
-              id: Number(`${Date.parse(receivedTime)}${Math.random()}`),
+              id: generateRandomNumber(receivedTime),
               username: chat.username,
               contentArray: [{ type: "text", content: chat.comment }],
               color: colors[colorIdx]

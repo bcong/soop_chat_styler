@@ -110,3 +110,9 @@ export const colors = [
     '#f798f2',
     '#ddfa85',
 ];
+
+export const generateRandomNumber = (receivedTime: string): number => {
+    const baseNumber = Date.parse(receivedTime);
+    const randomDecimal = Math.random().toFixed(10); // 소수점 이하 10자리
+    return Number(`${baseNumber}${randomDecimal.slice(2)}`);
+};

@@ -2,7 +2,7 @@ import FrameChat from "@Components/FrameChat";
 import OverlayChat from "@Components/OverlayChat";
 import { useMainStore } from "@Stores/index";
 import { LiveDetail } from "@Types/soop";
-import { colors, extractID } from "@Utils/index";
+import { colors, extractID, generateRandomNumber } from "@Utils/index";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
 
@@ -130,7 +130,7 @@ const Chat = observer(() => {
 
             const receivedTime = new Date().toISOString();
             mainStore.clearChat();
-            mainStore.addChat({ id: Number(`${Date.parse(receivedTime)}${Math.random()}`), username: '제작자', contentArray: [{ type: 'text', content: '비콩 (github.com/bcong)' }], color: '#e9ab00' });
+            mainStore.addChat({ id: generateRandomNumber(receivedTime), username: '제작자', contentArray: [{ type: 'text', content: '비콩 (github.com/bcong)' }], color: '#e9ab00' });
         };
 
         ws.onmessage = (data) => handleMessage(data.data);
@@ -283,7 +283,7 @@ const Chat = observer(() => {
                 // console.log(chat);
                 // this.emit('chat', { ...chat, receivedTime });
                 mainStore.addChat({
-                    id: Number(`${Date.parse(receivedTime)}${Math.random()}`),
+                    id: generateRandomNumber(receivedTime),
                     username: chat.username,
                     contentArray: [{ type: 'text', content: chat.comment }],
                     color: colors[colorIdx]
