@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323024500
+// @version      20250323025337
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7474,6 +7474,12 @@ img {
       toggleSetting
     }) => {
       const id2 = "chatStylerSetting";
+      reactExports.useEffect(() => {
+        const closeElement = document.getElementById("setbox_close");
+        if (closeElement) {
+          closeElement.remove();
+        }
+      }, []);
       reactExports.useEffect(() => {
         const checkAndInsertElement = () => {
           const serviceUtilElement = document.querySelector(".serviceUtil");
