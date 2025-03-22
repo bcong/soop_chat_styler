@@ -12,6 +12,14 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
     const id = 'chatStylerSetting';
 
     useEffect(() => {
+        const closeElement = document.getElementById('setbox_close');
+
+        if (closeElement) {
+            closeElement.remove();
+        }
+    }, []);
+
+    useEffect(() => {
         const checkAndInsertElement = () => {
             const serviceUtilElement = document.querySelector('.serviceUtil');
 
