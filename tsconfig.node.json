@@ -3,7 +3,7 @@
         "composite": true,
         "skipLibCheck": true,
         "module": "ES2022",
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "allowSyntheticDefaultImports": true
     },
     "include": [

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
@@ -9,7 +9,6 @@ const App = () => {
     const mainStore = useMainStore();
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
-    const chatUpdate = useRef<number | null>(null);
     let colorIdx = 0;
 
     const colors = [
@@ -89,30 +88,8 @@ const App = () => {
         });
     };
 
-    const checkViewChat = () => {
-        const buttonElement = document.querySelector(".view_ctrl .btn_chat") as HTMLLIElement;
-
-        if (!buttonElement) return;
-        const computedStyle = window.getComputedStyle(buttonElement) as CSSStyleDeclaration;
-        const button = buttonElement.querySelector("button") as HTMLButtonElement;
-
-        if (!button) return;
-
-        computedStyle.display == 'block' && button.click();
-    };
-
     useEffect(() => {
         initSetting();
-        checkViewChat();
-
-        chatUpdate.current = setInterval(() => {
-            updateChatMessages();
-            checkViewChat();
-        }, 100);
-
-        return () => {
-            if (chatUpdate.current) clearInterval(chatUpdate.current);
-        };
     }, []);
 
     return (

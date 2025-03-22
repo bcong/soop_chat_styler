@@ -93,3 +93,20 @@ export async function awaitElement(selector: string): Promise<Element> {
         delayedProbe();
     });
 }
+
+export const extractID = (pathname: string): string => {
+    const match = pathname.match(/\/([^/]+)\//);
+    return match ? match[1] : '';
+};
+
+export const colors = [
+    '#f28ca5',
+    '#9dd9a5',
+    '#fff08c',
+    '#a1b1eb',
+    '#fac098',
+    '#c88ed9',
+    '#a2f7f7',
+    '#f798f2',
+    '#ddfa85',
+];
