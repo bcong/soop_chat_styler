@@ -92,31 +92,4 @@ export async function awaitElement(selector: string): Promise<Element> {
 
         delayedProbe();
     });
-<<<<<<< HEAD
 }
-
-export const extractID = (pathname: string): string => {
-    const match = pathname.match(/\/([^/]+)\//);
-    return match ? match[1] : '';
-};
-
-export const colors = [
-    '#f28ca5',
-    '#9dd9a5',
-    '#fff08c',
-    '#a1b1eb',
-    '#fac098',
-    '#c88ed9',
-    '#a2f7f7',
-    '#f798f2',
-    '#ddfa85',
-];
-
-export const generateRandomNumber = (receivedTime: string): number => {
-    const baseNumber = Date.parse(receivedTime);
-    const randomDecimal = Math.random().toFixed(10); // 소수점 이하 10자리
-    return Number(`${baseNumber}${randomDecimal.slice(2)}`);
-};
-=======
-}
->>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)

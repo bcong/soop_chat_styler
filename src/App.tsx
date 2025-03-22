@@ -2,15 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
-import { T_SETTING } from './@types';
+import { I_CONTENT, T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
 
 const App = () => {
     const mainStore = useMainStore();
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
-<<<<<<< HEAD
-=======
     const chatUpdate = useRef<number | null>(null);
     let colorIdx = 0;
 
@@ -25,7 +23,6 @@ const App = () => {
         '#f798f2',
         '#ddfa85',
     ];
->>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
@@ -39,8 +36,6 @@ const App = () => {
         IsInit(true);
     };
 
-<<<<<<< HEAD
-=======
     const updateChatMessages = () => {
         const chatAreaElements = document.querySelectorAll('#chat_area');
 
@@ -106,7 +101,6 @@ const App = () => {
         computedStyle.display == 'block' && button.click();
     };
 
->>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)
     useEffect(() => {
         initSetting();
         checkViewChat();
