@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323025337
+// @version      20250323034528
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7470,173 +7470,6 @@ img {
     const styles$8 = {
       SettingMenu
     };
-    const SettingMenuComponent = ({
-      toggleSetting
-    }) => {
-      const id2 = "chatStylerSetting";
-      reactExports.useEffect(() => {
-        const closeElement = document.getElementById("setbox_close");
-        if (closeElement) {
-          closeElement.remove();
-        }
-      }, []);
-      reactExports.useEffect(() => {
-        const checkAndInsertElement = () => {
-          const serviceUtilElement = document.querySelector(".serviceUtil");
-          if (!serviceUtilElement) {
-            setTimeout(checkAndInsertElement, 1e3);
-            return;
-          }
-          const existingItem = document.getElementById(id2);
-          if (existingItem)
-            existingItem.remove();
-          const newDivElement = document.createElement("div");
-          newDivElement.id = id2;
-          newDivElement.className = styles$8.SettingMenu;
-          const buttonElement = document.createElement("button");
-          buttonElement.setAttribute("tip", "채팅 스타일러 설정");
-          const spanElement = document.createElement("p");
-          spanElement.textContent = "S";
-          buttonElement.appendChild(spanElement);
-          newDivElement.appendChild(buttonElement);
-          serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
-          newDivElement.addEventListener("click", toggleSetting);
-          return () => {
-            newDivElement.removeEventListener("click", toggleSetting);
-          };
-        };
-        checkAndInsertElement();
-      }, []);
-      return null;
-    };
-    const SettingTemplate$1 = "_SettingTemplate_6q8n6_1";
-    const View$3 = "_View_6q8n6_17";
-    const Header = "_Header_6q8n6_20";
-    const Title = "_Title_6q8n6_31";
-    const Menus$1 = "_Menus_6q8n6_34";
-    const Menu$1 = "_Menu_6q8n6_34";
-    const Content = "_Content_6q8n6_55";
-    const styles$7 = {
-      SettingTemplate: SettingTemplate$1,
-      View: View$3,
-      Header,
-      Title,
-      Menus: Menus$1,
-      Menu: Menu$1,
-      Content
-    };
-    const classes = (...classes2) => {
-      return classes2.filter(Boolean).join(" ");
-    };
-    function log(...args) {
-      console.log(
-        "%cUserscript (React Mode):",
-        "color: purple; font-weight: bold",
-        ...args
-      );
-    }
-    function addLocationChangeCallback(callback) {
-      window.setTimeout(callback, 0);
-      let oldHref = window.location.href;
-      const body = document.querySelector("body");
-      if (!body) {
-        throw new Error("Body element not found.");
-      }
-      const observer2 = new MutationObserver((mutations) => {
-        if (mutations.some(() => oldHref !== document.location.href)) {
-          oldHref = document.location.href;
-          callback();
-        }
-      });
-      observer2.observe(body, { childList: true, subtree: true });
-      return observer2;
-    }
-    async function awaitElement(selector) {
-      const MAX_TRIES = 60;
-      let tries = 0;
-      return new Promise((resolve, reject) => {
-        function probe() {
-          tries++;
-          return document.querySelector(selector);
-        }
-        function delayedProbe() {
-          if (tries >= MAX_TRIES) {
-            log("Can't find element with selector", selector);
-            reject(new Error(`Element with selector "${selector}" not found after ${MAX_TRIES} tries.`));
-            return;
-          }
-          const elm = probe();
-          if (elm) {
-            resolve(elm);
-            return;
-          }
-          window.setTimeout(delayedProbe, 250);
-        }
-        delayedProbe();
-      });
-    }
-    const ToggleButton$1 = "_ToggleButton_6twf4_1";
-    const Enable = "_Enable_6twf4_12";
-    const Circle = "_Circle_6twf4_15";
-    const styles$6 = {
-      ToggleButton: ToggleButton$1,
-      Enable,
-      Circle
-    };
-    const ToggleButton = ({
-      enable = false,
-      setEnable
-    }) => {
-      const handleToggle = () => {
-        setEnable(!enable);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$6.ToggleButton, enable ? styles$6.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Circle }) });
-    };
-    const Setting$1 = "_Setting_1369u_1";
-    const Menus = "_Menus_1369u_4";
-    const Menu = "_Menu_1369u_4";
-    const Name = "_Name_1369u_14";
-    const Value = "_Value_1369u_21";
-    const styles$5 = {
-      Setting: Setting$1,
-      Menus,
-      Menu,
-      Name,
-      Value
-    };
-    const ListBox$1 = "_ListBox_g79p9_1";
-    const ListValue = "_ListValue_g79p9_4";
-    const Options = "_Options_g79p9_31";
-    const Option = "_Option_g79p9_31";
-    const Selected = "_Selected_g79p9_55";
-    const View$2 = "_View_g79p9_65";
-    const styles$4 = {
-      ListBox: ListBox$1,
-      ListValue,
-      Options,
-      Option,
-      Selected,
-      View: View$2
-    };
-    const ListBox = ({
-      value = 0,
-      options,
-      setValue
-    }) => {
-      const [isOptions, IsOptions] = reactExports.useState(false);
-      const handleSetValue = (key) => {
-        setValue(key);
-        IsOptions(false);
-      };
-      const optionsElem = options.map(({ key, name }) => {
-        const isSelected = value == key;
-        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Option, isSelected ? styles$4.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.ListBox, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Options, isOptions ? styles$4.View : false), children: optionsElem })
-      ] });
-    };
     function die(error) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
@@ -11913,6 +11746,222 @@ img {
     const StoreProvider = ({ children }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(StoreContext.Provider, { value: rootStore, children });
     };
+    const SettingMenuComponent = ({
+      toggleSetting
+    }) => {
+      const mainStore = useMainStore();
+      const id2 = "chatStylerSetting";
+      const addViewChat = () => {
+        const isAdd = document.getElementById("new_btn_chat");
+        if (isAdd) return;
+        const oldElements = document.getElementsByClassName("btn_chat");
+        if (oldElements.length > 0) {
+          const oldElement = oldElements[0];
+          if (oldElement && oldElement.parentElement) {
+            const newLiElement = document.createElement("li");
+            newLiElement.className = "btn_chat";
+            newLiElement.style.display = "block";
+            newLiElement.id = "new_btn_chat";
+            const newButtonElement = document.createElement("button");
+            newButtonElement.type = "button";
+            const newSpanElement = document.createElement("span");
+            newSpanElement.textContent = "test 채팅창 on/off";
+            newButtonElement.appendChild(newSpanElement);
+            newLiElement.onclick = () => {
+              mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
+            };
+            newLiElement.appendChild(newButtonElement);
+            oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
+          } else {
+            console.error("btn_chat 클래스를 가진 요소의 부모를 찾을 수 없습니다.");
+          }
+        } else {
+          console.error("btn_chat 클래스를 가진 요소를 찾을 수 없습니다.");
+        }
+      };
+      const addViewChatBox = () => {
+        const isAdd = document.getElementById("new_setbox_close");
+        if (isAdd) return;
+        const oldElement = document.getElementById("setbox_close");
+        if (oldElement && oldElement.parentElement) {
+          oldElement.style.display = "none";
+          const newLiElement = document.createElement("li");
+          newLiElement.className = "close";
+          newLiElement.id = "new_setbox_close";
+          const newAnchorElement = document.createElement("a");
+          newAnchorElement.className = "tip-right";
+          newAnchorElement.setAttribute("tip", "닫기");
+          newAnchorElement.textContent = "새로운 채팅 영역 숨기기";
+          newLiElement.appendChild(newAnchorElement);
+          newLiElement.onclick = () => {
+            mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
+          };
+          oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
+        } else {
+          console.error("setbox_close 요소 또는 부모 요소를 찾을 수 없습니다.");
+        }
+      };
+      reactExports.useEffect(() => {
+        addViewChat();
+        addViewChatBox();
+      }, []);
+      reactExports.useEffect(() => {
+        const checkAndInsertElement = () => {
+          const serviceUtilElement = document.querySelector(".serviceUtil");
+          if (!serviceUtilElement) {
+            setTimeout(checkAndInsertElement, 1e3);
+            return;
+          }
+          const existingItem = document.getElementById(id2);
+          if (existingItem)
+            existingItem.remove();
+          const newDivElement = document.createElement("div");
+          newDivElement.id = id2;
+          newDivElement.className = styles$8.SettingMenu;
+          const buttonElement = document.createElement("button");
+          buttonElement.setAttribute("tip", "채팅 스타일러 설정");
+          const spanElement = document.createElement("p");
+          spanElement.textContent = "S";
+          buttonElement.appendChild(spanElement);
+          newDivElement.appendChild(buttonElement);
+          serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
+          newDivElement.addEventListener("click", toggleSetting);
+          return () => {
+            newDivElement.removeEventListener("click", toggleSetting);
+          };
+        };
+        checkAndInsertElement();
+      }, []);
+      return null;
+    };
+    const SettingTemplate$1 = "_SettingTemplate_6q8n6_1";
+    const View$3 = "_View_6q8n6_17";
+    const Header = "_Header_6q8n6_20";
+    const Title = "_Title_6q8n6_31";
+    const Menus$1 = "_Menus_6q8n6_34";
+    const Menu$1 = "_Menu_6q8n6_34";
+    const Content = "_Content_6q8n6_55";
+    const styles$7 = {
+      SettingTemplate: SettingTemplate$1,
+      View: View$3,
+      Header,
+      Title,
+      Menus: Menus$1,
+      Menu: Menu$1,
+      Content
+    };
+    const classes = (...classes2) => {
+      return classes2.filter(Boolean).join(" ");
+    };
+    function log(...args) {
+      console.log(
+        "%cUserscript (React Mode):",
+        "color: purple; font-weight: bold",
+        ...args
+      );
+    }
+    function addLocationChangeCallback(callback) {
+      window.setTimeout(callback, 0);
+      let oldHref = window.location.href;
+      const body = document.querySelector("body");
+      if (!body) {
+        throw new Error("Body element not found.");
+      }
+      const observer2 = new MutationObserver((mutations) => {
+        if (mutations.some(() => oldHref !== document.location.href)) {
+          oldHref = document.location.href;
+          callback();
+        }
+      });
+      observer2.observe(body, { childList: true, subtree: true });
+      return observer2;
+    }
+    async function awaitElement(selector) {
+      const MAX_TRIES = 60;
+      let tries = 0;
+      return new Promise((resolve, reject) => {
+        function probe() {
+          tries++;
+          return document.querySelector(selector);
+        }
+        function delayedProbe() {
+          if (tries >= MAX_TRIES) {
+            log("Can't find element with selector", selector);
+            reject(new Error(`Element with selector "${selector}" not found after ${MAX_TRIES} tries.`));
+            return;
+          }
+          const elm = probe();
+          if (elm) {
+            resolve(elm);
+            return;
+          }
+          window.setTimeout(delayedProbe, 250);
+        }
+        delayedProbe();
+      });
+    }
+    const ToggleButton$1 = "_ToggleButton_6twf4_1";
+    const Enable = "_Enable_6twf4_12";
+    const Circle = "_Circle_6twf4_15";
+    const styles$6 = {
+      ToggleButton: ToggleButton$1,
+      Enable,
+      Circle
+    };
+    const ToggleButton = ({
+      enable = false,
+      setEnable
+    }) => {
+      const handleToggle = () => {
+        setEnable(!enable);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$6.ToggleButton, enable ? styles$6.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Circle }) });
+    };
+    const Setting$1 = "_Setting_1369u_1";
+    const Menus = "_Menus_1369u_4";
+    const Menu = "_Menu_1369u_4";
+    const Name = "_Name_1369u_14";
+    const Value = "_Value_1369u_21";
+    const styles$5 = {
+      Setting: Setting$1,
+      Menus,
+      Menu,
+      Name,
+      Value
+    };
+    const ListBox$1 = "_ListBox_g79p9_1";
+    const ListValue = "_ListValue_g79p9_4";
+    const Options = "_Options_g79p9_31";
+    const Option = "_Option_g79p9_31";
+    const Selected = "_Selected_g79p9_55";
+    const View$2 = "_View_g79p9_65";
+    const styles$4 = {
+      ListBox: ListBox$1,
+      ListValue,
+      Options,
+      Option,
+      Selected,
+      View: View$2
+    };
+    const ListBox = ({
+      value = 0,
+      options,
+      setValue
+    }) => {
+      const [isOptions, IsOptions] = reactExports.useState(false);
+      const handleSetValue = (key) => {
+        setValue(key);
+        IsOptions(false);
+      };
+      const optionsElem = options.map(({ key, name }) => {
+        const isSelected = value == key;
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Option, isSelected ? styles$4.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.ListBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Options, isOptions ? styles$4.View : false), children: optionsElem })
+      ] });
+    };
     if (!reactExports.useState) {
       throw new Error("mobx-react-lite requires React with Hooks support");
     }
@@ -13159,20 +13208,10 @@ img {
           colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
         });
       };
-      const checkViewChat = () => {
-        const buttonElement = document.querySelector(".view_ctrl .btn_chat");
-        if (!buttonElement) return;
-        const computedStyle = window.getComputedStyle(buttonElement);
-        const button = buttonElement.querySelector("button");
-        if (!button) return;
-        computedStyle.display == "block" && button.click();
-      };
       reactExports.useEffect(() => {
         initSetting();
-        checkViewChat();
         chatUpdate.current = setInterval(() => {
           updateChatMessages();
-          checkViewChat();
         }, 100);
         return () => {
           if (chatUpdate.current) clearInterval(chatUpdate.current);
