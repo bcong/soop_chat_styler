@@ -1,36 +1,19 @@
 import FrameChat from "@Components/FrameChat";
 import OverlayChat from "@Components/OverlayChat";
 import { useMainStore } from "@Stores/index";
+<<<<<<< HEAD
 import { LiveDetail } from "@Types/soop";
 import { colors, extractID, generateRandomNumber } from "@Utils/index";
+=======
+>>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)
 import { observer } from "mobx-react-lite";
-import { useEffect, useRef, useState } from "react";
-
-enum ChatDelimiter {
-    STARTER = "\u001B\t",
-    SEPARATOR = "\f"
-}
-
-enum ChatType {
-    PING = "0000",
-    CONNECT = "0001",
-    ENTERCHATROOM = "0002",
-    EXIT = "0004",
-    CHAT = "0005",
-    DISCONNECT = "0007",
-    TEXTDONATION = "0018",
-    ADBALLOONDONATION = "0087",
-    SUBSCRIBE = "0093",
-    NOTIFICATION = "0104",
-    EMOTICON = "0109",
-    VIDEODONATION = "0105",
-    VIEWER = "0127"
-}
+import { useEffect } from "react";
 
 const Chat = observer(() => {
     const mainStore = useMainStore();
     const enable = mainStore.setting.get('enable');
     const chat_style = mainStore.setting.get('chat_style');
+<<<<<<< HEAD
     const pathUpdate = useRef<number | null>(null);
     const pingIntervalId = useRef<number | null>(null);
     const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
@@ -360,18 +343,15 @@ const Chat = observer(() => {
             }
         }
     };
+=======
+    const defalut_chat_enable = mainStore.setting.get('defalut_chat_enable');
+>>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)
 
     useEffect(() => {
-        checkChannelId();
-
-        pathUpdate.current = setInterval(() => {
-            checkChannelId();
-        }, 1000);
-
-        return () => {
-            if (pathUpdate.current) clearInterval(pathUpdate.current);
-        };
-    }, []);
+        const sideElement = document.querySelector('#webplayer_contents .wrapping.side') as HTMLElement;
+        if (sideElement)
+            sideElement.style.display = defalut_chat_enable ? 'block' : 'none';
+    }, [defalut_chat_enable]);
 
     let chatElem;
     switch (chat_style) {

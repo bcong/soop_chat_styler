@@ -1,5 +1,4 @@
 import { I_CHAT, I_INIT_SETTING, T_SETTING } from "@Types/index";
-import { LiveDetail } from "@Types/soop";
 import { makeObservable, observable, action, computed } from "mobx";
 
 export default class MainStore {
@@ -16,10 +15,10 @@ export default class MainStore {
             key: 'overlay_view_count',
             value: 10,
         },
-        // {
-        //     key: 'defalut_chat_enable',
-        //     value: true,
-        // },
+        {
+            key: 'defalut_chat_enable',
+            value: true,
+        },
 
         // 오버레이
         {
@@ -123,15 +122,6 @@ export default class MainStore {
     @observable
     private _maxChats = 20;
 
-    @observable
-    private _channelId = '';
-
-    @observable
-    private _liveDetail: LiveDetail | null = null;
-
-    @observable
-    private _currentChat: WebSocket | null = null;
-
     constructor() {
         makeObservable(this);
         this.init();
@@ -159,28 +149,8 @@ export default class MainStore {
     };
 
     @action
-    clearChat = () => {
-        this.chats.length = 0;
-    };
-
-    @action
     lastChat = () => {
         return this.chats[this.chats.length - 1];
-    };
-
-    @action
-    setChannelId = (channelId: string) => {
-        this._channelId = channelId;
-    };
-
-    @action
-    setLiveDetail = (liveDetail: LiveDetail) => {
-        this._liveDetail = liveDetail;
-    };
-
-    @action
-    setCurrentChat = (currentChat: WebSocket | null) => {
-        this._currentChat = currentChat;
     };
 
     @computed
@@ -201,19 +171,5 @@ export default class MainStore {
     @computed
     get maxChats() {
         return this._maxChats;
-    }
-
-    @computed
-    get channelId() {
-        return this._channelId;
-    }
-
-    @computed
-    get liveDetail() {
-        return this._liveDetail;
-    }
-    @computed
-    get currentChat() {
-        return this._currentChat;
     }
 }

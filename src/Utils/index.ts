@@ -92,6 +92,7 @@ export async function awaitElement(selector: string): Promise<Element> {
 
         delayedProbe();
     });
+<<<<<<< HEAD
 }
 
 export const extractID = (pathname: string): string => {
@@ -116,3 +117,6 @@ export const generateRandomNumber = (receivedTime: string): number => {
     const randomDecimal = Math.random().toFixed(10); // 소수점 이하 10자리
     return Number(`${baseNumber}${randomDecimal.slice(2)}`);
 };
+=======
+}
+>>>>>>> parent of 34f1726 (채팅 파싱 방식 변경)
