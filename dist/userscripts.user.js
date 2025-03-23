@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323035407
+// @version      20250323225442
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11765,7 +11765,7 @@ img {
             const newButtonElement = document.createElement("button");
             newButtonElement.type = "button";
             const newSpanElement = document.createElement("span");
-            newSpanElement.textContent = "test 채팅창 on/off";
+            newSpanElement.textContent = "채팅창 on/off";
             newButtonElement.appendChild(newSpanElement);
             newLiElement.onclick = () => {
               mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
@@ -13208,10 +13208,20 @@ img {
           colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
         });
       };
+      const checkViewChat = () => {
+        const buttonElement = document.querySelector(".view_ctrl .btn_chat");
+        if (!buttonElement) return;
+        const computedStyle = window.getComputedStyle(buttonElement);
+        const button = buttonElement.querySelector("button");
+        if (!button) return;
+        computedStyle.display == "block" && button.click();
+      };
       reactExports.useEffect(() => {
         initSetting();
+        checkViewChat();
         chatUpdate.current = setInterval(() => {
           updateChatMessages();
+          checkViewChat();
         }, 100);
         return () => {
           if (chatUpdate.current) clearInterval(chatUpdate.current);

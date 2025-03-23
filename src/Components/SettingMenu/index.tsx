@@ -33,7 +33,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
                 newButtonElement.type = "button";
 
                 const newSpanElement = document.createElement("span");
-                newSpanElement.textContent = "test 채팅창 on/off";
+                newSpanElement.textContent = "채팅창 on/off";
 
                 newButtonElement.appendChild(newSpanElement);
 
