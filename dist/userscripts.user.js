@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323225442
+// @version      20250329153959
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11566,6 +11566,10 @@ img {
             key: "defalut_chat_enable",
             value: true
           },
+          {
+            key: "show_nicknames",
+            value: true
+          },
           // 오버레이
           {
             key: "overlay_background_opacity",
@@ -12419,6 +12423,16 @@ img {
           ]
         },
         {
+          name: "닉네임 표시",
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("show_nicknames"),
+              cb: (value) => mainStore.setSetting("show_nicknames", value, true)
+            }
+          ]
+        },
+        {
           name: "채팅창 스타일",
           values: [
             {
@@ -12860,6 +12874,7 @@ img {
       const frameBackground = mainStore.setting.get("frame_background");
       const frameOffsetX = mainStore.setting.get("frame_offset_x");
       const frameOffsetY = mainStore.setting.get("frame_offset_y");
+      const showNicknames = mainStore.setting.get("show_nicknames");
       reactExports.useEffect(() => {
         const div = document.querySelector("#videoLayer");
         if (div) {
@@ -12900,7 +12915,7 @@ img {
                   background
                 },
                 children: [
-                  userNameElem,
+                  showNicknames && userNameElem,
                   messageElem
                 ]
               }
@@ -12983,6 +12998,7 @@ img {
       const overlayChatBackground = mainStore.setting.get("overlay_chat_background");
       const overlayBackground = mainStore.setting.get("overlay_background");
       const overlayBackgroundArea = mainStore.setting.get("overlay_background_area");
+      const showNicknames = mainStore.setting.get("show_nicknames");
       const handleMouseDown = (e) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -13093,7 +13109,7 @@ img {
                   background
                 },
                 children: [
-                  userNameElem,
+                  showNicknames && userNameElem,
                   messageElem
                 ]
               }

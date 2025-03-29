@@ -21,6 +21,7 @@ const FrameChat = observer(() => {
     const frameBackground = mainStore.setting.get('frame_background');
     const frameOffsetX = mainStore.setting.get('frame_offset_x');
     const frameOffsetY = mainStore.setting.get('frame_offset_y');
+    const showNicknames = mainStore.setting.get('show_nicknames');
 
     useEffect(() => {
         const div = document.querySelector('#videoLayer');
@@ -74,7 +75,7 @@ const FrameChat = observer(() => {
                         style={{
                             background: background
                         }}>
-                        {userNameElem}
+                        {showNicknames && userNameElem}
                         {messageElem}
                     </div>
                 </div>
