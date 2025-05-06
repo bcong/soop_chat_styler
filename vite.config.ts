@@ -39,7 +39,6 @@ export default defineConfig(({ mode }) => {
                     match: [
                         'https://www.sooplive.co.kr/*',
                         'https://play.sooplive.co.kr/*',
-                        'https://vod.sooplive.co.kr/player/*'
                     ],
                     icon: 'https://res.sooplive.co.kr/afreeca.ico',
                     connect: ['sooplive.co.kr'],
