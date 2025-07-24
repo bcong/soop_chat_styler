@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250507020503
+// @version      20250724221545
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -17,7 +17,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -27,7 +27,6 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  font-family: "Pretendard" !important;
 }
 #root,
 html,
@@ -35,10 +34,12 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+p {
   color: #000000;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -61,7 +62,7 @@ img {
   user-select: none;
   -webkit-user-drag: none;
 }
-._SettingMenu_1f6w4_1 {
+._SettingMenu_v3ob1_1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +70,7 @@ img {
   height: 40px;
   border-radius: 50%;
 }
-._SettingMenu_1f6w4_1 button p {
+._SettingMenu_v3ob1_1 button p {
   font-size: 24px !important;
   background: linear-gradient(45deg, #0388ff, #48dcb6);
   -webkit-background-clip: text;
@@ -78,8 +79,9 @@ img {
   font-weight: 800;
   line-height: 1;
   padding: 8px !important;
+  font-family: 'Pretendard' !important;
 }
-._SettingMenu_1f6w4_1:hover {
+._SettingMenu_v3ob1_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
 ._SettingTemplate_6q8n6_1 {
@@ -7465,7 +7467,7 @@ img {
       createRoot = m.createRoot;
       m.hydrateRoot;
     }
-    const SettingMenu = "_SettingMenu_1f6w4_1";
+    const SettingMenu = "_SettingMenu_v3ob1_1";
     const styles$8 = {
       SettingMenu
     };
