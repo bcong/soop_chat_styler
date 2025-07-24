@@ -605,7 +605,7 @@ const Chat = observer(() => {
 
             case ChatType.CHAT: {
                 const chat = parseChat(packet);
-                // console.log(chat);
+                console.log(chat);
                 // this.emit('chat', { ...chat, receivedTime });
                 mainStore.addChat({
                     id: generateRandomNumber(receivedTime),
@@ -688,6 +688,7 @@ const Chat = observer(() => {
 
     useEffect(() => {
         checkChannelId();
+        connect('latv');
 
         pathUpdate.current = setInterval(() => {
             checkChannelId();

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20250323012025
+// @version      20250724221046
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -18,7 +18,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -28,7 +28,6 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  font-family: "Pretendard" !important;
 }
 #root,
 html,
@@ -36,10 +35,12 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+p {
   color: #000000;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -62,7 +63,7 @@ img {
   user-select: none;
   -webkit-user-drag: none;
 }
-._SettingMenu_1f6w4_1 {
+._SettingMenu_v3ob1_1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +71,7 @@ img {
   height: 40px;
   border-radius: 50%;
 }
-._SettingMenu_1f6w4_1 button p {
+._SettingMenu_v3ob1_1 button p {
   font-size: 24px !important;
   background: linear-gradient(45deg, #0388ff, #48dcb6);
   -webkit-background-clip: text;
@@ -79,8 +80,9 @@ img {
   font-weight: 800;
   line-height: 1;
   padding: 8px !important;
+  font-family: 'Pretendard' !important;
 }
-._SettingMenu_1f6w4_1:hover {
+._SettingMenu_v3ob1_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
 ._SettingTemplate_6q8n6_1 {
@@ -7466,7 +7468,7 @@ img {
       createRoot = m.createRoot;
       m.hydrateRoot;
     }
-    const SettingMenu = "_SettingMenu_1f6w4_1";
+    const SettingMenu = "_SettingMenu_v3ob1_1";
     const styles$8 = {
       SettingMenu
     };
@@ -7523,11 +7525,7 @@ img {
       return classes2.filter(Boolean).join(" ");
     };
     function log(...args) {
-      console.log(
-        "%cUserscript (React Mode):",
-        "color: purple; font-weight: bold",
-        ...args
-      );
+      console.log("%cUserscript (React Mode):", "color: purple; font-weight: bold", ...args);
     }
     function addLocationChangeCallback(callback) {
       window.setTimeout(callback, 0);
@@ -7588,6 +7586,16 @@ img {
       const baseNumber = Date.parse(receivedTime);
       const randomDecimal = Math.random().toFixed(10);
       return Number(`${baseNumber}${randomDecimal.slice(2)}`);
+    };
+    const generateUUID = () => {
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = bytes[6] & 15 | 64;
+      bytes[8] = bytes[8] & 63 | 128;
+      return Array.from(bytes).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+    };
+    const generateGUID = () => {
+      return generateUUID().toUpperCase();
     };
     const ToggleButton$1 = "_ToggleButton_6twf4_1";
     const Enable = "_Enable_6twf4_12";
@@ -13198,12 +13206,281 @@ img {
           return null;
         }
       };
+      const getSoopLiveStreamInfo = async (liveDetail) => {
+        const queryParams = new URLSearchParams();
+        queryParams.append("bjid", liveDetail.CHANNEL.BJID);
+        const params = new URLSearchParams();
+        params.append("bid", liveDetail.CHANNEL.BJID);
+        params.append("bno", liveDetail.CHANNEL.BNO);
+        params.append("type", "live");
+        params.append("pwd", "");
+        params.append("player_type", "html5");
+        params.append("stream_type", "common");
+        params.append("quality", "HD");
+        params.append("mode", "landing");
+        params.append("from_api", "0");
+        params.append("is_revive", "false");
+        const url = `https://live.sooplive.co.kr/afreeca/player_live_api.php?${queryParams.toString()}`;
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString(),
+            // URLSearchParams는 .toString()으로 변환 필요
+            credentials: "include"
+            // 쿠키 필요시
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const text = await response.text();
+          try {
+            return JSON.parse(text);
+          } catch (e) {
+            return null;
+          }
+        } catch (error) {
+          console.error("SOOP LIVE 스트림 정보 요청 실패:", error);
+          return null;
+        }
+      };
+      const buildJoinLog = (options) => {
+        let log2 = `${options.logType}`;
+        for (const [key, value] of Object.entries(options.entries)) {
+          log2 += `&${key}=${value}`;
+        }
+        log2 += options.extraLogs ? `${options.extraLogs.logType}${Object.entries(options.extraLogs.entries).map(([k2, v2]) => `&${k2}=${v2}`).join("")}` : ``;
+        return log2;
+      };
+      const buildAddInfo = (options) => {
+        let info = "";
+        for (const [key, value] of Object.entries(options)) {
+          info += `${key}${value}`;
+        }
+        return info;
+      };
       const connect = async (newChannelId) => {
         if (mainStore.currentChat) {
           await disconnect();
         }
         const liveDetail = await fetchLiveDetails(newChannelId);
         if (!liveDetail) throw Error("Not liveDetail");
+        console.log(liveDetail);
+        const streamKey = await getSoopLiveStreamInfo(liveDetail);
+        if (streamKey) {
+          console.log(streamKey);
+          const ws2 = new WebSocket("ws://localhost:21201/Websocket", ["package"]);
+          ws2.binaryType = "arraybuffer";
+          ws2.onopen = () => {
+            console.log("WebSocket connection established");
+            ws2.send(JSON.stringify({
+              SVC: "CAPTION",
+              RESULT: 1,
+              DATA: {
+                nCaption: 5
+              }
+            }));
+            console.log("Sent CONNECT packet");
+          };
+          ws2.onmessage = (event) => {
+            if (typeof event.data === "string") {
+              try {
+                const response = JSON.parse(event.data);
+                console.log(response);
+                if (response.DATA.HTMLPLAYER_PORT) {
+                  const uuid = generateUUID();
+                  const guid = generateGUID();
+                  const ws3 = new WebSocket(`ws://localhost:${response.DATA.HTMLPLAYER_PORT}/Websocket/${streamKey.CHANNEL.BJID}`, ["agent"]);
+                  ws3.binaryType = "arraybuffer";
+                  ws3.onopen = () => {
+                    console.log("WebSocket connection established");
+                    const baseEntries = {
+                      uuid,
+                      geo_cc: streamKey.CHANNEL.geo_cc,
+                      geo_rc: streamKey.CHANNEL.geo_rc,
+                      acpt_lang: streamKey.CHANNEL.acpt_lang,
+                      svc_lang: streamKey.CHANNEL.svc_lang,
+                      os: "win",
+                      is_streamer: true,
+                      is_rejoin: false,
+                      is_auto: false,
+                      is_support_adaptive: true,
+                      uuid_3rd: uuid,
+                      subscribe: -1,
+                      player_mode: "landing"
+                    };
+                    if (streamKey.CHANNEL.join_cc !== void 0 && streamKey.CHANNEL.join_cc !== null && streamKey.CHANNEL.join_cc !== "") {
+                      baseEntries.join_cc = streamKey.CHANNEL.join_cc;
+                    }
+                    const joinLogStr = buildJoinLog({
+                      logType: "log",
+                      entries: baseEntries,
+                      extraLogs: {
+                        logType: "liveualog",
+                        entries: {
+                          is_clearmode: true,
+                          lowlatency: 1,
+                          is_streamer: true
+                        }
+                      }
+                    });
+                    const addInfoStr = buildAddInfo({
+                      ad_lang: streamKey.CHANNEL.acpt_lang,
+                      is_auto: 0
+                    });
+                    const connectPacket = {
+                      SVC: 40,
+                      RESULT: 0,
+                      DATA: {
+                        gate_ip: streamKey.CHANNEL.GWIP,
+                        gate_port: Number(streamKey.CHANNEL.GWPT),
+                        center_ip: streamKey.CHANNEL.CTIP,
+                        center_port: Number(streamKey.CHANNEL.CTPT),
+                        broadno: Number(streamKey.CHANNEL.BNO),
+                        cookie: streamKey.CHANNEL.TK || "",
+                        guid,
+                        cli_type: 42,
+                        passwd: "",
+                        category: streamKey.CHANNEL.CATE,
+                        JOINLOG: joinLogStr,
+                        BJID: streamKey.CHANNEL.BJID,
+                        fanticket: streamKey.CHANNEL.FTK,
+                        addinfo: addInfoStr,
+                        update_info: 0
+                      }
+                    };
+                    ws3.send(JSON.stringify(connectPacket));
+                    console.log("Sent CONNECT packet");
+                  };
+                  ws3.onmessage = (event2) => {
+                    if (typeof event2.data === "string") {
+                      try {
+                        const response2 = JSON.parse(event2.data);
+                        if (response2.SVC == 39) {
+                          const joinLog = buildJoinLog({
+                            logType: "log",
+                            entries: {
+                              uuid,
+                              geo_cc: streamKey.CHANNEL.geo_cc,
+                              geo_rc: streamKey.CHANNEL.geo_rc,
+                              acpt_lang: streamKey.CHANNEL.acpt_lang,
+                              svc_lang: streamKey.CHANNEL.svc_lang,
+                              os: "win",
+                              is_streamer: true,
+                              is_rejoin: false,
+                              is_auto: false,
+                              is_support_adaptive: true,
+                              uuid_3rd: uuid,
+                              subscribe: 0,
+                              player_mode: "landing",
+                              category_tag: streamKey.CHANNEL.CATEGORY_TAGS.join(","),
+                              tag: streamKey.CHANNEL.HASH_TAGS.join(","),
+                              is_embed: false
+                            },
+                            extraLogs: {
+                              logType: "liveualog",
+                              entries: {
+                                is_clearmode: true,
+                                lowlatency: 1,
+                                is_streamer: true
+                              }
+                            }
+                          });
+                          const responseData = {
+                            SVC: 4,
+                            RESULT: 0,
+                            DATA: {
+                              CIP: streamKey.CHANNEL.CTIP,
+                              CPORT: Number(streamKey.CHANNEL.CTPT),
+                              BNO: Number(response2.DATA.uiBroadId),
+                              PARENTBNO: 0,
+                              SCRAPBJ: false,
+                              PASSWORD: "",
+                              GUID: guid,
+                              TICKETLEN: String(response2.DATA.pcTicket).length,
+                              TICKET: response2.DATA.pcTicket,
+                              QUALITY: 2,
+                              APPDATA: response2.DATA.pcAppendDat,
+                              JOINLOG: joinLog,
+                              SIP: Number(response2.DATA.uiIpAddr),
+                              SPORT: Number(response2.DATA.iPort),
+                              SPROTOCOL: 2,
+                              BJID: streamKey.CHANNEL.BJID,
+                              SETBPS: Number(streamKey.CHANNEL.BPS),
+                              SSBUF: 2
+                            }
+                          };
+                          ws3.send(JSON.stringify(responseData));
+                          console.log(responseData);
+                        } else if (response2.SVC == 41) {
+                          const responseData = {
+                            SVC: 51,
+                            RESULT: 0,
+                            DATA: {
+                              BUFFERING_CAUSE: "initializing"
+                            }
+                          };
+                          ws3.send(JSON.stringify(responseData));
+                          console.log(responseData);
+                        } else if (response2.SVC == 34) {
+                          const responseData = {
+                            SVC: 30,
+                            RESULT: 0,
+                            DATA: {
+                              UID: ""
+                            }
+                          };
+                          ws3.send(JSON.stringify(responseData));
+                          console.log(responseData);
+                        } else if (response2.SVC == 4) {
+                          const responseData = {
+                            SVC: 5,
+                            RESULT: 0,
+                            DATA: {}
+                          };
+                          ws3.send(JSON.stringify(responseData));
+                          console.log(responseData);
+                        } else if (response2.SVC == 5) {
+                          const responseData = {
+                            SVC: 500,
+                            RESULT: 0,
+                            DATA: {
+                              cutc: Date.now() / 1e3
+                            }
+                          };
+                          ws3.send(JSON.stringify(responseData));
+                          console.log(responseData);
+                        } else {
+                          console.log(event2);
+                        }
+                      } catch (error) {
+                        console.error("WebSocket 에러:", error);
+                      }
+                    }
+                  };
+                  ws3.onerror = (error) => {
+                    console.error("WebSocket 에러:", error);
+                  };
+                  ws3.onclose = (event2) => {
+                    console.log("WebSocket 연결 종료:", event2.reason);
+                  };
+                }
+              } catch (error) {
+                console.error("JSON 파싱 오류:", error);
+              }
+            } else {
+              console.log("바이너리 데이터 수신:", event.data);
+            }
+          };
+          ws2.onerror = (error) => {
+            console.error("WebSocket 에러:", error);
+          };
+          ws2.onclose = (event) => {
+            console.log("WebSocket 연결 종료:", event.reason);
+          };
+        }
         mainStore.setLiveDetail(liveDetail);
         const chatUrl = makeChatUrl(liveDetail);
         if (!chatUrl) throw Error("Not chatUrl");
@@ -13378,6 +13655,7 @@ img {
           }
           case "0005": {
             const chat = parseChat(packet);
+            console.log(chat);
             mainStore.addChat({
               id: generateRandomNumber(receivedTime),
               username: chat.username,
@@ -13433,6 +13711,7 @@ img {
       };
       reactExports.useEffect(() => {
         checkChannelId();
+        connect("latv");
         pathUpdate.current = setInterval(() => {
           checkChannelId();
         }, 1e3);
