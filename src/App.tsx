@@ -12,27 +12,37 @@ const App = () => {
     const chatUpdate = useRef<number | null>(null);
     let colorIdx = 0;
 
-    const colors = [
-        '#f28ca5',
-        '#9dd9a5',
-        '#fff08c',
-        '#a1b1eb',
-        '#fac098',
-        '#c88ed9',
-        '#a2f7f7',
-        '#f798f2',
-        '#ddfa85',
-    ];
+    const colors = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
     };
 
     const initSetting = () => {
-        GM_listValues().map((v) => {
+        const storedKeys = GM_listValues();
+        const broadcasterId = mainStore.broadcasterId;
+
+        // 공통 설정 로드
+        storedKeys.forEach((v) => {
             mainStore.setSetting(v as T_SETTING, GM_getValue(v), false);
         });
-        mainStore.addChat({ id: -1, username: '제작자', contentArray: [{ type: 'text', content: '비콩 (github.com/bcong)' }], color: '#e9ab00' });
+
+        // broadcaster-specific 설정: 개별 저장값이 있으면 덮어쓰기
+        mainStore.broadcasterSpecificSettings.forEach((key) => {
+            if (!broadcasterId) return;
+            const broadcasterKey = `${key}_${broadcasterId}`;
+            const value = GM_getValue(broadcasterKey);
+            if (value !== undefined) {
+                mainStore.setSetting(key as T_SETTING, value, false);
+            }
+        });
+
+        mainStore.addChat({
+            id: -1,
+            username: '제작자',
+            contentArray: [{ type: 'text', content: '비콩 (github.com/bcong)' }],
+            color: '#e9ab00',
+        });
         IsInit(true);
     };
 
@@ -50,7 +60,7 @@ const App = () => {
 
         const lastChat = mainStore.lastChat();
 
-        recentChats.forEach(chat => {
+        recentChats.forEach((chat) => {
             const username = chat.querySelector('.username .author')?.textContent || null;
             const message = chat.querySelector('.message-text');
 
@@ -85,17 +95,17 @@ const App = () => {
             });
 
             mainStore.addChat({ id, username, contentArray, color: colors[colorIdx] });
-            colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
+            colorIdx == colors.length - 1 ? (colorIdx = 0) : colorIdx++;
         });
     };
 
     const checkViewChat = () => {
-        const buttonElement = document.querySelector(".view_ctrl .btn_chat") as HTMLLIElement;
+        const buttonElement = document.querySelector('.view_ctrl .btn_chat') as HTMLLIElement;
 
         if (!buttonElement) return;
 
         const computedStyle = window.getComputedStyle(buttonElement) as CSSStyleDeclaration;
-        const button = buttonElement.querySelector("button") as HTMLButtonElement;
+        const button = buttonElement.querySelector('button') as HTMLButtonElement;
 
         if (!button) return;
 
@@ -117,11 +127,13 @@ const App = () => {
     }, []);
 
     return (
-        isInit && <>
-            <SettingMenu isSetting={isSetting} toggleSetting={toggleSetting} />
-            <SettingTemplate isSetting={isSetting} toggleSetting={toggleSetting} />
-            <ChatTemplate />
-        </>
+        isInit && (
+            <>
+                <SettingMenu isSetting={isSetting} toggleSetting={toggleSetting} />
+                <SettingTemplate isSetting={isSetting} toggleSetting={toggleSetting} />
+                <ChatTemplate />
+            </>
+        )
     );
 };
 
