@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260222045106
+// @version      20260222045432
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -17,7 +17,7 @@
 // @grant        GM_setValue
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const _=document.createElement("style");_.textContent=n,document.head.append(_)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -361,73 +361,72 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_athuv_1 {
+._FrameChat_6tr5x_1 {
   z-index: 998;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_athuv_1._LeftTop_athuv_8 {
+._FrameChat_6tr5x_1._LeftTop_6tr5x_8 {
   top: 0;
 }
-._FrameChat_athuv_1._LeftBottom_athuv_11 {
+._FrameChat_6tr5x_1._LeftBottom_6tr5x_11 {
   bottom: 0;
 }
-._FrameChat_athuv_1._RightTop_athuv_14 {
+._FrameChat_6tr5x_1._RightTop_6tr5x_14 {
   right: 0;
   top: 0;
 }
-._FrameChat_athuv_1._RightBottom_athuv_18 {
+._FrameChat_6tr5x_1._RightBottom_6tr5x_18 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22._Sorted_athuv_28 ._MessageContainer_athuv_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22._Sorted_athuv_28 ._MessageContainer_athuv_28 ._Username_athuv_32 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
   width: 126px;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22._Sorted_athuv_28 ._MessageContainer_athuv_28 ._Message_athuv_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
   flex: 1;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 ._MessageContainer_athuv_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 ._MessageContainer_athuv_28 ._Username_athuv_32 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 ._MessageContainer_athuv_28 ._Username_athuv_32 p {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 ._MessageContainer_athuv_28 ._Message_athuv_28 {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22 ._MessageContainer_athuv_28 ._Message_athuv_28 p {
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_athuv_1 ._Chat_athuv_22._Background_athuv_63 ._MessageContainer_athuv_28 {
-  backdrop-filter: blur(12px);
+._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Background_6tr5x_63 ._MessageContainer_6tr5x_28 {
   padding: 4px 8px;
 }
-._OverlayChat_recsk_1 {
+._OverlayChat_124p1_1 {
   position: fixed;
   flex-direction: column;
   z-index: 1502;
@@ -439,52 +438,51 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_recsk_1._View_recsk_13 {
+._OverlayChat_124p1_1._View_124p1_13 {
   display: flex;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16._Sorted_recsk_22 ._MessageContainer_recsk_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16._Sorted_recsk_22 ._MessageContainer_recsk_22 ._Username_recsk_26 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Username_124p1_26 {
   width: 126px;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16._Sorted_recsk_22 ._MessageContainer_recsk_22 ._Message_recsk_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Message_124p1_22 {
   flex: 1;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 ._MessageContainer_recsk_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 ._MessageContainer_recsk_22 ._Username_recsk_26 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 ._MessageContainer_recsk_22 ._Username_recsk_26 p {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 ._MessageContainer_recsk_22 ._Message_recsk_22 {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16 ._MessageContainer_recsk_22 ._Message_recsk_22 p {
+._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_recsk_1 ._Chat_recsk_16._Background_recsk_57 ._MessageContainer_recsk_22 {
-  backdrop-filter: blur(12px);
+._OverlayChat_124p1_1 ._Chat_124p1_16._Background_124p1_57 ._MessageContainer_124p1_22 {
   padding: 4px 8px;
 } `);
 
@@ -12849,17 +12847,17 @@ img {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_athuv_1";
-    const LeftTop = "_LeftTop_athuv_8";
-    const LeftBottom = "_LeftBottom_athuv_11";
-    const RightTop = "_RightTop_athuv_14";
-    const RightBottom = "_RightBottom_athuv_18";
-    const Chat$2 = "_Chat_athuv_22";
-    const Sorted$1 = "_Sorted_athuv_28";
-    const MessageContainer$1 = "_MessageContainer_athuv_28";
-    const Username$1 = "_Username_athuv_32";
-    const Message$1 = "_Message_athuv_28";
-    const Background$1 = "_Background_athuv_63";
+    const FrameChat$1 = "_FrameChat_6tr5x_1";
+    const LeftTop = "_LeftTop_6tr5x_8";
+    const LeftBottom = "_LeftBottom_6tr5x_11";
+    const RightTop = "_RightTop_6tr5x_14";
+    const RightBottom = "_RightBottom_6tr5x_18";
+    const Chat$2 = "_Chat_6tr5x_22";
+    const Sorted$1 = "_Sorted_6tr5x_28";
+    const MessageContainer$1 = "_MessageContainer_6tr5x_28";
+    const Username$1 = "_Username_6tr5x_32";
+    const Message$1 = "_Message_6tr5x_28";
+    const Background$1 = "_Background_6tr5x_63";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
@@ -12977,14 +12975,14 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_recsk_1";
-    const View = "_View_recsk_13";
-    const Chat$1 = "_Chat_recsk_16";
-    const Sorted = "_Sorted_recsk_22";
-    const MessageContainer = "_MessageContainer_recsk_22";
-    const Username = "_Username_recsk_26";
-    const Message = "_Message_recsk_22";
-    const Background = "_Background_recsk_57";
+    const OverlayChat$1 = "_OverlayChat_124p1_1";
+    const View = "_View_124p1_13";
+    const Chat$1 = "_Chat_124p1_16";
+    const Sorted = "_Sorted_124p1_22";
+    const MessageContainer = "_MessageContainer_124p1_22";
+    const Username = "_Username_124p1_26";
+    const Message = "_Message_124p1_22";
+    const Background = "_Background_124p1_57";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
@@ -13178,7 +13176,9 @@ img {
       const [isSetting, IsSetting] = reactExports.useState(false);
       const [isInit, IsInit] = reactExports.useState(false);
       const chatUpdate = reactExports.useRef(null);
-      let colorIdx = 0;
+      const colorIdxRef = reactExports.useRef(0);
+      const chatAreaRef = reactExports.useRef(null);
+      const observerRef = reactExports.useRef(null);
       const colors = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
@@ -13205,44 +13205,74 @@ img {
         });
         IsInit(true);
       };
+      const getChatArea = () => {
+        var _a2;
+        if ((_a2 = chatAreaRef.current) == null ? void 0 : _a2.isConnected) return chatAreaRef.current;
+        const elements = document.querySelectorAll("#chat_area");
+        chatAreaRef.current = elements.length ? elements[elements.length - 1] : null;
+        return chatAreaRef.current;
+      };
+      const processChatItem = (chat, lastId) => {
+        var _a2;
+        const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
+        const message = chat.querySelector(".message-text");
+        if (!username || !message) return false;
+        const id2 = Number(message.id) || 0;
+        if (id2 <= lastId) return false;
+        const messageOriginal = message.querySelector("#message-original");
+        if (!messageOriginal) return false;
+        const contentArray = [];
+        messageOriginal.childNodes.forEach((node) => {
+          var _a3;
+          if (node.nodeType === Node.TEXT_NODE) {
+            const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
+            if (textContent) contentArray.push({ type: "text", content: textContent });
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node;
+            if (element.tagName === "IMG") {
+              const imgSrc = element.getAttribute("src");
+              if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+            }
+          }
+        });
+        const idx = colorIdxRef.current;
+        mainStore.addChat({ id: id2, username, contentArray, color: colors[idx] });
+        colorIdxRef.current = idx >= colors.length - 1 ? 0 : idx + 1;
+        return true;
+      };
       const updateChatMessages = () => {
-        const chatAreaElements = document.querySelectorAll("#chat_area");
-        const chatArea = chatAreaElements[chatAreaElements.length - 1];
+        const chatArea = getChatArea();
         if (!chatArea) return;
         const chatItems = chatArea.querySelectorAll(".chatting-list-item");
-        const recentChats = Array.from(chatItems).slice(-mainStore.maxChats);
-        if (recentChats.length <= 1) return;
-        const lastChat = mainStore.lastChat();
-        recentChats.forEach((chat) => {
-          var _a2;
-          const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
-          const message = chat.querySelector(".message-text");
-          if (!username || !message) return;
-          const id2 = Number(message == null ? void 0 : message.id) || 0;
-          if (lastChat.id >= id2) return;
-          const contentArray = [];
-          const messageOriginal = message.querySelector("#message-original");
-          if (!messageOriginal) return;
-          messageOriginal.childNodes.forEach((node) => {
-            var _a3;
-            if (node.nodeType === Node.TEXT_NODE) {
-              const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
-              if (textContent) {
-                contentArray.push({ type: "text", content: textContent });
-              }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              const element = node;
-              if (element.tagName === "IMG") {
-                const imgSrc = element.getAttribute("src");
-                if (imgSrc) {
-                  contentArray.push({ type: "image", content: imgSrc });
-                }
-              }
-            }
+        const total = chatItems.length;
+        if (total <= 1) return;
+        const start = Math.max(0, total - mainStore.maxChats);
+        const lastId = mainStore.lastChat().id;
+        for (let i = start; i < total; i++) {
+          processChatItem(chatItems[i], lastId);
+        }
+      };
+      const startObserver = () => {
+        if (observerRef.current) return;
+        const tryAttach = () => {
+          const chatArea = getChatArea();
+          if (!chatArea) return false;
+          observerRef.current = new MutationObserver(() => {
+            updateChatMessages();
+            checkViewChat();
           });
-          mainStore.addChat({ id: id2, username, contentArray, color: colors[colorIdx] });
-          colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
-        });
+          observerRef.current.observe(chatArea, { childList: true, subtree: false });
+          return true;
+        };
+        if (!tryAttach()) {
+          chatUpdate.current = setInterval(() => {
+            if (tryAttach()) {
+              clearInterval(chatUpdate.current);
+              chatUpdate.current = null;
+            }
+            checkViewChat();
+          }, 500);
+        }
       };
       const checkViewChat = () => {
         const buttonElement = document.querySelector(".view_ctrl .btn_chat");
@@ -13255,12 +13285,13 @@ img {
       reactExports.useEffect(() => {
         initSetting();
         checkViewChat();
-        chatUpdate.current = setInterval(() => {
-          updateChatMessages();
-          checkViewChat();
-        }, 500);
+        startObserver();
         return () => {
+          var _a2;
           if (chatUpdate.current) clearInterval(chatUpdate.current);
+          (_a2 = observerRef.current) == null ? void 0 : _a2.disconnect();
+          observerRef.current = null;
+          chatAreaRef.current = null;
         };
       }, []);
       return isInit && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [

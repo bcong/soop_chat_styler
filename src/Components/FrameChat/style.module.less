@@ -27,7 +27,11 @@
         display: flex;
         position: relative;
         z-index: 1;
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
 
         &.Sorted {
             .MessageContainer {
@@ -76,7 +80,7 @@
 
         &.Background {
             .MessageContainer {
-                backdrop-filter: blur(12px);
+                // backdrop-filter: blur(12px);
                 padding: 4px 8px;
             }
         }
