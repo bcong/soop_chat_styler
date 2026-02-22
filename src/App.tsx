@@ -5,14 +5,15 @@ import { useMainStore } from './Stores';
 import { I_CONTENT, T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
 
+const COLORS = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
+
 const App = () => {
     const mainStore = useMainStore();
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
     const chatUpdate = useRef<number | null>(null);
-    let colorIdx = 0;
-
-    const colors = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
+    const colorIdxRef = useRef(0);
+    const chatAreaRef = useRef<Element | null>(null);
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
@@ -46,35 +47,38 @@ const App = () => {
         IsInit(true);
     };
 
+    const getChatArea = (): Element | null => {
+        if (chatAreaRef.current?.isConnected) return chatAreaRef.current;
+        const elements = document.querySelectorAll('#chat_area');
+        chatAreaRef.current = elements.length ? elements[elements.length - 1] : null;
+        return chatAreaRef.current;
+    };
+
     const updateChatMessages = () => {
-        const chatAreaElements = document.querySelectorAll('#chat_area');
-
-        const chatArea = chatAreaElements[chatAreaElements.length - 1];
-
+        const chatArea = getChatArea();
         if (!chatArea) return;
 
         const chatItems = chatArea.querySelectorAll('.chatting-list-item');
-        const recentChats = Array.from(chatItems).slice(-mainStore.maxChats);
+        const total = chatItems.length;
+        if (total <= 1) return;
 
-        if (recentChats.length <= 1) return;
+        const start = Math.max(0, total - mainStore.maxChats * 2);
+        let lastId = mainStore.lastChat().id;
 
-        const lastChat = mainStore.lastChat();
-
-        recentChats.forEach((chat) => {
+        for (let i = start; i < total; i++) {
+            const chat = chatItems[i];
             const username = chat.querySelector('.username .author')?.textContent || null;
             const message = chat.querySelector('.message-text');
 
-            if (!username || !message) return;
+            if (!username || !message) continue;
 
-            const id = Number(message?.id) || 0;
-
-            if (lastChat.id >= id) return;
-
-            const contentArray: I_CONTENT[] = [];
+            const id = Number(message.id) || 0;
+            if (id <= lastId) continue;
 
             const messageOriginal = message.querySelector('#message-original');
+            if (!messageOriginal) continue;
 
-            if (!messageOriginal) return;
+            const contentArray: I_CONTENT[] = [];
 
             messageOriginal.childNodes.forEach((node: ChildNode) => {
                 if (node.nodeType === Node.TEXT_NODE) {
@@ -94,9 +98,11 @@ const App = () => {
                 }
             });
 
-            mainStore.addChat({ id, username, contentArray, color: colors[colorIdx] });
-            colorIdx == colors.length - 1 ? (colorIdx = 0) : colorIdx++;
-        });
+            const idx = colorIdxRef.current;
+            mainStore.addChat({ id, username, contentArray, color: COLORS[idx] });
+            colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
+            lastId = id;
+        }
     };
 
     const checkViewChat = () => {
@@ -123,6 +129,7 @@ const App = () => {
 
         return () => {
             if (chatUpdate.current) clearInterval(chatUpdate.current);
+            chatAreaRef.current = null;
         };
     }, []);
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260222202808
+// @version      20260222203021
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13171,13 +13171,14 @@ img {
       }
       return enable && chatElem;
     });
+    const COLORS = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
     const App = () => {
       const mainStore = useMainStore();
       const [isSetting, IsSetting] = reactExports.useState(false);
       const [isInit, IsInit] = reactExports.useState(false);
       const chatUpdate = reactExports.useRef(null);
-      let colorIdx = 0;
-      const colors = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
+      const colorIdxRef = reactExports.useRef(0);
+      const chatAreaRef = reactExports.useRef(null);
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
       };
@@ -13203,24 +13204,32 @@ img {
         });
         IsInit(true);
       };
+      const getChatArea = () => {
+        var _a2;
+        if ((_a2 = chatAreaRef.current) == null ? void 0 : _a2.isConnected) return chatAreaRef.current;
+        const elements = document.querySelectorAll("#chat_area");
+        chatAreaRef.current = elements.length ? elements[elements.length - 1] : null;
+        return chatAreaRef.current;
+      };
       const updateChatMessages = () => {
-        const chatAreaElements = document.querySelectorAll("#chat_area");
-        const chatArea = chatAreaElements[chatAreaElements.length - 1];
+        var _a2;
+        const chatArea = getChatArea();
         if (!chatArea) return;
         const chatItems = chatArea.querySelectorAll(".chatting-list-item");
-        const recentChats = Array.from(chatItems).slice(-mainStore.maxChats);
-        if (recentChats.length <= 1) return;
-        const lastChat = mainStore.lastChat();
-        recentChats.forEach((chat) => {
-          var _a2;
+        const total = chatItems.length;
+        if (total <= 1) return;
+        const start = Math.max(0, total - mainStore.maxChats * 2);
+        let lastId = mainStore.lastChat().id;
+        for (let i = start; i < total; i++) {
+          const chat = chatItems[i];
           const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
           const message = chat.querySelector(".message-text");
-          if (!username || !message) return;
-          const id2 = Number(message == null ? void 0 : message.id) || 0;
-          if (lastChat.id >= id2) return;
-          const contentArray = [];
+          if (!username || !message) continue;
+          const id2 = Number(message.id) || 0;
+          if (id2 <= lastId) continue;
           const messageOriginal = message.querySelector("#message-original");
-          if (!messageOriginal) return;
+          if (!messageOriginal) continue;
+          const contentArray = [];
           messageOriginal.childNodes.forEach((node) => {
             var _a3;
             if (node.nodeType === Node.TEXT_NODE) {
@@ -13238,9 +13247,11 @@ img {
               }
             }
           });
-          mainStore.addChat({ id: id2, username, contentArray, color: colors[colorIdx] });
-          colorIdx == colors.length - 1 ? colorIdx = 0 : colorIdx++;
-        });
+          const idx = colorIdxRef.current;
+          mainStore.addChat({ id: id2, username, contentArray, color: COLORS[idx] });
+          colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
+          lastId = id2;
+        }
       };
       const checkViewChat = () => {
         const buttonElement = document.querySelector(".view_ctrl .btn_chat");
@@ -13259,6 +13270,7 @@ img {
         }, 500);
         return () => {
           if (chatUpdate.current) clearInterval(chatUpdate.current);
+          chatAreaRef.current = null;
         };
       }, []);
       return isInit && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
