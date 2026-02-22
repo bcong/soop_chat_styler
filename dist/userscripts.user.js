@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260222045432
+// @version      20260222202537
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13246,10 +13246,12 @@ img {
         const chatItems = chatArea.querySelectorAll(".chatting-list-item");
         const total = chatItems.length;
         if (total <= 1) return;
-        const start = Math.max(0, total - mainStore.maxChats);
-        const lastId = mainStore.lastChat().id;
+        const start = Math.max(0, total - mainStore.maxChats * 3);
+        let lastId = mainStore.lastChat().id;
         for (let i = start; i < total; i++) {
-          processChatItem(chatItems[i], lastId);
+          if (processChatItem(chatItems[i], lastId)) {
+            lastId = mainStore.lastChat().id;
+          }
         }
       };
       const startObserver = () => {

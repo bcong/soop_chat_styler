@@ -94,11 +94,13 @@ const App = () => {
         const total = chatItems.length;
         if (total <= 1) return;
 
-        const start = Math.max(0, total - mainStore.maxChats);
-        const lastId = mainStore.lastChat().id;
+        const start = Math.max(0, total - mainStore.maxChats * 3);
+        let lastId = mainStore.lastChat().id;
 
         for (let i = start; i < total; i++) {
-            processChatItem(chatItems[i], lastId);
+            if (processChatItem(chatItems[i], lastId)) {
+                lastId = mainStore.lastChat().id;
+            }
         }
     };
 
