@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260222203021
+// @version      20260222203711
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13267,7 +13267,7 @@ img {
         chatUpdate.current = setInterval(() => {
           updateChatMessages();
           checkViewChat();
-        }, 500);
+        }, 300);
         return () => {
           if (chatUpdate.current) clearInterval(chatUpdate.current);
           chatAreaRef.current = null;

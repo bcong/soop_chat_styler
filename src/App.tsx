@@ -125,7 +125,7 @@ const App = () => {
         chatUpdate.current = setInterval(() => {
             updateChatMessages();
             checkViewChat();
-        }, 500);
+        }, 300);
 
         return () => {
             if (chatUpdate.current) clearInterval(chatUpdate.current);
