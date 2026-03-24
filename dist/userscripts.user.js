@@ -1,16 +1,16 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260222203711
+// @version      20260324100428
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
-// @icon         https://res.sooplive.co.kr/afreeca.ico
+// @icon         https://res.sooplive.com/afreeca.ico
 // @downloadURL  https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
 // @updateURL    https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
-// @match        https://www.sooplive.co.kr/*
-// @match        https://play.sooplive.co.kr/*
-// @connect      sooplive.co.kr
+// @match        https://www.sooplive.com/*
+// @match        https://play.sooplive.com/*
+// @connect      sooplive.com
 // @grant        GM_addStyle
 // @grant        GM_getValue
 // @grant        GM_listValues

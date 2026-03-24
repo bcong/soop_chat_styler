@@ -138,7 +138,7 @@ export default class MainStore {
     }
 
     private _parseBroadcasterId = (): string => {
-        // https://play.sooplive.co.kr/{broadcasterId}/{broadcastNo}
+        // https://play.sooplive.com/{broadcasterId}/{broadcastNo}
         const match = window.location.pathname.match(/^\/([^/]+)\//);
         return match ? match[1] : '';
     };
