@@ -126,6 +126,9 @@ export default class MainStore {
     @observable
     private _maxChats = 20;
 
+    @observable
+    private _chatId: number = 0;
+
     readonly broadcasterSpecificSettings: T_SETTING[] = ['chat_style', 'overlay_x', 'overlay_y', 'frame_chat_position'];
 
     @observable
@@ -164,6 +167,7 @@ export default class MainStore {
     @action
     addChat = (chat: I_CHAT) => {
         this.chats.push(chat);
+        this._chatId++;
 
         if (this.chats.length >= this.maxChats) this.chats.shift();
     };
@@ -191,6 +195,11 @@ export default class MainStore {
     @computed
     get maxChats() {
         return this._maxChats;
+    }
+
+    @computed
+    get chatId() {
+        return this._chatId;
     }
 
     @computed

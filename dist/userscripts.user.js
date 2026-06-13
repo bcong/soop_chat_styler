@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260613145708
+// @version      20260613150322
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11663,6 +11663,7 @@ img {
         __publicField(this, "_setting", /* @__PURE__ */ new Map());
         __publicField(this, "_chats", []);
         __publicField(this, "_maxChats", 20);
+        __publicField(this, "_chatId", 0);
         __publicField(this, "broadcasterSpecificSettings", ["chat_style", "overlay_x", "overlay_y", "frame_chat_position"]);
         __publicField(this, "_broadcasterId", "");
         __publicField(this, "_parseBroadcasterId", () => {
@@ -11685,6 +11686,7 @@ img {
         });
         __publicField(this, "addChat", (chat) => {
           this.chats.push(chat);
+          this._chatId++;
           if (this.chats.length >= this.maxChats) this.chats.shift();
         });
         __publicField(this, "lastChat", () => {
@@ -11706,6 +11708,9 @@ img {
       get maxChats() {
         return this._maxChats;
       }
+      get chatId() {
+        return this._chatId;
+      }
       get broadcasterId() {
         return this._broadcasterId;
       }
@@ -11719,6 +11724,9 @@ img {
     __decorateClass([
       observable
     ], MainStore.prototype, "_maxChats", 2);
+    __decorateClass([
+      observable
+    ], MainStore.prototype, "_chatId", 2);
     __decorateClass([
       observable
     ], MainStore.prototype, "_broadcasterId", 2);
@@ -11746,6 +11754,9 @@ img {
     __decorateClass([
       computed
     ], MainStore.prototype, "maxChats", 1);
+    __decorateClass([
+      computed
+    ], MainStore.prototype, "chatId", 1);
     __decorateClass([
       computed
     ], MainStore.prototype, "broadcasterId", 1);
