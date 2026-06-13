@@ -57,8 +57,7 @@ const App = () => {
 
         if (!username || !message) return;
 
-        const messageOriginal = message.querySelector('#message-original');
-        if (!messageOriginal) return;
+        const messageOriginal = message.querySelector('#message-original') ?? message;
 
         processedChats.current.add(chat);
 
@@ -119,7 +118,7 @@ const App = () => {
             }
         });
 
-        observer.observe(chatArea, { childList: true, subtree: false });
+        observer.observe(chatArea, { childList: true, subtree: true });
         chatObserver.current = observer;
     };
 
