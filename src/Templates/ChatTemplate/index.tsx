@@ -1,8 +1,8 @@
-import FrameChat from "@Components/FrameChat";
-import OverlayChat from "@Components/OverlayChat";
-import { useMainStore } from "@Stores/index";
-import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import FrameChat from '@Components/FrameChat';
+import OverlayChat from '@Components/OverlayChat';
+import { useMainStore } from '@Stores/index';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
 const Chat = observer(() => {
     const mainStore = useMainStore();
@@ -12,8 +12,7 @@ const Chat = observer(() => {
 
     useEffect(() => {
         const sideElement = document.querySelector('#webplayer_contents .wrapping.side') as HTMLElement;
-        if (sideElement)
-            sideElement.style.display = defalut_chat_enable ? 'block' : 'none';
+        if (sideElement) sideElement.style.display = defalut_chat_enable ? 'block' : 'none';
     }, [defalut_chat_enable]);
 
     let chatElem;
@@ -26,9 +25,7 @@ const Chat = observer(() => {
             break;
     }
 
-    return (
-        enable && chatElem
-    );
+    return enable && chatElem;
 });
 
 export default Chat;

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260324100428
+// @version      20260613145708
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13157,8 +13157,7 @@ img {
       const defalut_chat_enable = mainStore.setting.get("defalut_chat_enable");
       reactExports.useEffect(() => {
         const sideElement = document.querySelector("#webplayer_contents .wrapping.side");
-        if (sideElement)
-          sideElement.style.display = defalut_chat_enable ? "block" : "none";
+        if (sideElement) sideElement.style.display = defalut_chat_enable ? "block" : "none";
       }, [defalut_chat_enable]);
       let chatElem;
       switch (chat_style) {
@@ -13176,9 +13175,11 @@ img {
       const mainStore = useMainStore();
       const [isSetting, IsSetting] = reactExports.useState(false);
       const [isInit, IsInit] = reactExports.useState(false);
-      const chatUpdate = reactExports.useRef(null);
       const colorIdxRef = reactExports.useRef(0);
-      const chatAreaRef = reactExports.useRef(null);
+      const processedChats = reactExports.useRef(/* @__PURE__ */ new WeakSet());
+      const chatObserver = reactExports.useRef(null);
+      const observedChatArea = reactExports.useRef(null);
+      const retryTimer = reactExports.useRef(null);
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
       };
@@ -13204,54 +13205,65 @@ img {
         });
         IsInit(true);
       };
-      const getChatArea = () => {
+      const processChatItem = (chat) => {
         var _a2;
-        if ((_a2 = chatAreaRef.current) == null ? void 0 : _a2.isConnected) return chatAreaRef.current;
-        const elements = document.querySelectorAll("#chat_area");
-        chatAreaRef.current = elements.length ? elements[elements.length - 1] : null;
-        return chatAreaRef.current;
+        if (processedChats.current.has(chat)) return;
+        const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
+        const message = chat.querySelector(".message-text");
+        if (!username || !message) return;
+        const messageOriginal = message.querySelector("#message-original");
+        if (!messageOriginal) return;
+        processedChats.current.add(chat);
+        const contentArray = [];
+        messageOriginal.childNodes.forEach((node) => {
+          var _a3;
+          if (node.nodeType === Node.TEXT_NODE) {
+            const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
+            if (textContent) contentArray.push({ type: "text", content: textContent });
+          } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "IMG") {
+            const imgSrc = node.getAttribute("src");
+            if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+          }
+        });
+        if (contentArray.length === 0) return;
+        const idx = colorIdxRef.current;
+        mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
+        colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
       };
-      const updateChatMessages = () => {
-        var _a2;
-        const chatArea = getChatArea();
-        if (!chatArea) return;
-        const chatItems = chatArea.querySelectorAll(".chatting-list-item");
-        const total = chatItems.length;
-        if (total <= 1) return;
-        const start = Math.max(0, total - mainStore.maxChats * 2);
-        let lastId = mainStore.lastChat().id;
-        for (let i = start; i < total; i++) {
-          const chat = chatItems[i];
-          const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
-          const message = chat.querySelector(".message-text");
-          if (!username || !message) continue;
-          const id2 = Number(message.id) || 0;
-          if (id2 <= lastId) continue;
-          const messageOriginal = message.querySelector("#message-original");
-          if (!messageOriginal) continue;
-          const contentArray = [];
-          messageOriginal.childNodes.forEach((node) => {
-            var _a3;
-            if (node.nodeType === Node.TEXT_NODE) {
-              const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
-              if (textContent) {
-                contentArray.push({ type: "text", content: textContent });
-              }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              const element = node;
-              if (element.tagName === "IMG") {
-                const imgSrc = element.getAttribute("src");
-                if (imgSrc) {
-                  contentArray.push({ type: "image", content: imgSrc });
-                }
-              }
-            }
-          });
-          const idx = colorIdxRef.current;
-          mainStore.addChat({ id: id2, username, contentArray, color: COLORS[idx] });
-          colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
-          lastId = id2;
+      const disconnectObserver = () => {
+        if (chatObserver.current) {
+          chatObserver.current.disconnect();
+          chatObserver.current = null;
         }
+        observedChatArea.current = null;
+      };
+      const observeChatArea = () => {
+        const elements = document.querySelectorAll("#chat_area");
+        const chatArea = elements.length ? elements[elements.length - 1] : null;
+        if (!chatArea) {
+          retryTimer.current = window.setTimeout(observeChatArea, 1e3);
+          return;
+        }
+        if (observedChatArea.current === chatArea) return;
+        disconnectObserver();
+        observedChatArea.current = chatArea;
+        chatArea.querySelectorAll(".chatting-list-item").forEach(processChatItem);
+        const observer2 = new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            if (mutation.type !== "childList") continue;
+            mutation.addedNodes.forEach((node) => {
+              if (node.nodeType !== Node.ELEMENT_NODE) return;
+              const elem = node;
+              if (elem.matches(".chatting-list-item")) {
+                processChatItem(elem);
+              } else {
+                elem.querySelectorAll(".chatting-list-item").forEach(processChatItem);
+              }
+            });
+          }
+        });
+        observer2.observe(chatArea, { childList: true, subtree: false });
+        chatObserver.current = observer2;
       };
       const checkViewChat = () => {
         const buttonElement = document.querySelector(".view_ctrl .btn_chat");
@@ -13259,18 +13271,19 @@ img {
         const computedStyle = window.getComputedStyle(buttonElement);
         const button = buttonElement.querySelector("button");
         if (!button) return;
-        computedStyle.display == "block" && button.click();
+        if (computedStyle.display === "block") button.click();
       };
       reactExports.useEffect(() => {
         initSetting();
         checkViewChat();
-        chatUpdate.current = setInterval(() => {
-          updateChatMessages();
-          checkViewChat();
-        }, 300);
+        observeChatArea();
+        const fallbackTimer = setInterval(observeChatArea, 3e3);
+        const viewChatTimer = setInterval(checkViewChat, 2e3);
         return () => {
-          if (chatUpdate.current) clearInterval(chatUpdate.current);
-          chatAreaRef.current = null;
+          clearInterval(fallbackTimer);
+          clearInterval(viewChatTimer);
+          if (retryTimer.current) clearTimeout(retryTimer.current);
+          disconnectObserver();
         };
       }, []);
       return isInit && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [

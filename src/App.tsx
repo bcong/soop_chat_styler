@@ -11,9 +11,11 @@ const App = () => {
     const mainStore = useMainStore();
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
-    const chatUpdate = useRef<number | null>(null);
     const colorIdxRef = useRef(0);
-    const chatAreaRef = useRef<Element | null>(null);
+    const processedChats = useRef(new WeakSet<Element>());
+    const chatObserver = useRef<MutationObserver | null>(null);
+    const observedChatArea = useRef<Element | null>(null);
+    const retryTimer = useRef<number | null>(null);
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
@@ -47,90 +49,104 @@ const App = () => {
         IsInit(true);
     };
 
-    const getChatArea = (): Element | null => {
-        if (chatAreaRef.current?.isConnected) return chatAreaRef.current;
-        const elements = document.querySelectorAll('#chat_area');
-        chatAreaRef.current = elements.length ? elements[elements.length - 1] : null;
-        return chatAreaRef.current;
+    const processChatItem = (chat: Element) => {
+        if (processedChats.current.has(chat)) return;
+
+        const username = chat.querySelector('.username .author')?.textContent || null;
+        const message = chat.querySelector('.message-text');
+
+        if (!username || !message) return;
+
+        const messageOriginal = message.querySelector('#message-original');
+        if (!messageOriginal) return;
+
+        processedChats.current.add(chat);
+
+        const contentArray: I_CONTENT[] = [];
+        messageOriginal.childNodes.forEach((node: ChildNode) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const textContent = node.textContent?.trim();
+                if (textContent) contentArray.push({ type: 'text', content: textContent });
+            } else if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).tagName === 'IMG') {
+                const imgSrc = (node as HTMLImageElement).getAttribute('src');
+                if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
+            }
+        });
+
+        if (contentArray.length === 0) return;
+
+        const idx = colorIdxRef.current;
+        mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
+        colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
     };
 
-    const updateChatMessages = () => {
-        const chatArea = getChatArea();
-        if (!chatArea) return;
-
-        const chatItems = chatArea.querySelectorAll('.chatting-list-item');
-        const total = chatItems.length;
-        if (total <= 1) return;
-
-        const start = Math.max(0, total - mainStore.maxChats * 2);
-        let lastId = mainStore.lastChat().id;
-
-        for (let i = start; i < total; i++) {
-            const chat = chatItems[i];
-            const username = chat.querySelector('.username .author')?.textContent || null;
-            const message = chat.querySelector('.message-text');
-
-            if (!username || !message) continue;
-
-            const id = Number(message.id) || 0;
-            if (id <= lastId) continue;
-
-            const messageOriginal = message.querySelector('#message-original');
-            if (!messageOriginal) continue;
-
-            const contentArray: I_CONTENT[] = [];
-
-            messageOriginal.childNodes.forEach((node: ChildNode) => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const textContent = node.textContent?.trim();
-                    if (textContent) {
-                        contentArray.push({ type: 'text', content: textContent });
-                    }
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    const element = node as HTMLElement;
-
-                    if (element.tagName === 'IMG') {
-                        const imgSrc = (element as HTMLImageElement).getAttribute('src');
-                        if (imgSrc) {
-                            contentArray.push({ type: 'image', content: imgSrc });
-                        }
-                    }
-                }
-            });
-
-            const idx = colorIdxRef.current;
-            mainStore.addChat({ id, username, contentArray, color: COLORS[idx] });
-            colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
-            lastId = id;
+    const disconnectObserver = () => {
+        if (chatObserver.current) {
+            chatObserver.current.disconnect();
+            chatObserver.current = null;
         }
+        observedChatArea.current = null;
+    };
+
+    const observeChatArea = () => {
+        const elements = document.querySelectorAll('#chat_area');
+        const chatArea = elements.length ? elements[elements.length - 1] : null;
+
+        if (!chatArea) {
+            retryTimer.current = window.setTimeout(observeChatArea, 1000);
+            return;
+        }
+
+        if (observedChatArea.current === chatArea) return;
+
+        disconnectObserver();
+        observedChatArea.current = chatArea;
+
+        chatArea.querySelectorAll('.chatting-list-item').forEach(processChatItem);
+
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type !== 'childList') continue;
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType !== Node.ELEMENT_NODE) return;
+                    const elem = node as Element;
+                    if (elem.matches('.chatting-list-item')) {
+                        processChatItem(elem);
+                    } else {
+                        elem.querySelectorAll('.chatting-list-item').forEach(processChatItem);
+                    }
+                });
+            }
+        });
+
+        observer.observe(chatArea, { childList: true, subtree: false });
+        chatObserver.current = observer;
     };
 
     const checkViewChat = () => {
         const buttonElement = document.querySelector('.view_ctrl .btn_chat') as HTMLLIElement;
-
         if (!buttonElement) return;
-
-        const computedStyle = window.getComputedStyle(buttonElement) as CSSStyleDeclaration;
+        const computedStyle = window.getComputedStyle(buttonElement);
         const button = buttonElement.querySelector('button') as HTMLButtonElement;
-
         if (!button) return;
-
-        computedStyle.display == 'block' && button.click();
+        if (computedStyle.display === 'block') button.click();
     };
 
     useEffect(() => {
         initSetting();
         checkViewChat();
+        observeChatArea();
 
-        chatUpdate.current = setInterval(() => {
-            updateChatMessages();
-            checkViewChat();
-        }, 300);
+        const fallbackTimer = setInterval(observeChatArea, 3000);
+        const viewChatTimer = setInterval(checkViewChat, 2000);
 
         return () => {
-            if (chatUpdate.current) clearInterval(chatUpdate.current);
-            chatAreaRef.current = null;
+            clearInterval(fallbackTimer);
+            clearInterval(viewChatTimer);
+            if (retryTimer.current) clearTimeout(retryTimer.current);
+            disconnectObserver();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
