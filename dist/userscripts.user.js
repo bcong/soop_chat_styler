@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260613202550
+// @version      20260804151837
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11780,9 +11780,7 @@ img {
     const StoreProvider = ({ children }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(StoreContext.Provider, { value: rootStore, children });
     };
-    const SettingMenuComponent = ({
-      toggleSetting
-    }) => {
+    const SettingMenuComponent = ({ toggleSetting }) => {
       const mainStore = useMainStore();
       const id2 = "chatStylerSetting";
       const addViewChat = () => {
@@ -11807,16 +11805,20 @@ img {
             newLiElement.appendChild(newButtonElement);
             oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
           } else {
-            console.error("btn_chat 클래스를 가진 요소의 부모를 찾을 수 없습니다.");
+            setTimeout(addViewChat, 1e3);
           }
         } else {
-          console.error("btn_chat 클래스를 가진 요소를 찾을 수 없습니다.");
+          setTimeout(addViewChat, 1e3);
         }
       };
       const addViewChatBox = () => {
         const isAdd = document.getElementById("new_setbox_close");
         if (isAdd) return;
         const oldElement = document.getElementById("setbox_close");
+        if (!oldElement) {
+          setTimeout(addViewChatBox, 1e3);
+          return;
+        }
         if (oldElement && oldElement.parentElement) {
           oldElement.style.display = "none";
           const newLiElement = document.createElement("li");
@@ -11832,7 +11834,7 @@ img {
           };
           oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
         } else {
-          console.error("setbox_close 요소 또는 부모 요소를 찾을 수 없습니다.");
+          setTimeout(addViewChatBox, 1e3);
         }
       };
       reactExports.useEffect(() => {
@@ -11847,8 +11849,7 @@ img {
             return;
           }
           const existingItem = document.getElementById(id2);
-          if (existingItem)
-            existingItem.remove();
+          if (existingItem) existingItem.remove();
           const newDivElement = document.createElement("div");
           newDivElement.id = id2;
           newDivElement.className = styles$8.SettingMenu;
