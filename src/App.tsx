@@ -74,12 +74,18 @@ const App = () => {
                         if (child.nodeType === Node.TEXT_NODE) {
                             const t = child.textContent?.trim();
                             if (t) contentArray.push({ type: 'text', content: t });
-                        } else if (child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName === 'IMG') {
-                            const src = (child as HTMLImageElement).getAttribute('src');
-                            if (src) contentArray.push({ type: 'image', content: src });
+                        } else if (child.nodeType === Node.ELEMENT_NODE) {
+                            const childElem = child as HTMLElement;
+                            if (childElem.tagName === 'IMG') {
+                                const src = childElem.getAttribute('src');
+                                if (src) contentArray.push({ type: 'image', content: src });
+                            } else {
+                                const t = childElem.textContent?.trim();
+                                if (t) contentArray.push({ type: 'text', content: t });
+                            }
                         }
                     });
-                    // fallback: span에 childNodes가 없거나 모두 처리 못한 경우
+                    // fallback: 아무것도 추출되지 않은 경우
                     if (contentArray.length === 0) {
                         const t = elem.textContent?.trim();
                         if (t) contentArray.push({ type: 'text', content: t });

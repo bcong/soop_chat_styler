@@ -6,12 +6,9 @@ import { I_GLOBAL_PROPS } from '@Types/index';
 import Setting from '@Views/Setting';
 import CloseImg from '@Assets/Img/cross-small.svg?react';
 
-interface I_PROPS extends I_GLOBAL_PROPS { }
+interface I_PROPS extends I_GLOBAL_PROPS {}
 
-const SettingTemplate: React.FC<I_PROPS> = ({
-    isSetting,
-    toggleSetting,
-}) => {
+const SettingTemplate: React.FC<I_PROPS> = ({ isSetting, toggleSetting }) => {
     const settingRef = useRef<HTMLDivElement | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -22,11 +19,11 @@ const SettingTemplate: React.FC<I_PROPS> = ({
         setIsDragging(true);
         setInitialPosition({
             x: e.clientX,
-            y: e.clientY
+            y: e.clientY,
         });
         setOffset({
             x: settingRef.current.offsetLeft,
-            y: settingRef.current.offsetTop
+            y: settingRef.current.offsetTop,
         });
     };
 
@@ -63,22 +60,13 @@ const SettingTemplate: React.FC<I_PROPS> = ({
         <div
             ref={settingRef}
             className={classes(styles.SettingTemplate, isSetting ? styles.View : false)}
-            style={{ position: 'absolute' }}
-        >
+            style={{ position: 'absolute' }}>
             <div className={styles.Header} onMouseDown={handleMouseDown}>
                 <div className={styles.Title}>
-                    <p>
-                        채팅 스타일러
-                    </p>
+                    <p>채팅 스타일러</p>
                 </div>
-                <div
-                    className={styles.Menus}
-                    onMouseDown={(e) => e.stopPropagation()}
-                >
-                    <div
-                        className={styles.Menu}
-                        onClick={toggleSetting}
-                    >
+                <div className={styles.Menus} onMouseDown={(e) => e.stopPropagation()}>
+                    <div className={styles.Menu} onClick={toggleSetting}>
                         <CloseImg fill={'rgb(70, 70, 70)'} />
                     </div>
                 </div>
@@ -87,7 +75,7 @@ const SettingTemplate: React.FC<I_PROPS> = ({
                 <Setting />
             </div>
         </div>,
-        document.body
+        document.body,
     );
 };
 

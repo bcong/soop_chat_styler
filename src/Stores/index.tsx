@@ -1,5 +1,5 @@
-import { useContext, createContext, ReactNode } from "react";
-import MainStore from "./MainStore";
+import { useContext, createContext, ReactNode } from 'react';
+import MainStore from './MainStore';
 
 class RootStore {
     mainStore: MainStore;
@@ -19,7 +19,7 @@ export const StoreContext = createContext<RootStore | undefined>(undefined);
 // eslint-disable-next-line react-refresh/only-export-components
 export const useRootStore = () => {
     const context = useContext(StoreContext);
-    if (context == undefined) throw new Error("useRootStore must be used within RootStoreProvider");
+    if (context == undefined) throw new Error('useRootStore must be used within RootStoreProvider');
     return context;
 };
 
@@ -30,9 +30,5 @@ export const useMainStore = () => {
 };
 
 export const StoreProvider = ({ children }: { children: ReactNode }) => {
-    return (
-        <StoreContext.Provider value={rootStore}>
-            {children}
-        </StoreContext.Provider>
-    );
+    return <StoreContext.Provider value={rootStore}>{children}</StoreContext.Provider>;
 };

@@ -38,8 +38,10 @@ export default defineConfig(({ mode }) => {
                     connect: ['sooplive.com'],
                     grant: ['GM_setValue', 'GM_getValue', 'GM_listValues'],
                     license: 'MIT',
-                    downloadURL: 'https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js',
-                    updateURL: 'https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js',
+                    downloadURL:
+                        'https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js',
+                    updateURL:
+                        'https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js',
                 },
                 server: {
                     mountGmApi: true,

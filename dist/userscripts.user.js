@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260804162958
+// @version      20260804164234
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11889,11 +11889,7 @@ img {
       return classes2.filter(Boolean).join(" ");
     };
     function log(...args) {
-      console.log(
-        "%cUserscript (React Mode):",
-        "color: purple; font-weight: bold",
-        ...args
-      );
+      console.log("%cUserscript (React Mode):", "color: purple; font-weight: bold", ...args);
     }
     function addLocationChangeCallback(callback) {
       window.setTimeout(callback, 0);
@@ -12781,10 +12777,7 @@ img {
       return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Setting, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.Menus, children: settingListElem }) });
     });
     const SvgCrossSmall = (props) => /* @__PURE__ */ reactExports.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", id: "Outline", viewBox: "0 0 24 24", width: 512, height: 512, ...props }, /* @__PURE__ */ reactExports.createElement("path", { d: "M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z" }));
-    const SettingTemplate = ({
-      isSetting,
-      toggleSetting
-    }) => {
+    const SettingTemplate = ({ isSetting, toggleSetting }) => {
       const settingRef = reactExports.useRef(null);
       const [isDragging, setIsDragging] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
@@ -12836,21 +12829,7 @@ img {
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Header, onMouseDown: handleMouseDown, children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "div",
-                  {
-                    className: styles$7.Menus,
-                    onMouseDown: (e2) => e2.stopPropagation(),
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "div",
-                      {
-                        className: styles$7.Menu,
-                        onClick: toggleSetting,
-                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" })
-                      }
-                    )
-                  }
-                )
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menus, onMouseDown: (e2) => e2.stopPropagation(), children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menu, onClick: toggleSetting, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" }) }) })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
             ]
@@ -12914,10 +12893,16 @@ img {
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
         const fontSize = `${frameFontSize}px`;
-        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
-          color: frameRandomUsername ? color : "#9dd9a5",
-          fontSize
-        }, children: username }) });
+        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "p",
+          {
+            style: {
+              color: frameRandomUsername ? color : "#9dd9a5",
+              fontSize
+            },
+            children: username
+          }
+        ) });
         const messageContent = contentArray.map((content, index) => {
           if (content.type == "image") {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
@@ -13108,10 +13093,16 @@ img {
       const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : "";
         const fontSize = `${overlayFontSize}px`;
-        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: {
-          color: overlayRandomUsername ? color : "#9dd9a5",
-          fontSize
-        }, children: username }) });
+        const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "p",
+          {
+            style: {
+              color: overlayRandomUsername ? color : "#9dd9a5",
+              fontSize
+            },
+            children: username
+          }
+        ) });
         const messageContent = contentArray.map((content, index) => {
           if (content.type == "image") {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
@@ -13242,13 +13233,19 @@ img {
               if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
             } else if (elem.classList.contains("text-original")) {
               elem.childNodes.forEach((child) => {
-                var _a4;
+                var _a4, _b3;
                 if (child.nodeType === Node.TEXT_NODE) {
                   const t2 = (_a4 = child.textContent) == null ? void 0 : _a4.trim();
                   if (t2) contentArray.push({ type: "text", content: t2 });
-                } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName === "IMG") {
-                  const src = child.getAttribute("src");
-                  if (src) contentArray.push({ type: "image", content: src });
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                  const childElem = child;
+                  if (childElem.tagName === "IMG") {
+                    const src = childElem.getAttribute("src");
+                    if (src) contentArray.push({ type: "image", content: src });
+                  } else {
+                    const t2 = (_b3 = childElem.textContent) == null ? void 0 : _b3.trim();
+                    if (t2) contentArray.push({ type: "text", content: t2 });
+                  }
                 }
               });
               if (contentArray.length === 0) {
