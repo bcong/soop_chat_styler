@@ -2,49 +2,49 @@
     "compilerOptions": {
         "target": "ESNext",
         ////////// Module //////////
-        "module": "CommonJS", // 모듈 코드 생성시에 어떤 버전으로 생성할지
-        "moduleResolution": "node", // 모듈 코드 해석시에 어떤 버전으로 해석할지
+        "module": "ESNext", // 모듈 코드 생성시에 어떤 버전으로 생성할지
+        "moduleResolution": "bundler", // 모듈 코드 해석시에 어떤 버전으로 해석할지
         "allowSyntheticDefaultImports": true, // default export없는 모듈도 default import 가능하게
         "esModuleInterop": true, // babel 생태계와의 호환을 의해 __importStar, __importDefault를 내보냄. 타입 시스템 호환을 위해 바로 위의 것 활성화함.
         ////////// path //////////
-        "baseUrl": ".", // 나중에 module참조 에러시 사용할 path
         "outDir": "./dist", // 출력 데이터(구조적으로) 쌓이는 경로
+        "rootDir": "./src",
         "paths": {
             "@Assets/*": [
-                "src/Assets/*"
+                "./src/Assets/*"
             ],
             "@Types/*": [
-                "src/@types/*"
+                "./src/@types/*"
             ],
             "@Models/*": [
-                "src/Models/*"
+                "./src/Models/*"
             ],
             "@Views/*": [
-                "src/Views/*"
+                "./src/Views/*"
             ],
             "@Pages/*": [
-                "src/Pages/*"
+                "./src/Pages/*"
             ],
             "@Templates/*": [
-                "src/Templates/*"
+                "./src/Templates/*"
             ],
             "@Utils/*": [
-                "src/Utils/*"
+                "./src/Utils/*"
             ],
             "@Components/*": [
-                "src/Components/*"
+                "./src/Components/*"
             ],
             "@Stores/*": [
-                "src/Stores/*"
+                "./src/Stores/*"
             ],
             "@Styles/*": [
-                "src/Styles/*"
+                "./src/Styles/*"
             ],
             "@Widgets/*": [
-                "src/Widgets/*"
+                "./src/Widgets/*"
             ],
             "@Module/*": [
-                "src/Module/*"
+                "./src/Module/*"
             ],
         },
         ////////// log //////////
@@ -94,8 +94,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "types": [
-            "vite-plugin-svgr/client",
-            "@types/tampermonkey"
+            "tampermonkey"
         ],
         "typeRoots": [
             "./node_modules/@types",

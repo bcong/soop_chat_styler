@@ -72,7 +72,7 @@ const OverlayChat = observer(() => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [position, isDragging]);
+    }, [position, isDragging]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         const handleResize = () => {
@@ -109,7 +109,7 @@ const OverlayChat = observer(() => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [position]);
+    }, [position]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (!chatRef.current) return;
@@ -122,6 +122,7 @@ const OverlayChat = observer(() => {
         chatRef.current.style.left = `${left}px`;
         chatRef.current.style.top = `${top}px`;
         IsView(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const chatsElem = mainStore.chats

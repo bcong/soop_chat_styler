@@ -24,10 +24,15 @@ const FrameChat = observer(() => {
     const showNicknames = mainStore.setting.get('show_nicknames');
 
     useEffect(() => {
-        const div = document.querySelector('#videoLayer');
-        if (div) {
-            setPlayerSizeDiv(div);
-        }
+        const findVideoLayer = (retry = 0) => {
+            const div = document.querySelector('#videoLayer');
+            if (div) {
+                setPlayerSizeDiv(div);
+            } else if (retry < 30) {
+                setTimeout(() => findVideoLayer(retry + 1), 500);
+            }
+        };
+        findVideoLayer();
     }, []);
 
     const chatsElem = mainStore.chats

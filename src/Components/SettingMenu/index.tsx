@@ -9,7 +9,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
     const mainStore = useMainStore();
     const id = 'chatStylerSetting';
 
-    const addViewChat = () => {
+    const addViewChat = (retry = 0) => {
         const isAdd = document.getElementById('new_btn_chat');
 
         if (isAdd) return;
@@ -41,14 +41,14 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
 
                 oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
             } else {
-                setTimeout(addViewChat, 1000);
+                if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1000);
             }
         } else {
-            setTimeout(addViewChat, 1000);
+            if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1000);
         }
     };
 
-    const addViewChatBox = () => {
+    const addViewChatBox = (retry = 0) => {
         const isAdd = document.getElementById('new_setbox_close');
 
         if (isAdd) return;
@@ -56,7 +56,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
         const oldElement = document.getElementById('setbox_close');
 
         if (!oldElement) {
-            setTimeout(addViewChatBox, 1000);
+            if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1000);
             return;
         }
 
@@ -80,21 +80,22 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
 
             oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
         } else {
-            setTimeout(addViewChatBox, 1000);
+            if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1000);
         }
     };
 
     useEffect(() => {
         addViewChat();
         addViewChatBox();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const checkAndInsertElement = () => {
+        const checkAndInsertElement = (retry = 0) => {
             const serviceUtilElement = document.querySelector('.serviceUtil');
 
             if (!serviceUtilElement) {
-                setTimeout(checkAndInsertElement, 1000);
+                if (retry < 30) setTimeout(() => checkAndInsertElement(retry + 1), 1000);
                 return;
             }
 
@@ -125,6 +126,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
         };
 
         checkAndInsertElement();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return null;

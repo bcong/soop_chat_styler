@@ -59,21 +59,51 @@ const App = () => {
 
         const messageOriginal = message.querySelector('#message-original') ?? message;
 
-        processedChats.current.add(chat);
-
         const contentArray: I_CONTENT[] = [];
         messageOriginal.childNodes.forEach((node: ChildNode) => {
             if (node.nodeType === Node.TEXT_NODE) {
                 const textContent = node.textContent?.trim();
                 if (textContent) contentArray.push({ type: 'text', content: textContent });
-            } else if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).tagName === 'IMG') {
-                const imgSrc = (node as HTMLImageElement).getAttribute('src');
-                if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const elem = node as HTMLElement;
+                if (elem.tagName === 'IMG') {
+                    const imgSrc = elem.getAttribute('src');
+                    if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
+                } else if (elem.classList.contains('text-original')) {
+                    elem.childNodes.forEach((child) => {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            const t = child.textContent?.trim();
+                            if (t) contentArray.push({ type: 'text', content: t });
+                        } else if (child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName === 'IMG') {
+                            const src = (child as HTMLImageElement).getAttribute('src');
+                            if (src) contentArray.push({ type: 'image', content: src });
+                        }
+                    });
+                    // fallback: span에 childNodes가 없거나 모두 처리 못한 경우
+                    if (contentArray.length === 0) {
+                        const t = elem.textContent?.trim();
+                        if (t) contentArray.push({ type: 'text', content: t });
+                    }
+                } else if (elem.classList.contains('emoticon-box')) {
+                    const img = elem.querySelector('img.emoticon');
+                    const imgSrc = img?.getAttribute('src');
+                    if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
+                }
             }
         });
 
+        // emoticon-box가 message-text 바로 하위에 있는 경우 (message-original 없음)
+        if (contentArray.length === 0) {
+            const emoticonImg = message.querySelector('.emoticon-box img.emoticon');
+            if (emoticonImg) {
+                const imgSrc = emoticonImg.getAttribute('src');
+                if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
+            }
+        }
+
         if (contentArray.length === 0) return;
 
+        processedChats.current.add(chat);
         const idx = colorIdxRef.current;
         mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
         colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
@@ -123,6 +153,8 @@ const App = () => {
     };
 
     const checkViewChat = () => {
+        // defalut_chat_enable이 true면 기본 채팅 유지, false일 때만 숨김
+        if (mainStore.setting.get('defalut_chat_enable')) return;
         const buttonElement = document.querySelector('.view_ctrl .btn_chat') as HTMLLIElement;
         if (!buttonElement) return;
         const computedStyle = window.getComputedStyle(buttonElement);

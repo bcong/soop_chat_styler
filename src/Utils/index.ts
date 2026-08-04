@@ -29,7 +29,7 @@ export const deepCopy = <T>(obj: T): T => {
     return newObj;
 };
 
-export function log(...args: any[]): void {
+export function log(...args: unknown[]): void {
     console.log(
         "%cUserscript (React Mode):",
         "color: purple; font-weight: bold",

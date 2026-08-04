@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260804151837
+// @version      20260804162958
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
 // @icon         https://res.sooplive.com/afreeca.ico
-// @downloadURL  https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
-// @updateURL    https://github.com/bcong/soop_chat_styler/blob/master/dist/userscripts.user.js
+// @downloadURL  https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js
+// @updateURL    https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js
 // @match        https://www.sooplive.com/*
 // @match        https://play.sooplive.com/*
 // @connect      sooplive.com
@@ -11783,7 +11783,7 @@ img {
     const SettingMenuComponent = ({ toggleSetting }) => {
       const mainStore = useMainStore();
       const id2 = "chatStylerSetting";
-      const addViewChat = () => {
+      const addViewChat = (retry = 0) => {
         const isAdd = document.getElementById("new_btn_chat");
         if (isAdd) return;
         const oldElements = document.getElementsByClassName("btn_chat");
@@ -11805,18 +11805,18 @@ img {
             newLiElement.appendChild(newButtonElement);
             oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
           } else {
-            setTimeout(addViewChat, 1e3);
+            if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1e3);
           }
         } else {
-          setTimeout(addViewChat, 1e3);
+          if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1e3);
         }
       };
-      const addViewChatBox = () => {
+      const addViewChatBox = (retry = 0) => {
         const isAdd = document.getElementById("new_setbox_close");
         if (isAdd) return;
         const oldElement = document.getElementById("setbox_close");
         if (!oldElement) {
-          setTimeout(addViewChatBox, 1e3);
+          if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1e3);
           return;
         }
         if (oldElement && oldElement.parentElement) {
@@ -11834,7 +11834,7 @@ img {
           };
           oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
         } else {
-          setTimeout(addViewChatBox, 1e3);
+          if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1e3);
         }
       };
       reactExports.useEffect(() => {
@@ -11842,10 +11842,10 @@ img {
         addViewChatBox();
       }, []);
       reactExports.useEffect(() => {
-        const checkAndInsertElement = () => {
+        const checkAndInsertElement = (retry = 0) => {
           const serviceUtilElement = document.querySelector(".serviceUtil");
           if (!serviceUtilElement) {
-            setTimeout(checkAndInsertElement, 1e3);
+            if (retry < 30) setTimeout(() => checkAndInsertElement(retry + 1), 1e3);
             return;
           }
           const existingItem = document.getElementById(id2);
@@ -12901,10 +12901,15 @@ img {
       const frameOffsetY = mainStore.setting.get("frame_offset_y");
       const showNicknames = mainStore.setting.get("show_nicknames");
       reactExports.useEffect(() => {
-        const div = document.querySelector("#videoLayer");
-        if (div) {
-          setPlayerSizeDiv(div);
-        }
+        const findVideoLayer = (retry = 0) => {
+          const div = document.querySelector("#videoLayer");
+          if (div) {
+            setPlayerSizeDiv(div);
+          } else if (retry < 30) {
+            setTimeout(() => findVideoLayer(retry + 1), 500);
+          }
+        };
+        findVideoLayer();
       }, []);
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
@@ -13224,19 +13229,48 @@ img {
         const message = chat.querySelector(".message-text");
         if (!username || !message) return;
         const messageOriginal = message.querySelector("#message-original") ?? message;
-        processedChats.current.add(chat);
         const contentArray = [];
         messageOriginal.childNodes.forEach((node) => {
-          var _a3;
+          var _a3, _b2;
           if (node.nodeType === Node.TEXT_NODE) {
             const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
             if (textContent) contentArray.push({ type: "text", content: textContent });
-          } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "IMG") {
-            const imgSrc = node.getAttribute("src");
-            if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const elem = node;
+            if (elem.tagName === "IMG") {
+              const imgSrc = elem.getAttribute("src");
+              if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+            } else if (elem.classList.contains("text-original")) {
+              elem.childNodes.forEach((child) => {
+                var _a4;
+                if (child.nodeType === Node.TEXT_NODE) {
+                  const t2 = (_a4 = child.textContent) == null ? void 0 : _a4.trim();
+                  if (t2) contentArray.push({ type: "text", content: t2 });
+                } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName === "IMG") {
+                  const src = child.getAttribute("src");
+                  if (src) contentArray.push({ type: "image", content: src });
+                }
+              });
+              if (contentArray.length === 0) {
+                const t2 = (_b2 = elem.textContent) == null ? void 0 : _b2.trim();
+                if (t2) contentArray.push({ type: "text", content: t2 });
+              }
+            } else if (elem.classList.contains("emoticon-box")) {
+              const img = elem.querySelector("img.emoticon");
+              const imgSrc = img == null ? void 0 : img.getAttribute("src");
+              if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+            }
           }
         });
+        if (contentArray.length === 0) {
+          const emoticonImg = message.querySelector(".emoticon-box img.emoticon");
+          if (emoticonImg) {
+            const imgSrc = emoticonImg.getAttribute("src");
+            if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
+          }
+        }
         if (contentArray.length === 0) return;
+        processedChats.current.add(chat);
         const idx = colorIdxRef.current;
         mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
         colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
@@ -13277,6 +13311,7 @@ img {
         chatObserver.current = observer2;
       };
       const checkViewChat = () => {
+        if (mainStore.setting.get("defalut_chat_enable")) return;
         const buttonElement = document.querySelector(".view_ctrl .btn_chat");
         if (!buttonElement) return;
         const computedStyle = window.getComputedStyle(buttonElement);

@@ -57,7 +57,7 @@ const SettingTemplate: React.FC<I_PROPS> = ({
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isDragging]);
+    }, [isDragging]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return ReactDOM.createPortal(
         <div
