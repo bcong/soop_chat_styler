@@ -3,13 +3,9 @@ import styles from './style.module.less';
 import { I_GLOBAL_PROPS } from '@Types/index';
 import { useMainStore } from '@Stores/index';
 
-interface I_PROPS extends I_GLOBAL_PROPS {
+interface I_PROPS extends I_GLOBAL_PROPS {}
 
-}
-
-const SettingMenuComponent: React.FC<I_PROPS> = ({
-    toggleSetting
-}) => {
+const SettingMenuComponent: React.FC<I_PROPS> = ({ toggleSetting }) => {
     const mainStore = useMainStore();
     const id = 'chatStylerSetting';
 
@@ -18,37 +14,37 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
 
         if (isAdd) return;
 
-        const oldElements = document.getElementsByClassName("btn_chat");
+        const oldElements = document.getElementsByClassName('btn_chat');
 
         if (oldElements.length > 0) {
             const oldElement = oldElements[0];
 
             if (oldElement && oldElement.parentElement) {
-                const newLiElement = document.createElement("li");
-                newLiElement.className = "btn_chat";
+                const newLiElement = document.createElement('li');
+                newLiElement.className = 'btn_chat';
                 newLiElement.style.display = 'block';
-                newLiElement.id = "new_btn_chat";
+                newLiElement.id = 'new_btn_chat';
 
-                const newButtonElement = document.createElement("button");
-                newButtonElement.type = "button";
+                const newButtonElement = document.createElement('button');
+                newButtonElement.type = 'button';
 
-                const newSpanElement = document.createElement("span");
-                newSpanElement.textContent = "채팅창 on/off";
+                const newSpanElement = document.createElement('span');
+                newSpanElement.textContent = '채팅창 on/off';
 
                 newButtonElement.appendChild(newSpanElement);
 
                 newLiElement.onclick = () => {
-                    mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
+                    mainStore.setSetting('defalut_chat_enable', !mainStore.setting.get('defalut_chat_enable'), true);
                 };
 
                 newLiElement.appendChild(newButtonElement);
 
                 oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
             } else {
-                console.error("btn_chat 클래스를 가진 요소의 부모를 찾을 수 없습니다.");
+                setTimeout(addViewChat, 1000);
             }
         } else {
-            console.error("btn_chat 클래스를 가진 요소를 찾을 수 없습니다.");
+            setTimeout(addViewChat, 1000);
         }
     };
 
@@ -57,19 +53,24 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
 
         if (isAdd) return;
 
-        const oldElement = document.getElementById("setbox_close");
+        const oldElement = document.getElementById('setbox_close');
+
+        if (!oldElement) {
+            setTimeout(addViewChatBox, 1000);
+            return;
+        }
 
         if (oldElement && oldElement.parentElement) {
             oldElement.style.display = 'none';
 
-            const newLiElement = document.createElement("li");
-            newLiElement.className = "close";
-            newLiElement.id = "new_setbox_close";
+            const newLiElement = document.createElement('li');
+            newLiElement.className = 'close';
+            newLiElement.id = 'new_setbox_close';
 
-            const newAnchorElement = document.createElement("a");
-            newAnchorElement.className = "tip-right";
-            newAnchorElement.setAttribute("tip", "닫기");
-            newAnchorElement.textContent = "새로운 채팅 영역 숨기기";
+            const newAnchorElement = document.createElement('a');
+            newAnchorElement.className = 'tip-right';
+            newAnchorElement.setAttribute('tip', '닫기');
+            newAnchorElement.textContent = '새로운 채팅 영역 숨기기';
 
             newLiElement.appendChild(newAnchorElement);
 
@@ -79,7 +80,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
 
             oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
         } else {
-            console.error("setbox_close 요소 또는 부모 요소를 찾을 수 없습니다.");
+            setTimeout(addViewChatBox, 1000);
         }
     };
 
@@ -99,8 +100,7 @@ const SettingMenuComponent: React.FC<I_PROPS> = ({
 
             const existingItem = document.getElementById(id);
 
-            if (existingItem)
-                existingItem.remove();
+            if (existingItem) existingItem.remove();
 
             const newDivElement = document.createElement('div');
             newDivElement.id = id;
