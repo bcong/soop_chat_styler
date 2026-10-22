@@ -37,14 +37,14 @@ test('emoticon-only messages render just the image', () => {
     ]);
 });
 
-test('nested emoticons stay in order with surrounding text and spaces', () => {
+test('nearby emoticon codes are removed while text and image order are preserved', () => {
     assert.deepEqual(
         parseChatContent(
             element('DIV', {
                 children: [
                     element('SPAN', {
                         classes: ['text-original'],
-                        children: [text('before '), emoticon('emoji.png'), text(' after')],
+                        children: [text('before '), text('/WOW_S/'), emoticon('emoji.png'), text('/WOW_S/'), text(' after')],
                     }),
                 ],
             }),

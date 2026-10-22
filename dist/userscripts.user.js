@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261022191900
+// @version      20261022200225
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13183,7 +13183,11 @@ img {
       const appendContent = (node) => {
         var _a2;
         if (node.nodeType === Node.TEXT_NODE) {
-          if (node.textContent) contentArray.push({ type: "text", content: node.textContent });
+          if (node.textContent) {
+            const previousContent = contentArray.at(-1);
+            if ((previousContent == null ? void 0 : previousContent.type) === "text") previousContent.content += node.textContent;
+            else contentArray.push({ type: "text", content: node.textContent });
+          }
         } else if (node.nodeType === Node.ELEMENT_NODE) {
           const element = node;
           if (element.classList.contains("emoticon-box")) {
@@ -13198,7 +13202,14 @@ img {
         }
       };
       message.childNodes.forEach(appendContent);
-      return contentArray;
+      return contentArray.flatMap((content, index) => {
+        var _a2, _b2;
+        if (content.type !== "text") return [content];
+        let text = content.content;
+        if (((_a2 = contentArray[index - 1]) == null ? void 0 : _a2.type) === "image") text = text.replace(/^(\s*)\/[^/\s]+\/(?=\s|$)/, "$1");
+        if (((_b2 = contentArray[index + 1]) == null ? void 0 : _b2.type) === "image") text = text.replace(/\/[^/\s]+\/(\s*)$/, "$1");
+        return text ? [{ type: "text", content: text }] : [];
+      });
     };
     const COLORS = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
     const App = () => {

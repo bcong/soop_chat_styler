@@ -5,7 +5,11 @@ export const parseChatContent = (message: Element): I_CONTENT[] => {
 
     const appendContent = (node: Node) => {
         if (node.nodeType === Node.TEXT_NODE) {
-            if (node.textContent) contentArray.push({ type: 'text', content: node.textContent });
+            if (node.textContent) {
+                const previousContent = contentArray.at(-1);
+                if (previousContent?.type === 'text') previousContent.content += node.textContent;
+                else contentArray.push({ type: 'text', content: node.textContent });
+            }
         } else if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as HTMLElement;
             if (element.classList.contains('emoticon-box')) {
@@ -21,5 +25,12 @@ export const parseChatContent = (message: Element): I_CONTENT[] => {
     };
 
     message.childNodes.forEach(appendContent);
-    return contentArray;
+    return contentArray.flatMap((content, index) => {
+        if (content.type !== 'text') return [content];
+
+        let text = content.content;
+        if (contentArray[index - 1]?.type === 'image') text = text.replace(/^(\s*)\/[^/\s]+\/(?=\s|$)/, '$1');
+        if (contentArray[index + 1]?.type === 'image') text = text.replace(/\/[^/\s]+\/(\s*)$/, '$1');
+        return text ? [{ type: 'text', content: text }] : [];
+    });
 };
