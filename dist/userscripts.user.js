@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20260804164234
+// @version      20261022191900
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13178,6 +13178,28 @@ img {
       }
       return enable && chatElem;
     });
+    const parseChatContent = (message) => {
+      const contentArray = [];
+      const appendContent = (node) => {
+        var _a2;
+        if (node.nodeType === Node.TEXT_NODE) {
+          if (node.textContent) contentArray.push({ type: "text", content: node.textContent });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node;
+          if (element.classList.contains("emoticon-box")) {
+            const imageSrc = (_a2 = element.querySelector("img.emoticon")) == null ? void 0 : _a2.getAttribute("src");
+            if (imageSrc) contentArray.push({ type: "image", content: imageSrc });
+          } else if (element.tagName === "IMG") {
+            const imageSrc = element.getAttribute("src");
+            if (imageSrc) contentArray.push({ type: "image", content: imageSrc });
+          } else {
+            element.childNodes.forEach(appendContent);
+          }
+        }
+      };
+      message.childNodes.forEach(appendContent);
+      return contentArray;
+    };
     const COLORS = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
     const App = () => {
       const mainStore = useMainStore();
@@ -13220,53 +13242,8 @@ img {
         const message = chat.querySelector(".message-text");
         if (!username || !message) return;
         const messageOriginal = message.querySelector("#message-original") ?? message;
-        const contentArray = [];
-        messageOriginal.childNodes.forEach((node) => {
-          var _a3, _b2;
-          if (node.nodeType === Node.TEXT_NODE) {
-            const textContent = (_a3 = node.textContent) == null ? void 0 : _a3.trim();
-            if (textContent) contentArray.push({ type: "text", content: textContent });
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const elem = node;
-            if (elem.tagName === "IMG") {
-              const imgSrc = elem.getAttribute("src");
-              if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
-            } else if (elem.classList.contains("text-original")) {
-              elem.childNodes.forEach((child) => {
-                var _a4, _b3;
-                if (child.nodeType === Node.TEXT_NODE) {
-                  const t2 = (_a4 = child.textContent) == null ? void 0 : _a4.trim();
-                  if (t2) contentArray.push({ type: "text", content: t2 });
-                } else if (child.nodeType === Node.ELEMENT_NODE) {
-                  const childElem = child;
-                  if (childElem.tagName === "IMG") {
-                    const src = childElem.getAttribute("src");
-                    if (src) contentArray.push({ type: "image", content: src });
-                  } else {
-                    const t2 = (_b3 = childElem.textContent) == null ? void 0 : _b3.trim();
-                    if (t2) contentArray.push({ type: "text", content: t2 });
-                  }
-                }
-              });
-              if (contentArray.length === 0) {
-                const t2 = (_b2 = elem.textContent) == null ? void 0 : _b2.trim();
-                if (t2) contentArray.push({ type: "text", content: t2 });
-              }
-            } else if (elem.classList.contains("emoticon-box")) {
-              const img = elem.querySelector("img.emoticon");
-              const imgSrc = img == null ? void 0 : img.getAttribute("src");
-              if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
-            }
-          }
-        });
-        if (contentArray.length === 0) {
-          const emoticonImg = message.querySelector(".emoticon-box img.emoticon");
-          if (emoticonImg) {
-            const imgSrc = emoticonImg.getAttribute("src");
-            if (imgSrc) contentArray.push({ type: "image", content: imgSrc });
-          }
-        }
-        if (contentArray.length === 0) return;
+        const contentArray = parseChatContent(messageOriginal);
+        if (!contentArray.some((content) => content.type === "image" || content.content.trim())) return;
         processedChats.current.add(chat);
         const idx = colorIdxRef.current;
         mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });

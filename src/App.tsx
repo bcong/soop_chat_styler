@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
-import { I_CONTENT, T_SETTING } from './@types';
+import { T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
+import { parseChatContent } from '@Utils/parseChatContent';
 
 const COLORS = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
 
@@ -58,56 +59,8 @@ const App = () => {
         if (!username || !message) return;
 
         const messageOriginal = message.querySelector('#message-original') ?? message;
-
-        const contentArray: I_CONTENT[] = [];
-        messageOriginal.childNodes.forEach((node: ChildNode) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const textContent = node.textContent?.trim();
-                if (textContent) contentArray.push({ type: 'text', content: textContent });
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const elem = node as HTMLElement;
-                if (elem.tagName === 'IMG') {
-                    const imgSrc = elem.getAttribute('src');
-                    if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
-                } else if (elem.classList.contains('text-original')) {
-                    elem.childNodes.forEach((child) => {
-                        if (child.nodeType === Node.TEXT_NODE) {
-                            const t = child.textContent?.trim();
-                            if (t) contentArray.push({ type: 'text', content: t });
-                        } else if (child.nodeType === Node.ELEMENT_NODE) {
-                            const childElem = child as HTMLElement;
-                            if (childElem.tagName === 'IMG') {
-                                const src = childElem.getAttribute('src');
-                                if (src) contentArray.push({ type: 'image', content: src });
-                            } else {
-                                const t = childElem.textContent?.trim();
-                                if (t) contentArray.push({ type: 'text', content: t });
-                            }
-                        }
-                    });
-                    // fallback: 아무것도 추출되지 않은 경우
-                    if (contentArray.length === 0) {
-                        const t = elem.textContent?.trim();
-                        if (t) contentArray.push({ type: 'text', content: t });
-                    }
-                } else if (elem.classList.contains('emoticon-box')) {
-                    const img = elem.querySelector('img.emoticon');
-                    const imgSrc = img?.getAttribute('src');
-                    if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
-                }
-            }
-        });
-
-        // emoticon-box가 message-text 바로 하위에 있는 경우 (message-original 없음)
-        if (contentArray.length === 0) {
-            const emoticonImg = message.querySelector('.emoticon-box img.emoticon');
-            if (emoticonImg) {
-                const imgSrc = emoticonImg.getAttribute('src');
-                if (imgSrc) contentArray.push({ type: 'image', content: imgSrc });
-            }
-        }
-
-        if (contentArray.length === 0) return;
+        const contentArray = parseChatContent(messageOriginal);
+        if (!contentArray.some((content) => content.type === 'image' || content.content.trim())) return;
 
         processedChats.current.add(chat);
         const idx = colorIdxRef.current;
