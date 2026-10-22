@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261022200225
+// @version      20261022213956
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13202,12 +13202,10 @@ img {
         }
       };
       message.childNodes.forEach(appendContent);
-      return contentArray.flatMap((content, index) => {
-        var _a2, _b2;
-        if (content.type !== "text") return [content];
-        let text = content.content;
-        if (((_a2 = contentArray[index - 1]) == null ? void 0 : _a2.type) === "image") text = text.replace(/^(\s*)\/[^/\s]+\/(?=\s|$)/, "$1");
-        if (((_b2 = contentArray[index + 1]) == null ? void 0 : _b2.type) === "image") text = text.replace(/\/[^/\s]+\/(\s*)$/, "$1");
+      const hasImage = contentArray.some((content) => content.type === "image");
+      return contentArray.flatMap((content) => {
+        if (content.type !== "text" || !hasImage) return [content];
+        const text = content.content.replace(/(^|\s)\/[^/\s]+\/(?=\s|$)/g, "$1").replace(/\s+/g, " ");
         return text ? [{ type: "text", content: text }] : [];
       });
     };

@@ -25,12 +25,14 @@ export const parseChatContent = (message: Element): I_CONTENT[] => {
     };
 
     message.childNodes.forEach(appendContent);
-    return contentArray.flatMap((content, index) => {
-        if (content.type !== 'text') return [content];
+    const hasImage = contentArray.some((content) => content.type === 'image');
 
-        let text = content.content;
-        if (contentArray[index - 1]?.type === 'image') text = text.replace(/^(\s*)\/[^/\s]+\/(?=\s|$)/, '$1');
-        if (contentArray[index + 1]?.type === 'image') text = text.replace(/\/[^/\s]+\/(\s*)$/, '$1');
+    return contentArray.flatMap((content) => {
+        if (content.type !== 'text' || !hasImage) return [content];
+
+        const text = content.content
+            .replace(/(^|\s)\/[^/\s]+\/(?=\s|$)/g, '$1')
+            .replace(/\s+/g, ' ');
         return text ? [{ type: 'text', content: text }] : [];
     });
 };

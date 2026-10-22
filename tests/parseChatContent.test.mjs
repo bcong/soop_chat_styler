@@ -28,7 +28,7 @@ const element = (tagName, { classes = [], children = [], attributes = {} } = {})
 const emoticon = (src) =>
     element('SPAN', {
         classes: ['emoticon-box'],
-        children: [element('IMG', { classes: ['emoticon'], attributes: { src } }), text('/WOW_S/')],
+        children: [element('IMG', { classes: ['emoticon'], attributes: { src } }), text('/fallback_emote/')],
     });
 
 test('emoticon-only messages render just the image', () => {
@@ -37,14 +37,14 @@ test('emoticon-only messages render just the image', () => {
     ]);
 });
 
-test('nearby emoticon codes are removed while text and image order are preserved', () => {
+test('emoticon commands with any name are removed when an image is present', () => {
     assert.deepEqual(
         parseChatContent(
             element('DIV', {
                 children: [
                     element('SPAN', {
                         classes: ['text-original'],
-                        children: [text('before '), text('/WOW_S/'), emoticon('emoji.png'), text('/WOW_S/'), text(' after')],
+                        children: [text('before /first_emote/ '), emoticon('emoji.png'), text(' /second_emote/ after')],
                     }),
                 ],
             }),
@@ -55,4 +55,10 @@ test('nearby emoticon codes are removed while text and image order are preserved
             { type: 'text', content: ' after' },
         ],
     );
+});
+
+test('slash-wrapped text remains when there is no image', () => {
+    assert.deepEqual(parseChatContent(element('DIV', { children: [text('/literal_text/')] })), [
+        { type: 'text', content: '/literal_text/' },
+    ]);
 });
