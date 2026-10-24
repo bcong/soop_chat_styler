@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261022213956
+// @version      20261024162109
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -13190,7 +13190,9 @@ img {
           }
         } else if (node.nodeType === Node.ELEMENT_NODE) {
           const element = node;
-          if (element.classList.contains("emoticon-box")) {
+          if (element.classList.contains("message-translation")) {
+            return;
+          } else if (element.classList.contains("emoticon-box")) {
             const imageSrc = (_a2 = element.querySelector("img.emoticon")) == null ? void 0 : _a2.getAttribute("src");
             if (imageSrc) contentArray.push({ type: "image", content: imageSrc });
           } else if (element.tagName === "IMG") {

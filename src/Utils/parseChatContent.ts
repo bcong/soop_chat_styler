@@ -12,7 +12,9 @@ export const parseChatContent = (message: Element): I_CONTENT[] => {
             }
         } else if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as HTMLElement;
-            if (element.classList.contains('emoticon-box')) {
+            if (element.classList.contains('message-translation')) {
+                return;
+            } else if (element.classList.contains('emoticon-box')) {
                 const imageSrc = element.querySelector('img.emoticon')?.getAttribute('src');
                 if (imageSrc) contentArray.push({ type: 'image', content: imageSrc });
             } else if (element.tagName === 'IMG') {

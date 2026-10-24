@@ -37,6 +37,24 @@ test('emoticon-only messages render just the image', () => {
     ]);
 });
 
+test('message translation copy button is not included in chat content', () => {
+    const message = element('DIV', {
+        classes: ['message-text'],
+        children: [
+            emoticon('emoji.png'),
+            element('DIV', {
+                classes: ['message-translation'],
+                children: [
+                    element('P', { classes: ['msg'] }),
+                    element('BUTTON', { classes: ['btn-border'], children: [text('원문 복사')] }),
+                ],
+            }),
+        ],
+    });
+
+    assert.deepEqual(parseChatContent(message), [{ type: 'image', content: 'emoji.png' }]);
+});
+
 test('emoticon commands with any name are removed when an image is present', () => {
     assert.deepEqual(
         parseChatContent(
