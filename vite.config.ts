@@ -36,7 +36,8 @@ export default defineConfig(({ mode }) => {
                     match: ['https://www.sooplive.com/*', 'https://play.sooplive.com/*'],
                     icon: 'https://res.sooplive.com/afreeca.ico',
                     connect: ['sooplive.com'],
-                    grant: ['GM_setValue', 'GM_getValue', 'GM_listValues'],
+                    grant: ['GM_setValue', 'GM_getValue', 'GM_listValues', 'unsafeWindow'],
+                    'run-at': 'document-start',
                     license: 'MIT',
                     downloadURL:
                         'https://raw.githubusercontent.com/bcong/soop_chat_styler/master/dist/userscripts.user.js',
@@ -78,6 +79,7 @@ export default defineConfig(({ mode }) => {
             },
         },
         define: {
+            __BUILD_VERSION__: JSON.stringify(version),
             'process.env.NODE_ENV': JSON.stringify(mode),
         },
         resolve: {

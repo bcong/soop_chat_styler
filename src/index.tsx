@@ -3,8 +3,12 @@ import { createRoot, Root } from "react-dom/client";
 import "./global.less";
 import App from "./App";
 import { awaitElement, log, addLocationChangeCallback } from "./Utils";
+import { installSoopChatSocketHook } from "./Utils/soopChatSocket";
+import { installSoopPictureInPictureHook } from "./Utils/soopPictureInPicture";
 import { StoreProvider } from "./Stores";
 
+installSoopChatSocketHook();
+installSoopPictureInPictureHook();
 log("SOOP 채팅 스타일러 - 비콩");
 
 let root: Root | null = null; // 전역 변수로 root 상태 관리
@@ -32,8 +36,12 @@ async function main() {
     }
 }
 
-addLocationChangeCallback(() => {
-    main().catch((e) => {
-        log(e);
+const startApp = () =>
+    addLocationChangeCallback(() => {
+        main().catch((e) => {
+            log(e);
+        });
     });
-});
+
+if (document.body) startApp();
+else document.addEventListener("DOMContentLoaded", startApp, { once: true });

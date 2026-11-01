@@ -63,7 +63,9 @@ const SettingTemplate: React.FC<I_PROPS> = ({ isSetting, toggleSetting }) => {
             style={{ position: 'absolute' }}>
             <div className={styles.Header} onMouseDown={handleMouseDown}>
                 <div className={styles.Title}>
-                    <p>채팅 스타일러</p>
+                    <p>
+                        채팅 스타일러 <span className={styles.Version}>v{__BUILD_VERSION__}</span>
+                    </p>
                 </div>
                 <div className={styles.Menus} onMouseDown={(e) => e.stopPropagation()}>
                     <div className={styles.Menu} onClick={toggleSetting}>

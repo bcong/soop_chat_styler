@@ -4,7 +4,14 @@ import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
 import { T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
-import { parseChatContent } from '@Utils/parseChatContent';
+import { subscribeToSoopChat } from '@Utils/soopChatSocket';
+import { subscribeToSoopPictureInPicture } from '@Utils/soopPictureInPicture';
+
+type WindowWithDocumentPictureInPicture = typeof unsafeWindow & {
+    documentPictureInPicture?: {
+        requestWindow: (options: { width: number; height: number }) => Promise<Window>;
+    };
+};
 
 const COLORS = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
 
@@ -12,14 +19,96 @@ const App = () => {
     const mainStore = useMainStore();
     const [isSetting, IsSetting] = useState(false);
     const [isInit, IsInit] = useState(false);
+    const [pipTarget, setPipTarget] = useState<HTMLDivElement | null>(null);
+    const pipTargetRef = useRef<HTMLDivElement | null>(null);
     const colorIdxRef = useRef(0);
-    const processedChats = useRef(new WeakSet<Element>());
-    const chatObserver = useRef<MutationObserver | null>(null);
-    const observedChatArea = useRef<Element | null>(null);
-    const retryTimer = useRef<number | null>(null);
 
     const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
+    };
+
+    const openPictureInPicture = async (video: HTMLVideoElement): Promise<Window | null> => {
+        const pictureInPicture = (unsafeWindow as WindowWithDocumentPictureInPicture).documentPictureInPicture;
+        if (!pictureInPicture) return null;
+
+        const existingPipTarget = pipTargetRef.current;
+        const existingPipWindow = existingPipTarget?.ownerDocument.defaultView;
+        if (existingPipWindow && !existingPipWindow.closed) {
+            existingPipWindow.focus();
+            return existingPipWindow;
+        }
+        if (existingPipTarget) {
+            pipTargetRef.current = null;
+            setPipTarget(null);
+        }
+
+        const originalParent = video.parentElement;
+        if (!originalParent) {
+            window.alert('재생 중인 방송 영상을 찾을 수 없습니다.');
+            return null;
+        }
+
+        const originalNextSibling = video.nextSibling;
+        const originalStyle = video.getAttribute('style');
+        const originalControls = video.controls;
+        const pageDocument = video.ownerDocument;
+        const restoreVideo = () => {
+            if (video.parentElement !== originalParent) {
+                if (originalNextSibling?.parentNode === originalParent) {
+                    originalParent.insertBefore(video, originalNextSibling);
+                } else {
+                    originalParent.append(video);
+                }
+            }
+
+            if (originalStyle === null) video.removeAttribute('style');
+            else video.setAttribute('style', originalStyle);
+            video.controls = originalControls;
+        };
+
+        let pipWindow: Window | null = null;
+        try {
+            pipWindow = await pictureInPicture.requestWindow({
+                width: 640,
+                height: 360,
+            });
+
+            const pipDocument = pipWindow.document;
+            pageDocument.querySelectorAll('style').forEach((style) => {
+                pipDocument.head.append(style.cloneNode(true));
+            });
+
+            const pipStyle = pipDocument.createElement('style');
+            pipStyle.textContent =
+                'html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000;}#soop-chat-pip-root{position:relative;width:100vw;height:100vh;overflow:hidden;background:#000;}#soop-chat-pip-root>video{display:block;width:100%;height:100%;object-fit:contain;}';
+            pipDocument.head.append(pipStyle);
+
+            const root = pipDocument.createElement('div');
+            root.id = 'soop-chat-pip-root';
+            pipDocument.body.append(root);
+
+            video.controls = true;
+            video.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain;';
+            root.append(video);
+
+            pipWindow.addEventListener(
+                'pagehide',
+                () => {
+                    restoreVideo();
+                    pipTargetRef.current = null;
+                    setPipTarget(null);
+                },
+                { once: true },
+            );
+            pipTargetRef.current = root;
+            setPipTarget(root);
+            return pipWindow;
+        } catch (error) {
+            restoreVideo();
+            pipWindow?.close();
+            window.alert(`PIP 창을 열지 못했습니다: ${error instanceof Error ? error.message : String(error)}`);
+            return null;
+        }
     };
 
     const initSetting = () => {
@@ -50,91 +139,25 @@ const App = () => {
         IsInit(true);
     };
 
-    const processChatItem = (chat: Element) => {
-        if (processedChats.current.has(chat)) return;
-
-        const username = chat.querySelector('.username .author')?.textContent || null;
-        const message = chat.querySelector('.message-text');
-
-        if (!username || !message) return;
-
-        const messageOriginal = message.querySelector('#message-original') ?? message;
-        const contentArray = parseChatContent(messageOriginal);
-        if (!contentArray.some((content) => content.type === 'image' || content.content.trim())) return;
-
-        processedChats.current.add(chat);
-        const idx = colorIdxRef.current;
-        mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
-        colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
-    };
-
-    const disconnectObserver = () => {
-        if (chatObserver.current) {
-            chatObserver.current.disconnect();
-            chatObserver.current = null;
-        }
-        observedChatArea.current = null;
-    };
-
-    const observeChatArea = () => {
-        const elements = document.querySelectorAll('#chat_area');
-        const chatArea = elements.length ? elements[elements.length - 1] : null;
-
-        if (!chatArea) {
-            retryTimer.current = window.setTimeout(observeChatArea, 1000);
-            return;
-        }
-
-        if (observedChatArea.current === chatArea) return;
-
-        disconnectObserver();
-        observedChatArea.current = chatArea;
-
-        chatArea.querySelectorAll('.chatting-list-item').forEach(processChatItem);
-
-        const observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.type !== 'childList') continue;
-                mutation.addedNodes.forEach((node) => {
-                    if (node.nodeType !== Node.ELEMENT_NODE) return;
-                    const elem = node as Element;
-                    if (elem.matches('.chatting-list-item')) {
-                        processChatItem(elem);
-                    } else {
-                        elem.querySelectorAll('.chatting-list-item').forEach(processChatItem);
-                    }
-                });
-            }
-        });
-
-        observer.observe(chatArea, { childList: true, subtree: true });
-        chatObserver.current = observer;
-    };
-
-    const checkViewChat = () => {
-        // defalut_chat_enable이 true면 기본 채팅 유지, false일 때만 숨김
-        if (mainStore.setting.get('defalut_chat_enable')) return;
-        const buttonElement = document.querySelector('.view_ctrl .btn_chat') as HTMLLIElement;
-        if (!buttonElement) return;
-        const computedStyle = window.getComputedStyle(buttonElement);
-        const button = buttonElement.querySelector('button') as HTMLButtonElement;
-        if (!button) return;
-        if (computedStyle.display === 'block') button.click();
-    };
-
     useEffect(() => {
         initSetting();
-        checkViewChat();
-        observeChatArea();
+        const unsubscribe = subscribeToSoopChat(({ username, comment }) => {
+            if (!comment.trim()) return;
 
-        const fallbackTimer = setInterval(observeChatArea, 3000);
-        const viewChatTimer = setInterval(checkViewChat, 2000);
+            const idx = colorIdxRef.current;
+            mainStore.addChat({
+                id: mainStore.chatId + 1,
+                username,
+                contentArray: [{ type: 'text', content: comment }],
+                color: COLORS[idx],
+            });
+            colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
+        });
+        const unsubscribePip = subscribeToSoopPictureInPicture(openPictureInPicture);
 
         return () => {
-            clearInterval(fallbackTimer);
-            clearInterval(viewChatTimer);
-            if (retryTimer.current) clearTimeout(retryTimer.current);
-            disconnectObserver();
+            unsubscribe();
+            unsubscribePip();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -142,9 +165,13 @@ const App = () => {
     return (
         isInit && (
             <>
-                <SettingMenu isSetting={isSetting} toggleSetting={toggleSetting} />
+                <SettingMenu
+                    isSetting={isSetting}
+                    toggleSetting={toggleSetting}
+                />
                 <SettingTemplate isSetting={isSetting} toggleSetting={toggleSetting} />
                 <ChatTemplate />
+                {pipTarget && <ChatTemplate pipTarget={pipTarget} />}
             </>
         )
     );

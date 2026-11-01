@@ -5,9 +5,13 @@ import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
 import { classes } from '@Utils/index';
 
-const FrameChat = observer(() => {
+type Props = {
+    pipTarget?: HTMLElement;
+};
+
+const FrameChat = observer(({ pipTarget }: Props) => {
     const mainStore = useMainStore();
-    const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(null);
+    const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(pipTarget ?? null);
     const frameChatPosition = mainStore.setting.get('frame_chat_position');
     const frameRandomUsername = mainStore.setting.get('frame_random_username');
     const frameViewCount = mainStore.setting.get('frame_view_count');
@@ -24,6 +28,11 @@ const FrameChat = observer(() => {
     const showNicknames = mainStore.setting.get('show_nicknames');
 
     useEffect(() => {
+        if (pipTarget) {
+            setPlayerSizeDiv(pipTarget);
+            return;
+        }
+
         const findVideoLayer = (retry = 0) => {
             const div = document.querySelector('#videoLayer');
             if (div) {
@@ -33,7 +42,7 @@ const FrameChat = observer(() => {
             }
         };
         findVideoLayer();
-    }, []);
+    }, [pipTarget]);
 
     const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : '';

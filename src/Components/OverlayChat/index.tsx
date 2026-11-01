@@ -5,7 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { classes } from '@Utils/index';
 
-const OverlayChat = observer(() => {
+type Props = {
+    pipTarget?: HTMLElement;
+    persistPosition?: boolean;
+};
+
+const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
     const mainStore = useMainStore();
     const chatRef = useRef<HTMLDivElement | null>(null);
     const [isView, IsView] = useState(false);
@@ -55,32 +60,38 @@ const OverlayChat = observer(() => {
 
     const handleMouseUp = () => {
         setIsDragging(false);
-        mainStore.setSetting('overlay_x', position.left, true);
-        mainStore.setSetting('overlay_y', position.top, true);
+        if (persistPosition) {
+            mainStore.setSetting('overlay_x', position.left, true);
+            mainStore.setSetting('overlay_y', position.top, true);
+        }
     };
 
     useEffect(() => {
+        const chatDocument = chatRef.current?.ownerDocument;
+        if (!chatDocument) return;
+
         if (isDragging) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
+            chatDocument.addEventListener('mousemove', handleMouseMove);
+            chatDocument.addEventListener('mouseup', handleMouseUp);
         } else {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
+            chatDocument.removeEventListener('mousemove', handleMouseMove);
+            chatDocument.removeEventListener('mouseup', handleMouseUp);
         }
 
         return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
+            chatDocument.removeEventListener('mousemove', handleMouseMove);
+            chatDocument.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [position, isDragging]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [position, isDragging, persistPosition]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         const handleResize = () => {
             if (!chatRef.current) return;
 
             const rect = chatRef.current.getBoundingClientRect();
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
+            const chatWindow = chatRef.current.ownerDocument.defaultView ?? window;
+            const windowWidth = chatWindow.innerWidth;
+            const windowHeight = chatWindow.innerHeight;
 
             let newLeft = position.left;
             let newTop = position.top;
@@ -100,16 +111,19 @@ const OverlayChat = observer(() => {
             chatRef.current.style.left = `${newLeft}px`;
             chatRef.current.style.top = `${newTop}px`;
 
-            mainStore.setSetting('overlay_x', newLeft, true);
-            mainStore.setSetting('overlay_y', newTop, true);
+            if (persistPosition) {
+                mainStore.setSetting('overlay_x', newLeft, true);
+                mainStore.setSetting('overlay_y', newTop, true);
+            }
         };
 
-        window.addEventListener('resize', handleResize);
+        const chatWindow = chatRef.current?.ownerDocument.defaultView ?? window;
+        chatWindow.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            chatWindow.removeEventListener('resize', handleResize);
         };
-    }, [position]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [position, persistPosition]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (!chatRef.current) return;
@@ -124,6 +138,21 @@ const OverlayChat = observer(() => {
         IsView(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (!pipTarget || !isView || !chatRef.current) return;
+
+        const chatWindow = chatRef.current.ownerDocument.defaultView ?? window;
+        const rect = chatRef.current.getBoundingClientRect();
+        const left = Math.max(0, Math.min(position.left, chatWindow.innerWidth - rect.width));
+        const top = Math.max(0, Math.min(position.top, chatWindow.innerHeight - rect.height));
+
+        if (left !== position.left || top !== position.top) {
+            setPosition({ left, top });
+            chatRef.current.style.left = `${left}px`;
+            chatRef.current.style.top = `${top}px`;
+        }
+    }, [isView, pipTarget, position]);
 
     const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id, username, contentArray, color }) => {
         const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : '';
@@ -192,7 +221,7 @@ const OverlayChat = observer(() => {
             }}>
             {chatsElem}
         </div>,
-        document.body,
+        pipTarget ?? document.body,
     );
 });
 

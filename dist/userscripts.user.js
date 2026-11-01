@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261024162109
+// @version      20261102032825
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -15,6 +15,8 @@
 // @grant        GM_getValue
 // @grant        GM_listValues
 // @grant        GM_setValue
+// @grant        unsafeWindow
+// @run-at       document-start
 // ==/UserScript==
 
 (n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const _=document.createElement("style");_.textContent=n,document.head.append(_)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
@@ -81,7 +83,7 @@ img {
 ._SettingMenu_v3ob1_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
-._SettingTemplate_6q8n6_1 {
+._SettingTemplate_19pyx_1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -97,10 +99,10 @@ img {
   flex-direction: column;
   overflow: auto;
 }
-._SettingTemplate_6q8n6_1._View_6q8n6_17 {
+._SettingTemplate_19pyx_1._View_19pyx_17 {
   display: flex;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 {
   display: flex;
   align-items: center;
   width: 100%;
@@ -111,15 +113,20 @@ img {
   background-color: rgba(0, 0, 0, 0.02);
   padding-left: 12px;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 ._Title_6q8n6_31 p {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Title_19pyx_31 p {
   font-size: 14px;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 ._Menus_6q8n6_34 {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Title_19pyx_31 ._Version_19pyx_34 {
+  color: #777;
+  font-size: 10px;
+  font-weight: normal;
+}
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 {
   height: 100%;
   position: absolute;
   right: 0;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 ._Menus_6q8n6_34 ._Menu_6q8n6_34 {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,32 +134,32 @@ img {
   height: 100%;
   transition-duration: 0.1s;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 ._Menus_6q8n6_34 ._Menu_6q8n6_34 svg {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39 svg {
   width: 60%;
   height: 100%;
 }
-._SettingTemplate_6q8n6_1 ._Header_6q8n6_20 ._Menus_6q8n6_34 ._Menu_6q8n6_34:hover {
+._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.05);
 }
-._SettingTemplate_6q8n6_1 ._Content_6q8n6_55 {
+._SettingTemplate_19pyx_1 ._Content_19pyx_60 {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-._SettingTemplate_6q8n6_1 ._Content_6q8n6_55::-webkit-scrollbar-track,
-._SettingTemplate_6q8n6_1 ._Content_6q8n6_55::-webkit-scrollbar {
+._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar-track,
+._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar {
   background-color: transparent;
   width: 10px;
 }
-._SettingTemplate_6q8n6_1 ._Content_6q8n6_55::-webkit-scrollbar-thumb {
+._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar-thumb {
   background: rgba(63, 63, 63, 0.8) !important;
   border-radius: 20px;
   background-clip: padding-box !important;
   border: 3px solid transparent !important;
 }
-._SettingTemplate_6q8n6_1 ._Content_6q8n6_55:hover::-webkit-scrollbar-thumb {
+._SettingTemplate_19pyx_1 ._Content_19pyx_60:hover::-webkit-scrollbar-thumb {
   background: rgba(63, 63, 63, 0.8) !important;
   background-clip: padding-box !important;
   border: 3px solid transparent !important;
@@ -361,75 +368,75 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_6tr5x_1 {
-  z-index: 998;
+._FrameChat_1wav7_1 {
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_6tr5x_1._LeftTop_6tr5x_8 {
+._FrameChat_1wav7_1._LeftTop_1wav7_8 {
   top: 0;
 }
-._FrameChat_6tr5x_1._LeftBottom_6tr5x_11 {
+._FrameChat_1wav7_1._LeftBottom_1wav7_11 {
   bottom: 0;
 }
-._FrameChat_6tr5x_1._RightTop_6tr5x_14 {
+._FrameChat_1wav7_1._RightTop_1wav7_14 {
   right: 0;
   top: 0;
 }
-._FrameChat_6tr5x_1._RightBottom_6tr5x_18 {
+._FrameChat_1wav7_1._RightBottom_1wav7_18 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 ._Username_1wav7_32 {
   width: 126px;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Sorted_6tr5x_28 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 ._Message_1wav7_28 {
   flex: 1;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Username_1wav7_32 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Username_6tr5x_32 p {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Username_1wav7_32 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Message_1wav7_28 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22 ._MessageContainer_6tr5x_28 ._Message_6tr5x_28 p {
+._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Message_1wav7_28 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_6tr5x_1 ._Chat_6tr5x_22._Background_6tr5x_63 ._MessageContainer_6tr5x_28 {
+._FrameChat_1wav7_1 ._Chat_1wav7_22._Background_1wav7_63 ._MessageContainer_1wav7_28 {
   padding: 4px 8px;
 }
-._OverlayChat_124p1_1 {
+._OverlayChat_1v2vq_1 {
   position: fixed;
   flex-direction: column;
-  z-index: 1502;
+  z-index: 10000;
   border-radius: 8px;
   cursor: move;
   left: 0;
@@ -438,51 +445,51 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_124p1_1._View_124p1_13 {
+._OverlayChat_1v2vq_1._View_1v2vq_13 {
   display: flex;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Username_124p1_26 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 {
   width: 126px;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16._Sorted_124p1_22 ._MessageContainer_124p1_22 ._Message_124p1_22 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 {
   flex: 1;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Username_124p1_26 p {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16 ._MessageContainer_124p1_22 ._Message_124p1_22 p {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_124p1_1 ._Chat_124p1_16._Background_124p1_57 ._MessageContainer_124p1_22 {
+._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Background_1v2vq_57 ._MessageContainer_1v2vq_22 {
   padding: 4px 8px;
 } `);
 
@@ -7466,6 +7473,162 @@ img {
     const styles$8 = {
       SettingMenu
     };
+    const SettingMenuComponent = ({ toggleSetting }) => {
+      const id2 = "chatStylerSetting";
+      reactExports.useEffect(() => {
+        const checkAndInsertElement = (retry = 0) => {
+          const serviceUtilElement = document.querySelector(".serviceUtil");
+          if (!serviceUtilElement) {
+            if (retry < 30) setTimeout(() => checkAndInsertElement(retry + 1), 1e3);
+            return;
+          }
+          const existingItem = document.getElementById(id2);
+          if (existingItem) existingItem.remove();
+          const newDivElement = document.createElement("div");
+          newDivElement.id = id2;
+          newDivElement.className = styles$8.SettingMenu;
+          const buttonElement = document.createElement("button");
+          buttonElement.setAttribute("tip", "채팅 스타일러 설정");
+          const spanElement = document.createElement("p");
+          spanElement.textContent = "S";
+          buttonElement.appendChild(spanElement);
+          newDivElement.appendChild(buttonElement);
+          serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
+          newDivElement.addEventListener("click", toggleSetting);
+          return () => {
+            newDivElement.removeEventListener("click", toggleSetting);
+          };
+        };
+        checkAndInsertElement();
+      }, []);
+      return null;
+    };
+    const SettingTemplate$1 = "_SettingTemplate_19pyx_1";
+    const View$3 = "_View_19pyx_17";
+    const Header = "_Header_19pyx_20";
+    const Title = "_Title_19pyx_31";
+    const Version = "_Version_19pyx_34";
+    const Menus$1 = "_Menus_19pyx_39";
+    const Menu$1 = "_Menu_19pyx_39";
+    const Content = "_Content_19pyx_60";
+    const styles$7 = {
+      SettingTemplate: SettingTemplate$1,
+      View: View$3,
+      Header,
+      Title,
+      Version,
+      Menus: Menus$1,
+      Menu: Menu$1,
+      Content
+    };
+    const classes = (...classes2) => {
+      return classes2.filter(Boolean).join(" ");
+    };
+    function log(...args) {
+      console.log("%cUserscript (React Mode):", "color: purple; font-weight: bold", ...args);
+    }
+    function addLocationChangeCallback(callback) {
+      window.setTimeout(callback, 0);
+      let oldHref = window.location.href;
+      const body = document.querySelector("body");
+      if (!body) {
+        throw new Error("Body element not found.");
+      }
+      const observer2 = new MutationObserver((mutations) => {
+        if (mutations.some(() => oldHref !== document.location.href)) {
+          oldHref = document.location.href;
+          callback();
+        }
+      });
+      observer2.observe(body, { childList: true, subtree: true });
+      return observer2;
+    }
+    async function awaitElement(selector) {
+      const MAX_TRIES = 60;
+      let tries = 0;
+      return new Promise((resolve, reject) => {
+        function probe() {
+          tries++;
+          return document.querySelector(selector);
+        }
+        function delayedProbe() {
+          if (tries >= MAX_TRIES) {
+            log("Can't find element with selector", selector);
+            reject(new Error(`Element with selector "${selector}" not found after ${MAX_TRIES} tries.`));
+            return;
+          }
+          const elm = probe();
+          if (elm) {
+            resolve(elm);
+            return;
+          }
+          window.setTimeout(delayedProbe, 250);
+        }
+        delayedProbe();
+      });
+    }
+    const ToggleButton$1 = "_ToggleButton_6twf4_1";
+    const Enable = "_Enable_6twf4_12";
+    const Circle = "_Circle_6twf4_15";
+    const styles$6 = {
+      ToggleButton: ToggleButton$1,
+      Enable,
+      Circle
+    };
+    const ToggleButton = ({
+      enable = false,
+      setEnable
+    }) => {
+      const handleToggle = () => {
+        setEnable(!enable);
+      };
+      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$6.ToggleButton, enable ? styles$6.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Circle }) });
+    };
+    const Setting$1 = "_Setting_1369u_1";
+    const Menus = "_Menus_1369u_4";
+    const Menu = "_Menu_1369u_4";
+    const Name = "_Name_1369u_14";
+    const Value = "_Value_1369u_21";
+    const styles$5 = {
+      Setting: Setting$1,
+      Menus,
+      Menu,
+      Name,
+      Value
+    };
+    const ListBox$1 = "_ListBox_g79p9_1";
+    const ListValue = "_ListValue_g79p9_4";
+    const Options = "_Options_g79p9_31";
+    const Option = "_Option_g79p9_31";
+    const Selected = "_Selected_g79p9_55";
+    const View$2 = "_View_g79p9_65";
+    const styles$4 = {
+      ListBox: ListBox$1,
+      ListValue,
+      Options,
+      Option,
+      Selected,
+      View: View$2
+    };
+    const ListBox = ({
+      value = 0,
+      options,
+      setValue
+    }) => {
+      const [isOptions, IsOptions] = reactExports.useState(false);
+      const handleSetValue = (key) => {
+        setValue(key);
+        IsOptions(false);
+      };
+      const optionsElem = options.map(({ key, name }) => {
+        const isSelected = value == key;
+        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Option, isSelected ? styles$4.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.ListBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Options, isOptions ? styles$4.View : false), children: optionsElem })
+      ] });
+    };
     function die(error) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
@@ -8529,8 +8692,8 @@ img {
         this.reportObserved();
         return this.dehanceValue(this.value_);
       };
-      _proto.intercept_ = function intercept_(handler) {
-        return registerInterceptor(this, handler);
+      _proto.intercept_ = function intercept_(handler2) {
+        return registerInterceptor(this, handler2);
       };
       _proto.observe_ = function observe_(listener, fireImmediately) {
         if (fireImmediately) {
@@ -9659,11 +9822,11 @@ img {
     function hasInterceptors(interceptable) {
       return interceptable.interceptors_ !== void 0 && interceptable.interceptors_.length > 0;
     }
-    function registerInterceptor(interceptable, handler) {
+    function registerInterceptor(interceptable, handler2) {
       var interceptors = interceptable.interceptors_ || (interceptable.interceptors_ = []);
-      interceptors.push(handler);
+      interceptors.push(handler2);
       return once(function() {
-        var idx = interceptors.indexOf(handler);
+        var idx = interceptors.indexOf(handler2);
         if (idx !== -1) {
           interceptors.splice(idx, 1);
         }
@@ -9690,25 +9853,25 @@ img {
     function hasListeners(listenable) {
       return listenable.changeListeners_ !== void 0 && listenable.changeListeners_.length > 0;
     }
-    function registerListener(listenable, handler) {
-      var listeners = listenable.changeListeners_ || (listenable.changeListeners_ = []);
-      listeners.push(handler);
+    function registerListener(listenable, handler2) {
+      var listeners2 = listenable.changeListeners_ || (listenable.changeListeners_ = []);
+      listeners2.push(handler2);
       return once(function() {
-        var idx = listeners.indexOf(handler);
+        var idx = listeners2.indexOf(handler2);
         if (idx !== -1) {
-          listeners.splice(idx, 1);
+          listeners2.splice(idx, 1);
         }
       });
     }
     function notifyListeners(listenable, change) {
       var prevU = untrackedStart();
-      var listeners = listenable.changeListeners_;
-      if (!listeners) {
+      var listeners2 = listenable.changeListeners_;
+      if (!listeners2) {
         return;
       }
-      listeners = listeners.slice();
-      for (var i = 0, l2 = listeners.length; i < l2; i++) {
-        listeners[i](change);
+      listeners2 = listeners2.slice();
+      for (var i = 0, l2 = listeners2.length; i < l2; i++) {
+        listeners2[i](change);
       }
       untrackedEnd(prevU);
     }
@@ -9795,8 +9958,8 @@ img {
         }
         return values2;
       };
-      _proto.intercept_ = function intercept_(handler) {
-        return registerInterceptor(this, handler);
+      _proto.intercept_ = function intercept_(handler2) {
+        return registerInterceptor(this, handler2);
       };
       _proto.observe_ = function observe_(listener, fireImmediately) {
         if (fireImmediately === void 0) {
@@ -10475,8 +10638,8 @@ img {
       _proto.observe_ = function observe_(listener, fireImmediately) {
         return registerListener(this, listener);
       };
-      _proto.intercept_ = function intercept_(handler) {
-        return registerInterceptor(this, handler);
+      _proto.intercept_ = function intercept_(handler2) {
+        return registerInterceptor(this, handler2);
       };
       return _createClass(ObservableMap2, [{
         key: "size",
@@ -10741,8 +10904,8 @@ img {
       _proto.observe_ = function observe_(listener, fireImmediately) {
         return registerListener(this, listener);
       };
-      _proto.intercept_ = function intercept_(handler) {
-        return registerInterceptor(this, handler);
+      _proto.intercept_ = function intercept_(handler2) {
+        return registerInterceptor(this, handler2);
       };
       _proto.toJSON = function toJSON2() {
         return Array.from(this);
@@ -11128,8 +11291,8 @@ img {
       _proto.observe_ = function observe_(callback, fireImmediately) {
         return registerListener(this, callback);
       };
-      _proto.intercept_ = function intercept_(handler) {
-        return registerInterceptor(this, handler);
+      _proto.intercept_ = function intercept_(handler2) {
+        return registerInterceptor(this, handler2);
       };
       _proto.notifyPropertyAddition_ = function notifyPropertyAddition_(key, value) {
         var _this$pendingKeys_2;
@@ -11562,10 +11725,6 @@ img {
             value: 10
           },
           {
-            key: "defalut_chat_enable",
-            value: true
-          },
-          {
             key: "show_nicknames",
             value: true
           },
@@ -11779,219 +11938,6 @@ img {
     };
     const StoreProvider = ({ children }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(StoreContext.Provider, { value: rootStore, children });
-    };
-    const SettingMenuComponent = ({ toggleSetting }) => {
-      const mainStore = useMainStore();
-      const id2 = "chatStylerSetting";
-      const addViewChat = (retry = 0) => {
-        const isAdd = document.getElementById("new_btn_chat");
-        if (isAdd) return;
-        const oldElements = document.getElementsByClassName("btn_chat");
-        if (oldElements.length > 0) {
-          const oldElement = oldElements[0];
-          if (oldElement && oldElement.parentElement) {
-            const newLiElement = document.createElement("li");
-            newLiElement.className = "btn_chat";
-            newLiElement.style.display = "block";
-            newLiElement.id = "new_btn_chat";
-            const newButtonElement = document.createElement("button");
-            newButtonElement.type = "button";
-            const newSpanElement = document.createElement("span");
-            newSpanElement.textContent = "채팅창 on/off";
-            newButtonElement.appendChild(newSpanElement);
-            newLiElement.onclick = () => {
-              mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
-            };
-            newLiElement.appendChild(newButtonElement);
-            oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
-          } else {
-            if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1e3);
-          }
-        } else {
-          if (retry < 30) setTimeout(() => addViewChat(retry + 1), 1e3);
-        }
-      };
-      const addViewChatBox = (retry = 0) => {
-        const isAdd = document.getElementById("new_setbox_close");
-        if (isAdd) return;
-        const oldElement = document.getElementById("setbox_close");
-        if (!oldElement) {
-          if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1e3);
-          return;
-        }
-        if (oldElement && oldElement.parentElement) {
-          oldElement.style.display = "none";
-          const newLiElement = document.createElement("li");
-          newLiElement.className = "close";
-          newLiElement.id = "new_setbox_close";
-          const newAnchorElement = document.createElement("a");
-          newAnchorElement.className = "tip-right";
-          newAnchorElement.setAttribute("tip", "닫기");
-          newAnchorElement.textContent = "새로운 채팅 영역 숨기기";
-          newLiElement.appendChild(newAnchorElement);
-          newLiElement.onclick = () => {
-            mainStore.setSetting("defalut_chat_enable", !mainStore.setting.get("defalut_chat_enable"), true);
-          };
-          oldElement.parentElement.insertBefore(newLiElement, oldElement.nextSibling);
-        } else {
-          if (retry < 30) setTimeout(() => addViewChatBox(retry + 1), 1e3);
-        }
-      };
-      reactExports.useEffect(() => {
-        addViewChat();
-        addViewChatBox();
-      }, []);
-      reactExports.useEffect(() => {
-        const checkAndInsertElement = (retry = 0) => {
-          const serviceUtilElement = document.querySelector(".serviceUtil");
-          if (!serviceUtilElement) {
-            if (retry < 30) setTimeout(() => checkAndInsertElement(retry + 1), 1e3);
-            return;
-          }
-          const existingItem = document.getElementById(id2);
-          if (existingItem) existingItem.remove();
-          const newDivElement = document.createElement("div");
-          newDivElement.id = id2;
-          newDivElement.className = styles$8.SettingMenu;
-          const buttonElement = document.createElement("button");
-          buttonElement.setAttribute("tip", "채팅 스타일러 설정");
-          const spanElement = document.createElement("p");
-          spanElement.textContent = "S";
-          buttonElement.appendChild(spanElement);
-          newDivElement.appendChild(buttonElement);
-          serviceUtilElement.insertBefore(newDivElement, serviceUtilElement.firstChild);
-          newDivElement.addEventListener("click", toggleSetting);
-          return () => {
-            newDivElement.removeEventListener("click", toggleSetting);
-          };
-        };
-        checkAndInsertElement();
-      }, []);
-      return null;
-    };
-    const SettingTemplate$1 = "_SettingTemplate_6q8n6_1";
-    const View$3 = "_View_6q8n6_17";
-    const Header = "_Header_6q8n6_20";
-    const Title = "_Title_6q8n6_31";
-    const Menus$1 = "_Menus_6q8n6_34";
-    const Menu$1 = "_Menu_6q8n6_34";
-    const Content = "_Content_6q8n6_55";
-    const styles$7 = {
-      SettingTemplate: SettingTemplate$1,
-      View: View$3,
-      Header,
-      Title,
-      Menus: Menus$1,
-      Menu: Menu$1,
-      Content
-    };
-    const classes = (...classes2) => {
-      return classes2.filter(Boolean).join(" ");
-    };
-    function log(...args) {
-      console.log("%cUserscript (React Mode):", "color: purple; font-weight: bold", ...args);
-    }
-    function addLocationChangeCallback(callback) {
-      window.setTimeout(callback, 0);
-      let oldHref = window.location.href;
-      const body = document.querySelector("body");
-      if (!body) {
-        throw new Error("Body element not found.");
-      }
-      const observer2 = new MutationObserver((mutations) => {
-        if (mutations.some(() => oldHref !== document.location.href)) {
-          oldHref = document.location.href;
-          callback();
-        }
-      });
-      observer2.observe(body, { childList: true, subtree: true });
-      return observer2;
-    }
-    async function awaitElement(selector) {
-      const MAX_TRIES = 60;
-      let tries = 0;
-      return new Promise((resolve, reject) => {
-        function probe() {
-          tries++;
-          return document.querySelector(selector);
-        }
-        function delayedProbe() {
-          if (tries >= MAX_TRIES) {
-            log("Can't find element with selector", selector);
-            reject(new Error(`Element with selector "${selector}" not found after ${MAX_TRIES} tries.`));
-            return;
-          }
-          const elm = probe();
-          if (elm) {
-            resolve(elm);
-            return;
-          }
-          window.setTimeout(delayedProbe, 250);
-        }
-        delayedProbe();
-      });
-    }
-    const ToggleButton$1 = "_ToggleButton_6twf4_1";
-    const Enable = "_Enable_6twf4_12";
-    const Circle = "_Circle_6twf4_15";
-    const styles$6 = {
-      ToggleButton: ToggleButton$1,
-      Enable,
-      Circle
-    };
-    const ToggleButton = ({
-      enable = false,
-      setEnable
-    }) => {
-      const handleToggle = () => {
-        setEnable(!enable);
-      };
-      return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$6.ToggleButton, enable ? styles$6.Enable : false), onClick: handleToggle, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.Circle }) });
-    };
-    const Setting$1 = "_Setting_1369u_1";
-    const Menus = "_Menus_1369u_4";
-    const Menu = "_Menu_1369u_4";
-    const Name = "_Name_1369u_14";
-    const Value = "_Value_1369u_21";
-    const styles$5 = {
-      Setting: Setting$1,
-      Menus,
-      Menu,
-      Name,
-      Value
-    };
-    const ListBox$1 = "_ListBox_g79p9_1";
-    const ListValue = "_ListValue_g79p9_4";
-    const Options = "_Options_g79p9_31";
-    const Option = "_Option_g79p9_31";
-    const Selected = "_Selected_g79p9_55";
-    const View$2 = "_View_g79p9_65";
-    const styles$4 = {
-      ListBox: ListBox$1,
-      ListValue,
-      Options,
-      Option,
-      Selected,
-      View: View$2
-    };
-    const ListBox = ({
-      value = 0,
-      options,
-      setValue
-    }) => {
-      const [isOptions, IsOptions] = reactExports.useState(false);
-      const handleSetValue = (key) => {
-        setValue(key);
-        IsOptions(false);
-      };
-      const optionsElem = options.map(({ key, name }) => {
-        const isSelected = value == key;
-        return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Option, isSelected ? styles$4.Selected : false), onClick: () => !isSelected && handleSetValue(key), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: name }) }, key);
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.ListBox, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.ListValue, onClick: () => IsOptions(!isOptions), children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: options[value].name }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: classes(styles$4.Options, isOptions ? styles$4.View : false), children: optionsElem })
-      ] });
     };
     if (!reactExports.useState) {
       throw new Error("mobx-react-lite requires React with Hooks support");
@@ -12434,16 +12380,6 @@ img {
           ]
         },
         {
-          name: "기존 채팅 표시",
-          values: [
-            {
-              type: "toggle",
-              value: mainStore.setting.get("defalut_chat_enable"),
-              cb: (value) => mainStore.setSetting("defalut_chat_enable", value, true)
-            }
-          ]
-        },
-        {
           name: "닉네임 표시",
           values: [
             {
@@ -12828,7 +12764,13 @@ img {
             style: { position: "absolute" },
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Header, onMouseDown: handleMouseDown, children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                  "채팅 스타일러 ",
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: styles$7.Version, children: [
+                    "v",
+                    "20261102032825"
+                  ] })
+                ] }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menus, onMouseDown: (e2) => e2.stopPropagation(), children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menu, onClick: toggleSetting, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" }) }) })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
@@ -12838,17 +12780,17 @@ img {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_6tr5x_1";
-    const LeftTop = "_LeftTop_6tr5x_8";
-    const LeftBottom = "_LeftBottom_6tr5x_11";
-    const RightTop = "_RightTop_6tr5x_14";
-    const RightBottom = "_RightBottom_6tr5x_18";
-    const Chat$2 = "_Chat_6tr5x_22";
-    const Sorted$1 = "_Sorted_6tr5x_28";
-    const MessageContainer$1 = "_MessageContainer_6tr5x_28";
-    const Username$1 = "_Username_6tr5x_32";
-    const Message$1 = "_Message_6tr5x_28";
-    const Background$1 = "_Background_6tr5x_63";
+    const FrameChat$1 = "_FrameChat_1wav7_1";
+    const LeftTop = "_LeftTop_1wav7_8";
+    const LeftBottom = "_LeftBottom_1wav7_11";
+    const RightTop = "_RightTop_1wav7_14";
+    const RightBottom = "_RightBottom_1wav7_18";
+    const Chat$2 = "_Chat_1wav7_22";
+    const Sorted$1 = "_Sorted_1wav7_28";
+    const MessageContainer$1 = "_MessageContainer_1wav7_28";
+    const Username$1 = "_Username_1wav7_32";
+    const Message$1 = "_Message_1wav7_28";
+    const Background$1 = "_Background_1wav7_63";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
@@ -12862,9 +12804,9 @@ img {
       Message: Message$1,
       Background: Background$1
     };
-    const FrameChat = observer(() => {
+    const FrameChat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
-      const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(null);
+      const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? null);
       const frameChatPosition = mainStore.setting.get("frame_chat_position");
       const frameRandomUsername = mainStore.setting.get("frame_random_username");
       const frameViewCount = mainStore.setting.get("frame_view_count");
@@ -12880,6 +12822,10 @@ img {
       const frameOffsetY = mainStore.setting.get("frame_offset_y");
       const showNicknames = mainStore.setting.get("show_nicknames");
       reactExports.useEffect(() => {
+        if (pipTarget) {
+          setPlayerSizeDiv(pipTarget);
+          return;
+        }
         const findVideoLayer = (retry = 0) => {
           const div = document.querySelector("#videoLayer");
           if (div) {
@@ -12889,7 +12835,7 @@ img {
           }
         };
         findVideoLayer();
-      }, []);
+      }, [pipTarget]);
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
         const fontSize = `${frameFontSize}px`;
@@ -12977,14 +12923,14 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_124p1_1";
-    const View = "_View_124p1_13";
-    const Chat$1 = "_Chat_124p1_16";
-    const Sorted = "_Sorted_124p1_22";
-    const MessageContainer = "_MessageContainer_124p1_22";
-    const Username = "_Username_124p1_26";
-    const Message = "_Message_124p1_22";
-    const Background = "_Background_124p1_57";
+    const OverlayChat$1 = "_OverlayChat_1v2vq_1";
+    const View = "_View_1v2vq_13";
+    const Chat$1 = "_Chat_1v2vq_16";
+    const Sorted = "_Sorted_1v2vq_22";
+    const MessageContainer = "_MessageContainer_1v2vq_22";
+    const Username = "_Username_1v2vq_26";
+    const Message = "_Message_1v2vq_22";
+    const Background = "_Background_1v2vq_57";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
@@ -12995,7 +12941,7 @@ img {
       Message,
       Background
     };
-    const OverlayChat = observer(() => {
+    const OverlayChat = observer(({ pipTarget, persistPosition = true }) => {
       const mainStore = useMainStore();
       const chatRef = reactExports.useRef(null);
       const [isView, IsView] = reactExports.useState(false);
@@ -13038,28 +12984,35 @@ img {
       };
       const handleMouseUp = () => {
         setIsDragging(false);
-        mainStore.setSetting("overlay_x", position.left, true);
-        mainStore.setSetting("overlay_y", position.top, true);
+        if (persistPosition) {
+          mainStore.setSetting("overlay_x", position.left, true);
+          mainStore.setSetting("overlay_y", position.top, true);
+        }
       };
       reactExports.useEffect(() => {
+        var _a2;
+        const chatDocument = (_a2 = chatRef.current) == null ? void 0 : _a2.ownerDocument;
+        if (!chatDocument) return;
         if (isDragging) {
-          document.addEventListener("mousemove", handleMouseMove);
-          document.addEventListener("mouseup", handleMouseUp);
+          chatDocument.addEventListener("mousemove", handleMouseMove);
+          chatDocument.addEventListener("mouseup", handleMouseUp);
         } else {
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
+          chatDocument.removeEventListener("mousemove", handleMouseMove);
+          chatDocument.removeEventListener("mouseup", handleMouseUp);
         }
         return () => {
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
+          chatDocument.removeEventListener("mousemove", handleMouseMove);
+          chatDocument.removeEventListener("mouseup", handleMouseUp);
         };
-      }, [position, isDragging]);
+      }, [position, isDragging, persistPosition]);
       reactExports.useEffect(() => {
+        var _a2;
         const handleResize = () => {
           if (!chatRef.current) return;
           const rect = chatRef.current.getBoundingClientRect();
-          const windowWidth = window.innerWidth;
-          const windowHeight = window.innerHeight;
+          const chatWindow2 = chatRef.current.ownerDocument.defaultView ?? window;
+          const windowWidth = chatWindow2.innerWidth;
+          const windowHeight = chatWindow2.innerHeight;
           let newLeft = position.left;
           let newTop = position.top;
           if (rect.left < 0 || rect.right > windowWidth) {
@@ -13073,14 +13026,17 @@ img {
           setPosition({ left: newLeft, top: newTop });
           chatRef.current.style.left = `${newLeft}px`;
           chatRef.current.style.top = `${newTop}px`;
-          mainStore.setSetting("overlay_x", newLeft, true);
-          mainStore.setSetting("overlay_y", newTop, true);
+          if (persistPosition) {
+            mainStore.setSetting("overlay_x", newLeft, true);
+            mainStore.setSetting("overlay_y", newTop, true);
+          }
         };
-        window.addEventListener("resize", handleResize);
+        const chatWindow = ((_a2 = chatRef.current) == null ? void 0 : _a2.ownerDocument.defaultView) ?? window;
+        chatWindow.addEventListener("resize", handleResize);
         return () => {
-          window.removeEventListener("resize", handleResize);
+          chatWindow.removeEventListener("resize", handleResize);
         };
-      }, [position]);
+      }, [position, persistPosition]);
       reactExports.useEffect(() => {
         if (!chatRef.current) return;
         const left = mainStore.setting.get("overlay_x") || 0;
@@ -13090,6 +13046,18 @@ img {
         chatRef.current.style.top = `${top}px`;
         IsView(true);
       }, []);
+      reactExports.useEffect(() => {
+        if (!pipTarget || !isView || !chatRef.current) return;
+        const chatWindow = chatRef.current.ownerDocument.defaultView ?? window;
+        const rect = chatRef.current.getBoundingClientRect();
+        const left = Math.max(0, Math.min(position.left, chatWindow.innerWidth - rect.width));
+        const top = Math.max(0, Math.min(position.top, chatWindow.innerHeight - rect.height));
+        if (left !== position.left || top !== position.top) {
+          setPosition({ left, top });
+          chatRef.current.style.left = `${left}px`;
+          chatRef.current.style.top = `${top}px`;
+        }
+      }, [isView, pipTarget, position]);
       const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : "";
         const fontSize = `${overlayFontSize}px`;
@@ -13155,74 +13123,169 @@ img {
             children: chatsElem
           }
         ),
-        document.body
+        pipTarget ?? document.body
       );
     });
-    const Chat = observer(() => {
+    const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
-      const defalut_chat_enable = mainStore.setting.get("defalut_chat_enable");
-      reactExports.useEffect(() => {
-        const sideElement = document.querySelector("#webplayer_contents .wrapping.side");
-        if (sideElement) sideElement.style.display = defalut_chat_enable ? "block" : "none";
-      }, [defalut_chat_enable]);
       let chatElem;
       switch (chat_style) {
         case 0:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, {});
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, { pipTarget, persistPosition: !pipTarget });
           break;
         case 1:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, {});
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, { pipTarget });
           break;
       }
       return enable && chatElem;
     });
-    const parseChatContent = (message) => {
-      const contentArray = [];
-      const appendContent = (node) => {
-        var _a2;
-        if (node.nodeType === Node.TEXT_NODE) {
-          if (node.textContent) {
-            const previousContent = contentArray.at(-1);
-            if ((previousContent == null ? void 0 : previousContent.type) === "text") previousContent.content += node.textContent;
-            else contentArray.push({ type: "text", content: node.textContent });
-          }
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-          const element = node;
-          if (element.classList.contains("message-translation")) {
-            return;
-          } else if (element.classList.contains("emoticon-box")) {
-            const imageSrc = (_a2 = element.querySelector("img.emoticon")) == null ? void 0 : _a2.getAttribute("src");
-            if (imageSrc) contentArray.push({ type: "image", content: imageSrc });
-          } else if (element.tagName === "IMG") {
-            const imageSrc = element.getAttribute("src");
-            if (imageSrc) contentArray.push({ type: "image", content: imageSrc });
-          } else {
-            element.childNodes.forEach(appendContent);
-          }
+    const listeners = /* @__PURE__ */ new Set();
+    const pendingChats = [];
+    const MAX_PENDING_CHATS = 100;
+    let hookInstalled$1 = false;
+    const parseSoopChatPacket = (data) => {
+      const packet = data instanceof ArrayBuffer ? new TextDecoder().decode(data) : data;
+      if (typeof packet !== "string" || !packet.startsWith("	") || packet.slice(2, 6) !== "0005") return null;
+      const fields = packet.split("\f");
+      const comment = fields[1];
+      const username = fields[6];
+      if (!(comment == null ? void 0 : comment.trim()) || !(username == null ? void 0 : username.trim())) return null;
+      return { username, comment };
+    };
+    const subscribeToSoopChat = (listener) => {
+      listeners.add(listener);
+      pendingChats.splice(0).forEach(listener);
+      return () => listeners.delete(listener);
+    };
+    const installSoopChatSocketHook = (pageWindow = unsafeWindow) => {
+      if (hookInstalled$1) return;
+      const WebSocketConstructor = pageWindow.WebSocket;
+      pageWindow.WebSocket = new Proxy(WebSocketConstructor, {
+        construct(target, args, newTarget) {
+          const socket = Reflect.construct(target, args, newTarget);
+          socket.addEventListener("message", (event) => {
+            const chat = parseSoopChatPacket(event.data);
+            if (!chat) return;
+            if (listeners.size) {
+              listeners.forEach((listener) => listener(chat));
+            } else {
+              if (pendingChats.length === MAX_PENDING_CHATS) pendingChats.shift();
+              pendingChats.push(chat);
+            }
+          });
+          return socket;
         }
-      };
-      message.childNodes.forEach(appendContent);
-      const hasImage = contentArray.some((content) => content.type === "image");
-      return contentArray.flatMap((content) => {
-        if (content.type !== "text" || !hasImage) return [content];
-        const text = content.content.replace(/(^|\s)\/[^/\s]+\/(?=\s|$)/g, "$1").replace(/\s+/g, " ");
-        return text ? [{ type: "text", content: text }] : [];
       });
+      hookInstalled$1 = true;
+    };
+    let handler = null;
+    let hookInstalled = false;
+    const subscribeToSoopPictureInPicture = (nextHandler) => {
+      handler = nextHandler;
+      return () => {
+        if (handler === nextHandler) handler = null;
+      };
+    };
+    const installSoopPictureInPictureHook = (pageWindow = unsafeWindow) => {
+      if (hookInstalled) return;
+      const prototype = pageWindow.HTMLVideoElement.prototype;
+      const nativeRequest = prototype.requestPictureInPicture;
+      if (!nativeRequest) return;
+      prototype.requestPictureInPicture = function() {
+        if (!handler || !pageWindow.documentPictureInPicture) return nativeRequest.call(this);
+        return handler(this).then(
+          (pipWindow) => (
+            // Document PiP replaces the native window through an API typed for video-only PiP.
+            pipWindow ? pipWindow : nativeRequest.call(this)
+          )
+        );
+      };
+      hookInstalled = true;
     };
     const COLORS = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
     const App = () => {
       const mainStore = useMainStore();
       const [isSetting, IsSetting] = reactExports.useState(false);
       const [isInit, IsInit] = reactExports.useState(false);
+      const [pipTarget, setPipTarget] = reactExports.useState(null);
+      const pipTargetRef = reactExports.useRef(null);
       const colorIdxRef = reactExports.useRef(0);
-      const processedChats = reactExports.useRef(/* @__PURE__ */ new WeakSet());
-      const chatObserver = reactExports.useRef(null);
-      const observedChatArea = reactExports.useRef(null);
-      const retryTimer = reactExports.useRef(null);
       const toggleSetting = () => {
         IsSetting((prevIsSetting) => !prevIsSetting);
+      };
+      const openPictureInPicture = async (video) => {
+        const pictureInPicture = unsafeWindow.documentPictureInPicture;
+        if (!pictureInPicture) return null;
+        const existingPipTarget = pipTargetRef.current;
+        const existingPipWindow = existingPipTarget == null ? void 0 : existingPipTarget.ownerDocument.defaultView;
+        if (existingPipWindow && !existingPipWindow.closed) {
+          existingPipWindow.focus();
+          return existingPipWindow;
+        }
+        if (existingPipTarget) {
+          pipTargetRef.current = null;
+          setPipTarget(null);
+        }
+        const originalParent = video.parentElement;
+        if (!originalParent) {
+          window.alert("재생 중인 방송 영상을 찾을 수 없습니다.");
+          return null;
+        }
+        const originalNextSibling = video.nextSibling;
+        const originalStyle = video.getAttribute("style");
+        const originalControls = video.controls;
+        const pageDocument = video.ownerDocument;
+        const restoreVideo = () => {
+          if (video.parentElement !== originalParent) {
+            if ((originalNextSibling == null ? void 0 : originalNextSibling.parentNode) === originalParent) {
+              originalParent.insertBefore(video, originalNextSibling);
+            } else {
+              originalParent.append(video);
+            }
+          }
+          if (originalStyle === null) video.removeAttribute("style");
+          else video.setAttribute("style", originalStyle);
+          video.controls = originalControls;
+        };
+        let pipWindow = null;
+        try {
+          pipWindow = await pictureInPicture.requestWindow({
+            width: 640,
+            height: 360
+          });
+          const pipDocument = pipWindow.document;
+          pageDocument.querySelectorAll("style").forEach((style) => {
+            pipDocument.head.append(style.cloneNode(true));
+          });
+          const pipStyle = pipDocument.createElement("style");
+          pipStyle.textContent = "html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000;}#soop-chat-pip-root{position:relative;width:100vw;height:100vh;overflow:hidden;background:#000;}#soop-chat-pip-root>video{display:block;width:100%;height:100%;object-fit:contain;}";
+          pipDocument.head.append(pipStyle);
+          const root2 = pipDocument.createElement("div");
+          root2.id = "soop-chat-pip-root";
+          pipDocument.body.append(root2);
+          video.controls = true;
+          video.style.cssText = "display:block;width:100%;height:100%;object-fit:contain;";
+          root2.append(video);
+          pipWindow.addEventListener(
+            "pagehide",
+            () => {
+              restoreVideo();
+              pipTargetRef.current = null;
+              setPipTarget(null);
+            },
+            { once: true }
+          );
+          pipTargetRef.current = root2;
+          setPipTarget(root2);
+          return pipWindow;
+        } catch (error) {
+          restoreVideo();
+          pipWindow == null ? void 0 : pipWindow.close();
+          window.alert(`PIP 창을 열지 못했습니다: ${error instanceof Error ? error.message : String(error)}`);
+          return null;
+        }
       };
       const initSetting = () => {
         const storedKeys = GM_listValues();
@@ -13246,83 +13309,40 @@ img {
         });
         IsInit(true);
       };
-      const processChatItem = (chat) => {
-        var _a2;
-        if (processedChats.current.has(chat)) return;
-        const username = ((_a2 = chat.querySelector(".username .author")) == null ? void 0 : _a2.textContent) || null;
-        const message = chat.querySelector(".message-text");
-        if (!username || !message) return;
-        const messageOriginal = message.querySelector("#message-original") ?? message;
-        const contentArray = parseChatContent(messageOriginal);
-        if (!contentArray.some((content) => content.type === "image" || content.content.trim())) return;
-        processedChats.current.add(chat);
-        const idx = colorIdxRef.current;
-        mainStore.addChat({ id: mainStore.chatId + 1, username, contentArray, color: COLORS[idx] });
-        colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
-      };
-      const disconnectObserver = () => {
-        if (chatObserver.current) {
-          chatObserver.current.disconnect();
-          chatObserver.current = null;
-        }
-        observedChatArea.current = null;
-      };
-      const observeChatArea = () => {
-        const elements = document.querySelectorAll("#chat_area");
-        const chatArea = elements.length ? elements[elements.length - 1] : null;
-        if (!chatArea) {
-          retryTimer.current = window.setTimeout(observeChatArea, 1e3);
-          return;
-        }
-        if (observedChatArea.current === chatArea) return;
-        disconnectObserver();
-        observedChatArea.current = chatArea;
-        chatArea.querySelectorAll(".chatting-list-item").forEach(processChatItem);
-        const observer2 = new MutationObserver((mutations) => {
-          for (const mutation of mutations) {
-            if (mutation.type !== "childList") continue;
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType !== Node.ELEMENT_NODE) return;
-              const elem = node;
-              if (elem.matches(".chatting-list-item")) {
-                processChatItem(elem);
-              } else {
-                elem.querySelectorAll(".chatting-list-item").forEach(processChatItem);
-              }
-            });
-          }
-        });
-        observer2.observe(chatArea, { childList: true, subtree: true });
-        chatObserver.current = observer2;
-      };
-      const checkViewChat = () => {
-        if (mainStore.setting.get("defalut_chat_enable")) return;
-        const buttonElement = document.querySelector(".view_ctrl .btn_chat");
-        if (!buttonElement) return;
-        const computedStyle = window.getComputedStyle(buttonElement);
-        const button = buttonElement.querySelector("button");
-        if (!button) return;
-        if (computedStyle.display === "block") button.click();
-      };
       reactExports.useEffect(() => {
         initSetting();
-        checkViewChat();
-        observeChatArea();
-        const fallbackTimer = setInterval(observeChatArea, 3e3);
-        const viewChatTimer = setInterval(checkViewChat, 2e3);
+        const unsubscribe = subscribeToSoopChat(({ username, comment }) => {
+          if (!comment.trim()) return;
+          const idx = colorIdxRef.current;
+          mainStore.addChat({
+            id: mainStore.chatId + 1,
+            username,
+            contentArray: [{ type: "text", content: comment }],
+            color: COLORS[idx]
+          });
+          colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
+        });
+        const unsubscribePip = subscribeToSoopPictureInPicture(openPictureInPicture);
         return () => {
-          clearInterval(fallbackTimer);
-          clearInterval(viewChatTimer);
-          if (retryTimer.current) clearTimeout(retryTimer.current);
-          disconnectObserver();
+          unsubscribe();
+          unsubscribePip();
         };
       }, []);
       return isInit && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(SettingMenuComponent, { isSetting, toggleSetting }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          SettingMenuComponent,
+          {
+            isSetting,
+            toggleSetting
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(SettingTemplate, { isSetting, toggleSetting }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Chat, {})
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Chat, {}),
+        pipTarget && /* @__PURE__ */ jsxRuntimeExports.jsx(Chat, { pipTarget })
       ] });
     };
+    installSoopChatSocketHook();
+    installSoopPictureInPictureHook();
     log("SOOP 채팅 스타일러 - 비콩");
     let root = null;
     async function main() {
@@ -13340,11 +13360,13 @@ img {
         );
       }
     }
-    addLocationChangeCallback(() => {
+    const startApp = () => addLocationChangeCallback(() => {
       main().catch((e2) => {
         log(e2);
       });
     });
+    if (document.body) startApp();
+    else document.addEventListener("DOMContentLoaded", startApp, { once: true });
   })();
 
 })();
