@@ -11,7 +11,7 @@ type Props = {
 
 const FrameChat = observer(({ pipTarget }: Props) => {
     const mainStore = useMainStore();
-    const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(pipTarget ?? null);
+    const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(pipTarget ?? document.body);
     const frameChatPosition = mainStore.setting.get('frame_chat_position');
     const frameRandomUsername = mainStore.setting.get('frame_random_username');
     const frameViewCount = mainStore.setting.get('frame_view_count');
@@ -33,15 +33,45 @@ const FrameChat = observer(({ pipTarget }: Props) => {
             return;
         }
 
-        const findVideoLayer = (retry = 0) => {
-            const div = document.querySelector('#videoLayer');
-            if (div) {
-                setPlayerSizeDiv(div);
-            } else if (retry < 30) {
-                setTimeout(() => findVideoLayer(retry + 1), 500);
+        const updatePlayerTarget = () => {
+            const videoLayer = document.querySelector('#videoLayer');
+            let isVisible = !!videoLayer?.getClientRects().length;
+
+            for (let ancestor = videoLayer; isVisible && ancestor; ancestor = ancestor.parentElement) {
+                const { display, visibility, opacity } = window.getComputedStyle(ancestor);
+                if (display === 'none' || visibility === 'hidden' || opacity === '0') isVisible = false;
             }
+
+            const target = isVisible && videoLayer ? videoLayer : document.body;
+            setPlayerSizeDiv((current) => current === target ? current : target);
         };
-        findVideoLayer();
+
+        const observer = new MutationObserver((mutations) => {
+            const videoLayer = document.querySelector('#videoLayer');
+            const playerTargetChanged = mutations.some((mutation) => {
+                if (mutation.type === 'attributes') {
+                    return videoLayer !== null && mutation.target instanceof Element &&
+                        (mutation.target === videoLayer || mutation.target.contains(videoLayer));
+                }
+
+                return [...mutation.addedNodes, ...mutation.removedNodes].some((node) => {
+                    if (!(node instanceof Element)) return false;
+                    return node.id === 'videoLayer' ||
+                        (videoLayer ? node.contains(videoLayer) : node.querySelector('#videoLayer') !== null);
+                });
+            });
+
+            if (playerTargetChanged) updatePlayerTarget();
+        });
+
+        updatePlayerTarget();
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style', 'hidden'],
+        });
+        return () => observer.disconnect();
     }, [pipTarget]);
 
     const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id, username, contentArray, color }) => {

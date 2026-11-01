@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261102034115
+// @version      20261102035303
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12775,7 +12775,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261102034115"
+                "20261102035303"
               ] })
             ]
           }
@@ -12809,7 +12809,7 @@ img {
     };
     const FrameChat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
-      const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? null);
+      const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? document.body);
       const frameChatPosition = mainStore.setting.get("frame_chat_position");
       const frameRandomUsername = mainStore.setting.get("frame_random_username");
       const frameViewCount = mainStore.setting.get("frame_view_count");
@@ -12829,15 +12829,37 @@ img {
           setPlayerSizeDiv(pipTarget);
           return;
         }
-        const findVideoLayer = (retry = 0) => {
-          const div = document.querySelector("#videoLayer");
-          if (div) {
-            setPlayerSizeDiv(div);
-          } else if (retry < 30) {
-            setTimeout(() => findVideoLayer(retry + 1), 500);
+        const updatePlayerTarget = () => {
+          const videoLayer = document.querySelector("#videoLayer");
+          let isVisible = !!(videoLayer == null ? void 0 : videoLayer.getClientRects().length);
+          for (let ancestor = videoLayer; isVisible && ancestor; ancestor = ancestor.parentElement) {
+            const { display, visibility, opacity } = window.getComputedStyle(ancestor);
+            if (display === "none" || visibility === "hidden" || opacity === "0") isVisible = false;
           }
+          const target = isVisible && videoLayer ? videoLayer : document.body;
+          setPlayerSizeDiv((current) => current === target ? current : target);
         };
-        findVideoLayer();
+        const observer2 = new MutationObserver((mutations) => {
+          const videoLayer = document.querySelector("#videoLayer");
+          const playerTargetChanged = mutations.some((mutation) => {
+            if (mutation.type === "attributes") {
+              return videoLayer !== null && mutation.target instanceof Element && (mutation.target === videoLayer || mutation.target.contains(videoLayer));
+            }
+            return [...mutation.addedNodes, ...mutation.removedNodes].some((node) => {
+              if (!(node instanceof Element)) return false;
+              return node.id === "videoLayer" || (videoLayer ? node.contains(videoLayer) : node.querySelector("#videoLayer") !== null);
+            });
+          });
+          if (playerTargetChanged) updatePlayerTarget();
+        });
+        updatePlayerTarget();
+        observer2.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ["class", "style", "hidden"]
+        });
+        return () => observer2.disconnect();
       }, [pipTarget]);
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";

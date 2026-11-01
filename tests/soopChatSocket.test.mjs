@@ -36,7 +36,7 @@ test('parses only valid SOOP chat packets', () => {
     assert.equal(parseSoopChatPacket('not a socket packet'), null);
 });
 
-test('hooks page WebSockets and buffers chat packets until subscribed', () => {
+test('hooks initial and reconnected page WebSockets and buffers until subscribed', () => {
     const pageWindow = { WebSocket: FakeWebSocket };
     installSoopChatSocketHook(pageWindow);
 
@@ -46,9 +46,18 @@ test('hooks page WebSockets and buffers chat packets until subscribed', () => {
     const received = [];
     const unsubscribe = subscribeToSoopChat((chat) => received.push(chat));
     assert.deepEqual(received, [{ username: '시청자', comment: '안녕하세요' }]);
+
+    socket.dispatchEvent(new Event('close'));
+    const reconnectedSocket = new pageWindow.WebSocket('wss://socket.example/reconnected-endpoint');
+    reconnectedSocket.dispatchMessage(new TextEncoder().encode(chatPacket).buffer);
+    assert.deepEqual(received, [
+        { username: '시청자', comment: '안녕하세요' },
+        { username: '시청자', comment: '안녕하세요' },
+    ]);
+
     unsubscribe();
 
     const unrelatedSocket = new pageWindow.WebSocket('wss://socket.example/another-endpoint');
     unrelatedSocket.dispatchMessage(chatPacket);
-    assert.equal(received.length, 1);
+    assert.equal(received.length, 2);
 });
