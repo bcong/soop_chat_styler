@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261102032825
+// @version      20261102034115
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -83,7 +83,7 @@ img {
 ._SettingMenu_v3ob1_1:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
-._SettingTemplate_19pyx_1 {
+._SettingTemplate_rwy88_1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -97,12 +97,12 @@ img {
   border-radius: 12px;
   border: 1px solid rgba(117, 123, 138, 0.2);
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
 }
-._SettingTemplate_19pyx_1._View_19pyx_17 {
+._SettingTemplate_rwy88_1._View_rwy88_17 {
   display: flex;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 {
   display: flex;
   align-items: center;
   width: 100%;
@@ -113,20 +113,15 @@ img {
   background-color: rgba(0, 0, 0, 0.02);
   padding-left: 12px;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Title_19pyx_31 p {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 ._Title_rwy88_31 p {
   font-size: 14px;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Title_19pyx_31 ._Version_19pyx_34 {
-  color: #777;
-  font-size: 10px;
-  font-weight: normal;
-}
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 ._Menus_rwy88_34 {
   height: 100%;
   position: absolute;
   right: 0;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39 {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 ._Menus_rwy88_34 ._Menu_rwy88_34 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,35 +129,45 @@ img {
   height: 100%;
   transition-duration: 0.1s;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39 svg {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 ._Menus_rwy88_34 ._Menu_rwy88_34 svg {
   width: 60%;
   height: 100%;
 }
-._SettingTemplate_19pyx_1 ._Header_19pyx_20 ._Menus_19pyx_39 ._Menu_19pyx_39:hover {
+._SettingTemplate_rwy88_1 ._Header_rwy88_20 ._Menus_rwy88_34 ._Menu_rwy88_34:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.05);
 }
-._SettingTemplate_19pyx_1 ._Content_19pyx_60 {
+._SettingTemplate_rwy88_1 ._Content_rwy88_55 {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar-track,
-._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar {
+._SettingTemplate_rwy88_1 ._Content_rwy88_55::-webkit-scrollbar-track,
+._SettingTemplate_rwy88_1 ._Content_rwy88_55::-webkit-scrollbar {
   background-color: transparent;
   width: 10px;
 }
-._SettingTemplate_19pyx_1 ._Content_19pyx_60::-webkit-scrollbar-thumb {
+._SettingTemplate_rwy88_1 ._Content_rwy88_55::-webkit-scrollbar-thumb {
   background: rgba(63, 63, 63, 0.8) !important;
   border-radius: 20px;
   background-clip: padding-box !important;
   border: 3px solid transparent !important;
 }
-._SettingTemplate_19pyx_1 ._Content_19pyx_60:hover::-webkit-scrollbar-thumb {
+._SettingTemplate_rwy88_1 ._Content_rwy88_55:hover::-webkit-scrollbar-thumb {
   background: rgba(63, 63, 63, 0.8) !important;
   background-clip: padding-box !important;
   border: 3px solid transparent !important;
+}
+._SettingTemplate_rwy88_1 ._Footer_rwy88_77 {
+  display: flex;
+  flex: 0 0 26px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 8px;
+  border-top: 1px solid rgba(117, 123, 138, 0.1);
+  color: #aaa;
+  font-size: 10px;
 }
 ._ToggleButton_6twf4_1 {
   width: 46px;
@@ -7503,23 +7508,23 @@ img {
       }, []);
       return null;
     };
-    const SettingTemplate$1 = "_SettingTemplate_19pyx_1";
-    const View$3 = "_View_19pyx_17";
-    const Header = "_Header_19pyx_20";
-    const Title = "_Title_19pyx_31";
-    const Version = "_Version_19pyx_34";
-    const Menus$1 = "_Menus_19pyx_39";
-    const Menu$1 = "_Menu_19pyx_39";
-    const Content = "_Content_19pyx_60";
+    const SettingTemplate$1 = "_SettingTemplate_rwy88_1";
+    const View$3 = "_View_rwy88_17";
+    const Header = "_Header_rwy88_20";
+    const Title = "_Title_rwy88_31";
+    const Menus$1 = "_Menus_rwy88_34";
+    const Menu$1 = "_Menu_rwy88_34";
+    const Content = "_Content_rwy88_55";
+    const Footer = "_Footer_rwy88_77";
     const styles$7 = {
       SettingTemplate: SettingTemplate$1,
       View: View$3,
       Header,
       Title,
-      Version,
       Menus: Menus$1,
       Menu: Menu$1,
-      Content
+      Content,
+      Footer
     };
     const classes = (...classes2) => {
       return classes2.filter(Boolean).join(" ");
@@ -12764,16 +12769,14 @@ img {
             style: { position: "absolute" },
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Header, onMouseDown: handleMouseDown, children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
-                  "채팅 스타일러 ",
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: styles$7.Version, children: [
-                    "v",
-                    "20261102032825"
-                  ] })
-                ] }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Title, children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "채팅 스타일러" }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menus, onMouseDown: (e2) => e2.stopPropagation(), children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Menu, onClick: toggleSetting, children: /* @__PURE__ */ jsxRuntimeExports.jsx(SvgCrossSmall, { fill: "rgb(70, 70, 70)" }) }) })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
+                "빌드 버전: ",
+                "20261102034115"
+              ] })
             ]
           }
         ),
