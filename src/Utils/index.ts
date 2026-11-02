@@ -60,6 +60,10 @@ export function addLocationChangeCallback(callback: () => void): MutationObserve
     return observer;
 }
 
+export const isSoopBroadcastRoom = (location: Pick<Location, 'hostname' | 'pathname'> = window.location): boolean =>
+    location.hostname === 'play.sooplive.com' &&
+    /^\/[a-z0-9_]+\/(?:\d+|null)\/?$/.test(location.pathname);
+
 export async function awaitElement(selector: string): Promise<Element> {
     const MAX_TRIES = 60;
     let tries = 0;

@@ -35,30 +35,36 @@ const FrameChat = observer(({ pipTarget }: Props) => {
 
         const updatePlayerTarget = () => {
             const videoLayer = document.querySelector('#videoLayer');
-            let isVisible = !!videoLayer?.getClientRects().length;
+            const playerArea = document.querySelector('#player_area');
+            const isVisible = (element: Element | null): element is Element => {
+                if (!element?.getClientRects().length) return false;
 
-            for (let ancestor = videoLayer; isVisible && ancestor; ancestor = ancestor.parentElement) {
-                const { display, visibility, opacity } = window.getComputedStyle(ancestor);
-                if (display === 'none' || visibility === 'hidden' || opacity === '0') isVisible = false;
-            }
+                for (let ancestor: Element | null = element; ancestor; ancestor = ancestor.parentElement) {
+                    const { display, visibility, opacity } = window.getComputedStyle(ancestor);
+                    if (display === 'none' || visibility === 'hidden' || Number(opacity) === 0) return false;
+                }
 
-            const target = isVisible && videoLayer ? videoLayer : document.body;
+                const { width, height } = element.getBoundingClientRect();
+                return width > 0 && height > 0;
+            };
+            const target = isVisible(videoLayer) ? videoLayer : isVisible(playerArea) ? playerArea : null;
             setPlayerSizeDiv((current) => current === target ? current : target);
         };
 
         const observer = new MutationObserver((mutations) => {
-            const videoLayer = document.querySelector('#videoLayer');
             const playerTargetChanged = mutations.some((mutation) => {
-                if (mutation.type === 'attributes') {
-                    return videoLayer !== null && mutation.target instanceof Element &&
-                        (mutation.target === videoLayer || mutation.target.contains(videoLayer));
+                const playerSelector = '#videoLayer, #player_area';
+                if (mutation.target instanceof Element) {
+                    if (mutation.target.matches(playerSelector) || mutation.target.closest(playerSelector)) return true;
+                    if (mutation.type === 'attributes' && mutation.target.querySelector(playerSelector)) return true;
                 }
 
-                return [...mutation.addedNodes, ...mutation.removedNodes].some((node) => {
-                    if (!(node instanceof Element)) return false;
-                    return node.id === 'videoLayer' ||
-                        (videoLayer ? node.contains(videoLayer) : node.querySelector('#videoLayer') !== null);
-                });
+                if (mutation.type !== 'childList') return false;
+                return [...mutation.addedNodes, ...mutation.removedNodes].some(
+                    (node) =>
+                        node instanceof Element &&
+                        (node.matches(playerSelector) || node.querySelector(playerSelector) !== null),
+                );
             });
 
             if (playerTargetChanged) updatePlayerTarget();

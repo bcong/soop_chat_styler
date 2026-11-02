@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261102035303
+// @version      20261102191831
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -7548,6 +7548,7 @@ img {
       observer2.observe(body, { childList: true, subtree: true });
       return observer2;
     }
+    const isSoopBroadcastRoom = (location = window.location) => location.hostname === "play.sooplive.com" && /^\/[a-z0-9_]+\/(?:\d+|null)\/?$/.test(location.pathname);
     async function awaitElement(selector) {
       const MAX_TRIES = 60;
       let tries = 0;
@@ -12775,7 +12776,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261102035303"
+                "20261102191831"
               ] })
             ]
           }
@@ -12831,24 +12832,30 @@ img {
         }
         const updatePlayerTarget = () => {
           const videoLayer = document.querySelector("#videoLayer");
-          let isVisible = !!(videoLayer == null ? void 0 : videoLayer.getClientRects().length);
-          for (let ancestor = videoLayer; isVisible && ancestor; ancestor = ancestor.parentElement) {
-            const { display, visibility, opacity } = window.getComputedStyle(ancestor);
-            if (display === "none" || visibility === "hidden" || opacity === "0") isVisible = false;
-          }
-          const target = isVisible && videoLayer ? videoLayer : document.body;
+          const playerArea = document.querySelector("#player_area");
+          const isVisible = (element) => {
+            if (!(element == null ? void 0 : element.getClientRects().length)) return false;
+            for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
+              const { display, visibility, opacity } = window.getComputedStyle(ancestor);
+              if (display === "none" || visibility === "hidden" || Number(opacity) === 0) return false;
+            }
+            const { width, height } = element.getBoundingClientRect();
+            return width > 0 && height > 0;
+          };
+          const target = isVisible(videoLayer) ? videoLayer : isVisible(playerArea) ? playerArea : null;
           setPlayerSizeDiv((current) => current === target ? current : target);
         };
         const observer2 = new MutationObserver((mutations) => {
-          const videoLayer = document.querySelector("#videoLayer");
           const playerTargetChanged = mutations.some((mutation) => {
-            if (mutation.type === "attributes") {
-              return videoLayer !== null && mutation.target instanceof Element && (mutation.target === videoLayer || mutation.target.contains(videoLayer));
+            const playerSelector = "#videoLayer, #player_area";
+            if (mutation.target instanceof Element) {
+              if (mutation.target.matches(playerSelector) || mutation.target.closest(playerSelector)) return true;
+              if (mutation.type === "attributes" && mutation.target.querySelector(playerSelector)) return true;
             }
-            return [...mutation.addedNodes, ...mutation.removedNodes].some((node) => {
-              if (!(node instanceof Element)) return false;
-              return node.id === "videoLayer" || (videoLayer ? node.contains(videoLayer) : node.querySelector("#videoLayer") !== null);
-            });
+            if (mutation.type !== "childList") return false;
+            return [...mutation.addedNodes, ...mutation.removedNodes].some(
+              (node) => node instanceof Element && (node.matches(playerSelector) || node.querySelector(playerSelector) !== null)
+            );
           });
           if (playerTargetChanged) updatePlayerTarget();
         });
@@ -13153,8 +13160,14 @@ img {
     });
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
+      const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
+      reactExports.useEffect(() => {
+        const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
+        return () => observer2.disconnect();
+      }, []);
+      if (!isBroadcastRoom) return null;
       let chatElem;
       switch (chat_style) {
         case 0:
