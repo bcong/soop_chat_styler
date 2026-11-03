@@ -7,20 +7,19 @@ import { classes } from '@Utils/index';
 
 type Props = {
     pipTarget?: HTMLElement;
+    fullscreenTarget?: Element | null;
     persistPosition?: boolean;
 };
 
-const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
+const OverlayChat = observer(({ pipTarget, fullscreenTarget, persistPosition = true }: Props) => {
     const mainStore = useMainStore();
     const chatRef = useRef<HTMLDivElement | null>(null);
     const [isView, IsView] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [isChatVisible, setIsChatVisible] = useState(true);
-    const [areControlsVisible, setAreControlsVisible] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
     const [position, setPosition] = useState({ left: 0, top: 0 });
-    const controlsTimeout = useRef<number | null>(null);
 
     const overlayViewCount = mainStore.setting.get('overlay_view_count');
     const overlayViewOpacity = mainStore.setting.get('overlay_chat_opacity');
@@ -33,16 +32,12 @@ const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
     const overlayBackground = mainStore.setting.get('overlay_background');
     const overlayBackgroundArea = mainStore.setting.get('overlay_background_area');
     const showNicknames = mainStore.setting.get('show_nicknames');
-
-    const showControls = () => {
-        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        setAreControlsVisible(true);
-    };
-
-    const hideControlsLater = () => {
-        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        controlsTimeout.current = window.setTimeout(() => setAreControlsVisible(false), 1500);
-    };
+    const overlayWindow =
+        chatRef.current?.ownerDocument.defaultView ??
+        pipTarget?.ownerDocument.defaultView ??
+        fullscreenTarget?.ownerDocument.defaultView ??
+        window;
+    const isLeftAligned = position.left + overlayViewWidth / 2 <= overlayWindow.innerWidth / 2;
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!chatRef.current) return;
@@ -152,13 +147,6 @@ const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(
-        () => () => {
-            if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        },
-        [],
-    );
-
     useEffect(() => {
         if (!pipTarget || !isView || !chatRef.current) return;
 
@@ -236,23 +224,18 @@ const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
                 styles.OverlayChat,
                 isView ? styles.View : false,
                 !isChatVisible ? styles.Hidden : false,
-                areControlsVisible ? styles.ControlsVisible : false,
             )}
-            onMouseEnter={showControls}
-            onMouseLeave={hideControlsLater}
-            onFocus={showControls}
-            onBlur={hideControlsLater}
             onMouseDown={handleMouseDown}
-            tabIndex={0}
             style={{
                 left: `${position.left}px`,
                 top: `${position.top}px`,
+                fontSize: `${overlayFontSize}px`,
                 background: isChatVisible && overlayBackground ? chatBackgroundStyle : '',
             }}>
             {isChatVisible && chatsElem}
             <button
                 type="button"
-                className={styles.VisibilityToggle}
+                className={classes(styles.VisibilityToggle, isLeftAligned ? false : styles.RightAligned)}
                 aria-label={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 title={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 onMouseDown={(event) => event.stopPropagation()}
@@ -281,7 +264,7 @@ const OverlayChat = observer(({ pipTarget, persistPosition = true }: Props) => {
                 </svg>
             </button>
         </div>,
-        pipTarget ?? document.body,
+        pipTarget ?? fullscreenTarget ?? document.body,
     );
 });
 

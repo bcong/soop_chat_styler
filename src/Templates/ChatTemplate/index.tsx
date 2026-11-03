@@ -13,7 +13,8 @@ type Props = {
 const Chat = observer(({ pipTarget }: Props) => {
     const mainStore = useMainStore();
     const [isBroadcastRoom, setIsBroadcastRoom] = useState(isSoopBroadcastRoom);
-    const [isFullscreen, setIsFullscreen] = useState(() => document.fullscreenElement !== null);
+    const [fullscreenElement, setFullscreenElement] = useState<Element | null>(() => document.fullscreenElement);
+    const isFullscreen = fullscreenElement !== null;
     const enable = mainStore.setting.get('enable');
     const chat_style = mainStore.setting.get('chat_style');
     const fullscreenOnly = mainStore.setting.get('fullscreen_only');
@@ -23,14 +24,20 @@ const Chat = observer(({ pipTarget }: Props) => {
         return () => observer.disconnect();
     }, []);
 
-    useEffect(() => subscribeToFullscreenChange(setIsFullscreen), []);
+    useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(document.fullscreenElement)), []);
 
     if (!isBroadcastRoom || (fullscreenOnly && !isFullscreen)) return null;
 
     let chatElem;
     switch (chat_style) {
         case 0:
-            chatElem = <OverlayChat pipTarget={pipTarget} persistPosition={!pipTarget} />;
+            chatElem = (
+                <OverlayChat
+                    pipTarget={pipTarget}
+                    fullscreenTarget={fullscreenElement}
+                    persistPosition={!pipTarget}
+                />
+            );
             break;
         case 1:
             chatElem = <FrameChat pipTarget={pipTarget} />;

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103141025
+// @version      20261103154402
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -438,7 +438,7 @@ img {
 ._FrameChat_1wav7_1 ._Chat_1wav7_22._Background_1wav7_63 ._MessageContainer_1wav7_28 {
   padding: 4px 8px;
 }
-._OverlayChat_1svh6_1 {
+._OverlayChat_1bbx4_1 {
   position: fixed;
   flex-direction: column;
   z-index: 10000;
@@ -450,87 +450,84 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1svh6_1._View_1svh6_13 {
+._OverlayChat_1bbx4_1._View_1bbx4_13 {
   display: flex;
 }
-._OverlayChat_1svh6_1._Hidden_1svh6_16 {
+._OverlayChat_1bbx4_1._Hidden_1bbx4_16 {
   box-sizing: border-box;
-  width: 32px;
-  height: 32px;
+  width: 2em;
+  height: 2em;
   padding: 0;
 }
-._OverlayChat_1svh6_1 ._VisibilityToggle_1svh6_22 {
+._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22 {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
+  right: auto;
   z-index: 2;
   display: flex;
-  width: 28px;
-  height: 28px;
+  width: 2em;
+  height: 2em;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: 6px;
+  border-radius: 0.43em;
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
   cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
   transition: opacity 0.15s;
 }
-._OverlayChat_1svh6_1 ._VisibilityToggle_1svh6_22 svg {
-  width: 18px;
-  height: 18px;
+._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22 svg {
+  width: 1.25em;
+  height: 1.25em;
 }
-._OverlayChat_1svh6_1._ControlsVisible_1svh6_47 ._VisibilityToggle_1svh6_22 {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
+._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22._RightAligned_1bbx4_45 {
+  left: auto;
+  right: 0;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 ._Username_1svh6_62 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 {
   width: 126px;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 ._Message_1svh6_58 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 {
   flex: 1;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Username_1svh6_62 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Username_1svh6_62 p {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Message_1svh6_58 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Message_1svh6_58 p {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_1svh6_1 ._Chat_1svh6_52._Background_1svh6_93 ._MessageContainer_1svh6_58 {
+._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Background_1bbx4_90 ._MessageContainer_1bbx4_55 {
   padding: 4px 8px;
 } `);
 
@@ -12826,7 +12823,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103141025"
+                "20261103154402"
               ] })
             ]
           }
@@ -13005,23 +13002,23 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1svh6_1";
-    const View = "_View_1svh6_13";
-    const Hidden = "_Hidden_1svh6_16";
-    const VisibilityToggle = "_VisibilityToggle_1svh6_22";
-    const ControlsVisible = "_ControlsVisible_1svh6_47";
-    const Chat$1 = "_Chat_1svh6_52";
-    const Sorted = "_Sorted_1svh6_58";
-    const MessageContainer = "_MessageContainer_1svh6_58";
-    const Username = "_Username_1svh6_62";
-    const Message = "_Message_1svh6_58";
-    const Background = "_Background_1svh6_93";
+    const OverlayChat$1 = "_OverlayChat_1bbx4_1";
+    const View = "_View_1bbx4_13";
+    const Hidden = "_Hidden_1bbx4_16";
+    const VisibilityToggle = "_VisibilityToggle_1bbx4_22";
+    const RightAligned = "_RightAligned_1bbx4_45";
+    const Chat$1 = "_Chat_1bbx4_49";
+    const Sorted = "_Sorted_1bbx4_55";
+    const MessageContainer = "_MessageContainer_1bbx4_55";
+    const Username = "_Username_1bbx4_59";
+    const Message = "_Message_1bbx4_55";
+    const Background = "_Background_1bbx4_90";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
       Hidden,
       VisibilityToggle,
-      ControlsVisible,
+      RightAligned,
       Chat: Chat$1,
       Sorted,
       MessageContainer,
@@ -13029,17 +13026,16 @@ img {
       Message,
       Background
     };
-    const OverlayChat = observer(({ pipTarget, persistPosition = true }) => {
+    const OverlayChat = observer(({ pipTarget, fullscreenTarget, persistPosition = true }) => {
+      var _a2;
       const mainStore = useMainStore();
       const chatRef = reactExports.useRef(null);
       const [isView, IsView] = reactExports.useState(false);
       const [isDragging, setIsDragging] = reactExports.useState(false);
       const [isChatVisible, setIsChatVisible] = reactExports.useState(true);
-      const [areControlsVisible, setAreControlsVisible] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
       const [position, setPosition] = reactExports.useState({ left: 0, top: 0 });
-      const controlsTimeout = reactExports.useRef(null);
       const overlayViewCount = mainStore.setting.get("overlay_view_count");
       const overlayViewOpacity = mainStore.setting.get("overlay_chat_opacity");
       const overlayBackgroundOpacity = mainStore.setting.get("overlay_background_opacity");
@@ -13051,14 +13047,8 @@ img {
       const overlayBackground = mainStore.setting.get("overlay_background");
       const overlayBackgroundArea = mainStore.setting.get("overlay_background_area");
       const showNicknames = mainStore.setting.get("show_nicknames");
-      const showControls = () => {
-        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        setAreControlsVisible(true);
-      };
-      const hideControlsLater = () => {
-        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        controlsTimeout.current = window.setTimeout(() => setAreControlsVisible(false), 1500);
-      };
+      const overlayWindow = ((_a2 = chatRef.current) == null ? void 0 : _a2.ownerDocument.defaultView) ?? (pipTarget == null ? void 0 : pipTarget.ownerDocument.defaultView) ?? (fullscreenTarget == null ? void 0 : fullscreenTarget.ownerDocument.defaultView) ?? window;
+      const isLeftAligned = position.left + overlayViewWidth / 2 <= overlayWindow.innerWidth / 2;
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -13089,8 +13079,8 @@ img {
         }
       };
       reactExports.useEffect(() => {
-        var _a2;
-        const chatDocument = (_a2 = chatRef.current) == null ? void 0 : _a2.ownerDocument;
+        var _a3;
+        const chatDocument = (_a3 = chatRef.current) == null ? void 0 : _a3.ownerDocument;
         if (!chatDocument) return;
         if (isDragging) {
           chatDocument.addEventListener("mousemove", handleMouseMove);
@@ -13105,7 +13095,7 @@ img {
         };
       }, [position, isDragging, persistPosition]);
       reactExports.useEffect(() => {
-        var _a2;
+        var _a3;
         const handleResize = () => {
           if (!chatRef.current) return;
           const rect = chatRef.current.getBoundingClientRect();
@@ -13130,7 +13120,7 @@ img {
             mainStore.setSetting("overlay_y", newTop, true);
           }
         };
-        const chatWindow = ((_a2 = chatRef.current) == null ? void 0 : _a2.ownerDocument.defaultView) ?? window;
+        const chatWindow = ((_a3 = chatRef.current) == null ? void 0 : _a3.ownerDocument.defaultView) ?? window;
         chatWindow.addEventListener("resize", handleResize);
         return () => {
           chatWindow.removeEventListener("resize", handleResize);
@@ -13145,12 +13135,6 @@ img {
         chatRef.current.style.top = `${top}px`;
         IsView(true);
       }, []);
-      reactExports.useEffect(
-        () => () => {
-          if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
-        },
-        []
-      );
       reactExports.useEffect(() => {
         if (!pipTarget || !isView || !chatRef.current) return;
         const chatWindow = chatRef.current.ownerDocument.defaultView ?? window;
@@ -13221,18 +13205,13 @@ img {
             className: classes(
               styles.OverlayChat,
               isView ? styles.View : false,
-              !isChatVisible ? styles.Hidden : false,
-              areControlsVisible ? styles.ControlsVisible : false
+              !isChatVisible ? styles.Hidden : false
             ),
-            onMouseEnter: showControls,
-            onMouseLeave: hideControlsLater,
-            onFocus: showControls,
-            onBlur: hideControlsLater,
             onMouseDown: handleMouseDown,
-            tabIndex: 0,
             style: {
               left: `${position.left}px`,
               top: `${position.top}px`,
+              fontSize: `${overlayFontSize}px`,
               background: isChatVisible && overlayBackground ? chatBackgroundStyle : ""
             },
             children: [
@@ -13241,7 +13220,7 @@ img {
                 "button",
                 {
                   type: "button",
-                  className: styles.VisibilityToggle,
+                  className: classes(styles.VisibilityToggle, isLeftAligned ? false : styles.RightAligned),
                   "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   onMouseDown: (event) => event.stopPropagation(),
@@ -13272,7 +13251,7 @@ img {
             ]
           }
         ),
-        pipTarget ?? document.body
+        pipTarget ?? fullscreenTarget ?? document.body
       );
     });
     const subscribeToFullscreenChange = (listener, target = document) => {
@@ -13284,7 +13263,8 @@ img {
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
-      const [isFullscreen, setIsFullscreen] = reactExports.useState(() => document.fullscreenElement !== null);
+      const [fullscreenElement, setFullscreenElement] = reactExports.useState(() => document.fullscreenElement);
+      const isFullscreen = fullscreenElement !== null;
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
       const fullscreenOnly = mainStore.setting.get("fullscreen_only");
@@ -13292,12 +13272,19 @@ img {
         const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer2.disconnect();
       }, []);
-      reactExports.useEffect(() => subscribeToFullscreenChange(setIsFullscreen), []);
+      reactExports.useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(document.fullscreenElement)), []);
       if (!isBroadcastRoom || fullscreenOnly && !isFullscreen) return null;
       let chatElem;
       switch (chat_style) {
         case 0:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, { pipTarget, persistPosition: !pipTarget });
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(
+            OverlayChat,
+            {
+              pipTarget,
+              fullscreenTarget: fullscreenElement,
+              persistPosition: !pipTarget
+            }
+          );
           break;
         case 1:
           chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, { pipTarget });
