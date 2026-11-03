@@ -7,6 +7,12 @@ export const getChatVisibilityMode = (isPip: boolean, isFullscreen: boolean): Ch
 export const isChatAllowedInMode = (fullscreenOnly: boolean, isFullscreen: boolean, isPip: boolean): boolean =>
     !fullscreenOnly || isFullscreen || isPip;
 
+export const getVisibilityTogglePortalTarget = (
+    isPip: boolean,
+    fullscreenTarget: Element | null | undefined,
+    body: HTMLElement,
+): Element | null => (isPip ? null : (fullscreenTarget ?? body));
+
 export const toggleChatVisibility = (
     visibility: ChatVisibilityByMode,
     mode: ChatVisibilityMode,

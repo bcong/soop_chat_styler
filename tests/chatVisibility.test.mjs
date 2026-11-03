@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-const { getChatVisibilityMode, isChatAllowedInMode, toggleChatVisibility } = await import(
-    '../src/Utils/chatVisibility.ts'
-);
+const { getChatVisibilityMode, getVisibilityTogglePortalTarget, isChatAllowedInMode, toggleChatVisibility } =
+    await import('../src/Utils/chatVisibility.ts');
 
 test('allows PIP chat when fullscreen-only is enabled outside fullscreen', () => {
     assert.equal(isChatAllowedInMode(true, false, true), true);
@@ -25,4 +24,13 @@ test('selects independent visibility modes for normal, fullscreen, and PIP', () 
 
     const afterPipToggle = toggleChatVisibility(afterFullscreenToggle, 'pip');
     assert.deepEqual(afterPipToggle, { normal: false, fullscreen: false, pip: false });
+});
+
+test('portals non-PIP visibility toggles outside the player cover', () => {
+    const body = {};
+    const fullscreenTarget = {};
+
+    assert.equal(getVisibilityTogglePortalTarget(false, null, body), body);
+    assert.equal(getVisibilityTogglePortalTarget(false, fullscreenTarget, body), fullscreenTarget);
+    assert.equal(getVisibilityTogglePortalTarget(true, fullscreenTarget, body), null);
 });

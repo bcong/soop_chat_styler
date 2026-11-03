@@ -4,6 +4,7 @@ import styles from './style.module.less';
 import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
 import { classes } from '@Utils/index';
+import { getVisibilityTogglePortalTarget } from '@Utils/chatVisibility';
 
 type Props = {
     pipTarget?: HTMLElement;
@@ -36,7 +37,7 @@ const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onTogg
     const frameOffsetY = mainStore.setting.get('frame_offset_y');
     const showNicknames = mainStore.setting.get('show_nicknames');
     const isRightAligned = frameChatPosition === 2 || frameChatPosition === 3;
-    const visibilityToggleTarget = pipTarget ? null : (fullscreenTarget ?? null);
+    const visibilityToggleTarget = getVisibilityTogglePortalTarget(Boolean(pipTarget), fullscreenTarget, document.body);
 
     const updateVisibilityTogglePosition = useCallback(() => {
         const anchor = visibilityToggleAnchorRef.current;

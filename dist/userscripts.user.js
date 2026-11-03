@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103173259
+// @version      20261103173902
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12861,7 +12861,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103173259"
+                "20261103173902"
               ] })
             ]
           }
@@ -12905,6 +12905,13 @@ img {
       Message: Message$1,
       Background: Background$1
     };
+    const getChatVisibilityMode = (isPip, isFullscreen) => isPip ? "pip" : isFullscreen ? "fullscreen" : "normal";
+    const isChatAllowedInMode = (fullscreenOnly, isFullscreen, isPip) => !fullscreenOnly || isFullscreen || isPip;
+    const getVisibilityTogglePortalTarget = (isPip, fullscreenTarget, body) => isPip ? null : fullscreenTarget ?? body;
+    const toggleChatVisibility = (visibility, mode) => ({
+      ...visibility,
+      [mode]: !visibility[mode]
+    });
     const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onToggleChatVisibility }) => {
       const mainStore = useMainStore();
       const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? document.body);
@@ -12929,7 +12936,7 @@ img {
       const frameOffsetY = mainStore.setting.get("frame_offset_y");
       const showNicknames = mainStore.setting.get("show_nicknames");
       const isRightAligned = frameChatPosition === 2 || frameChatPosition === 3;
-      const visibilityToggleTarget = pipTarget ? null : fullscreenTarget ?? null;
+      const visibilityToggleTarget = getVisibilityTogglePortalTarget(Boolean(pipTarget), fullscreenTarget, document.body);
       const updateVisibilityTogglePosition = reactExports.useCallback(() => {
         const anchor = visibilityToggleAnchorRef.current;
         const layer = visibilityToggleLayerRef.current;
@@ -13438,12 +13445,6 @@ img {
         classObserver == null ? void 0 : classObserver.disconnect();
       };
     };
-    const getChatVisibilityMode = (isPip, isFullscreen) => isPip ? "pip" : isFullscreen ? "fullscreen" : "normal";
-    const isChatAllowedInMode = (fullscreenOnly, isFullscreen, isPip) => !fullscreenOnly || isFullscreen || isPip;
-    const toggleChatVisibility = (visibility, mode) => ({
-      ...visibility,
-      [mode]: !visibility[mode]
-    });
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
