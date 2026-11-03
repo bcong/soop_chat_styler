@@ -36,7 +36,7 @@ const Chat = observer(({ pipTarget }: Props) => {
             );
             break;
         case 1:
-            chatElem = <FrameChat pipTarget={pipTarget} />;
+            chatElem = <FrameChat pipTarget={pipTarget} fullscreenTarget={fullscreenElement} />;
             break;
     }
 
