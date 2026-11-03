@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103154402
+// @version      20261103155947
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -373,72 +373,100 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._FrameChat_1wav7_1 {
+._FrameChat_1sbhq_1 {
   z-index: 10000;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_1wav7_1._LeftTop_1wav7_8 {
+._FrameChat_1sbhq_1._LeftTop_1sbhq_8 {
   top: 0;
 }
-._FrameChat_1wav7_1._LeftBottom_1wav7_11 {
+._FrameChat_1sbhq_1._LeftBottom_1sbhq_11 {
   bottom: 0;
 }
-._FrameChat_1wav7_1._RightTop_1wav7_14 {
+._FrameChat_1sbhq_1._RightTop_1sbhq_14 {
   right: 0;
   top: 0;
 }
-._FrameChat_1wav7_1._RightBottom_1wav7_18 {
+._FrameChat_1sbhq_1._RightBottom_1sbhq_18 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 {
+._FrameChat_1sbhq_1._Hidden_1sbhq_22 {
+  box-sizing: border-box;
+  width: 2em;
+  height: 2em;
+  padding: 0;
+}
+._FrameChat_1sbhq_1 ._VisibilityToggle_1sbhq_28 {
+  align-self: flex-start;
+  display: flex;
+  font-size: inherit;
+  width: 2em;
+  height: 2em;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0.43em;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  cursor: pointer;
+}
+._FrameChat_1sbhq_1 ._VisibilityToggle_1sbhq_28 svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+._FrameChat_1sbhq_1 ._VisibilityToggle_1sbhq_28._RightAligned_1sbhq_47 {
+  align-self: flex-end;
+}
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50._Sorted_1sbhq_56 ._MessageContainer_1sbhq_56 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 ._Username_1wav7_32 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50._Sorted_1sbhq_56 ._MessageContainer_1sbhq_56 ._Username_1sbhq_60 {
   width: 126px;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22._Sorted_1wav7_28 ._MessageContainer_1wav7_28 ._Message_1wav7_28 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50._Sorted_1sbhq_56 ._MessageContainer_1sbhq_56 ._Message_1sbhq_56 {
   flex: 1;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 ._MessageContainer_1sbhq_56 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Username_1wav7_32 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 ._MessageContainer_1sbhq_56 ._Username_1sbhq_60 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Username_1wav7_32 p {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 ._MessageContainer_1sbhq_56 ._Username_1sbhq_60 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Message_1wav7_28 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 ._MessageContainer_1sbhq_56 ._Message_1sbhq_56 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22 ._MessageContainer_1wav7_28 ._Message_1wav7_28 p {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50 ._MessageContainer_1sbhq_56 ._Message_1sbhq_56 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_1wav7_1 ._Chat_1wav7_22._Background_1wav7_63 ._MessageContainer_1wav7_28 {
+._FrameChat_1sbhq_1 ._Chat_1sbhq_50._Background_1sbhq_91 ._MessageContainer_1sbhq_56 {
   padding: 4px 8px;
 }
-._OverlayChat_1bbx4_1 {
+._OverlayChat_1cf3p_1 {
   position: fixed;
   flex-direction: column;
   z-index: 10000;
@@ -450,22 +478,19 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1bbx4_1._View_1bbx4_13 {
+._OverlayChat_1cf3p_1._View_1cf3p_13 {
   display: flex;
 }
-._OverlayChat_1bbx4_1._Hidden_1bbx4_16 {
+._OverlayChat_1cf3p_1._Hidden_1cf3p_16 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: auto;
-  z-index: 2;
+._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22 {
+  align-self: flex-start;
   display: flex;
+  font-size: inherit;
   width: 2em;
   height: 2em;
   align-items: center;
@@ -478,56 +503,55 @@ img {
   cursor: pointer;
   transition: opacity 0.15s;
 }
-._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22 svg {
+._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._OverlayChat_1bbx4_1 ._VisibilityToggle_1bbx4_22._RightAligned_1bbx4_45 {
-  left: auto;
-  right: 0;
+._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22._RightAligned_1cf3p_42 {
+  align-self: flex-end;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 {
   width: 126px;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Sorted_1bbx4_55 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 {
   flex: 1;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Username_1bbx4_59 p {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49 ._MessageContainer_1bbx4_55 ._Message_1bbx4_55 p {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_1bbx4_1 ._Chat_1bbx4_49._Background_1bbx4_90 ._MessageContainer_1bbx4_55 {
+._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Background_1cf3p_86 ._MessageContainer_1cf3p_51 {
   padding: 4px 8px;
 } `);
 
@@ -12823,7 +12847,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103154402"
+                "20261103155947"
               ] })
             ]
           }
@@ -12831,23 +12855,29 @@ img {
         document.body
       );
     };
-    const FrameChat$1 = "_FrameChat_1wav7_1";
-    const LeftTop = "_LeftTop_1wav7_8";
-    const LeftBottom = "_LeftBottom_1wav7_11";
-    const RightTop = "_RightTop_1wav7_14";
-    const RightBottom = "_RightBottom_1wav7_18";
-    const Chat$2 = "_Chat_1wav7_22";
-    const Sorted$1 = "_Sorted_1wav7_28";
-    const MessageContainer$1 = "_MessageContainer_1wav7_28";
-    const Username$1 = "_Username_1wav7_32";
-    const Message$1 = "_Message_1wav7_28";
-    const Background$1 = "_Background_1wav7_63";
+    const FrameChat$1 = "_FrameChat_1sbhq_1";
+    const LeftTop = "_LeftTop_1sbhq_8";
+    const LeftBottom = "_LeftBottom_1sbhq_11";
+    const RightTop = "_RightTop_1sbhq_14";
+    const RightBottom = "_RightBottom_1sbhq_18";
+    const Hidden$1 = "_Hidden_1sbhq_22";
+    const VisibilityToggle$1 = "_VisibilityToggle_1sbhq_28";
+    const RightAligned$1 = "_RightAligned_1sbhq_47";
+    const Chat$2 = "_Chat_1sbhq_50";
+    const Sorted$1 = "_Sorted_1sbhq_56";
+    const MessageContainer$1 = "_MessageContainer_1sbhq_56";
+    const Username$1 = "_Username_1sbhq_60";
+    const Message$1 = "_Message_1sbhq_56";
+    const Background$1 = "_Background_1sbhq_91";
     const styles$1 = {
       FrameChat: FrameChat$1,
       LeftTop,
       LeftBottom,
       RightTop,
       RightBottom,
+      Hidden: Hidden$1,
+      VisibilityToggle: VisibilityToggle$1,
+      RightAligned: RightAligned$1,
       Chat: Chat$2,
       Sorted: Sorted$1,
       MessageContainer: MessageContainer$1,
@@ -12858,6 +12888,7 @@ img {
     const FrameChat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? document.body);
+      const [isChatVisible, setIsChatVisible] = reactExports.useState(true);
       const frameChatPosition = mainStore.setting.get("frame_chat_position");
       const frameRandomUsername = mainStore.setting.get("frame_random_username");
       const frameViewCount = mainStore.setting.get("frame_view_count");
@@ -12872,6 +12903,7 @@ img {
       const frameOffsetX = mainStore.setting.get("frame_offset_x");
       const frameOffsetY = mainStore.setting.get("frame_offset_y");
       const showNicknames = mainStore.setting.get("show_nicknames");
+      const isRightAligned = frameChatPosition === 2 || frameChatPosition === 3;
       reactExports.useEffect(() => {
         if (pipTarget) {
           setPlayerSizeDiv(pipTarget);
@@ -12985,34 +13017,68 @@ img {
       }
       const chatBackgroundStyle = `linear-gradient(${frameChatDegree}deg, rgba(0, 0, 0, ${frameBackgroundOpacity}%) ${frameBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
       return playerSizeDiv ? ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "div",
           {
-            className: classes(styles$1.FrameChat, frameChatPositionCls),
+            className: classes(styles$1.FrameChat, frameChatPositionCls, !isChatVisible ? styles$1.Hidden : false),
             style: {
-              background: frameBackground ? chatBackgroundStyle : "",
-              paddingLeft: `${frameOffsetX}px`,
-              paddingRight: `${frameOffsetX}px`,
-              paddingTop: `${frameOffsetY}px`,
-              paddingBottom: `${frameOffsetY}px`
+              fontSize: `${frameFontSize}px`,
+              background: isChatVisible && frameBackground ? chatBackgroundStyle : "",
+              paddingLeft: isChatVisible ? `${frameOffsetX}px` : "0",
+              paddingRight: isChatVisible ? `${frameOffsetX}px` : "0",
+              paddingTop: isChatVisible ? `${frameOffsetY}px` : "0",
+              paddingBottom: isChatVisible ? `${frameOffsetY}px` : "0"
             },
-            children: chatsElem
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  className: classes(styles$1.VisibilityToggle, isRightAligned ? styles$1.RightAligned : false),
+                  "aria-label": isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
+                  title: isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
+                  onClick: () => setIsChatVisible((visible) => !visible),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "svg",
+                    {
+                      "aria-hidden": "true",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      stroke: "currentColor",
+                      strokeWidth: "2",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      children: isChatVisible ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "3" })
+                      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M3 3 21 21" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M10.6 10.6a2 2 0 0 0 2.8 2.8" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" })
+                      ] })
+                    }
+                  )
+                }
+              ),
+              isChatVisible && chatsElem
+            ]
           }
         ),
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1bbx4_1";
-    const View = "_View_1bbx4_13";
-    const Hidden = "_Hidden_1bbx4_16";
-    const VisibilityToggle = "_VisibilityToggle_1bbx4_22";
-    const RightAligned = "_RightAligned_1bbx4_45";
-    const Chat$1 = "_Chat_1bbx4_49";
-    const Sorted = "_Sorted_1bbx4_55";
-    const MessageContainer = "_MessageContainer_1bbx4_55";
-    const Username = "_Username_1bbx4_59";
-    const Message = "_Message_1bbx4_55";
-    const Background = "_Background_1bbx4_90";
+    const OverlayChat$1 = "_OverlayChat_1cf3p_1";
+    const View = "_View_1cf3p_13";
+    const Hidden = "_Hidden_1cf3p_16";
+    const VisibilityToggle = "_VisibilityToggle_1cf3p_22";
+    const RightAligned = "_RightAligned_1cf3p_42";
+    const Chat$1 = "_Chat_1cf3p_45";
+    const Sorted = "_Sorted_1cf3p_51";
+    const MessageContainer = "_MessageContainer_1cf3p_51";
+    const Username = "_Username_1cf3p_55";
+    const Message = "_Message_1cf3p_51";
+    const Background = "_Background_1cf3p_86";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
@@ -13254,16 +13320,27 @@ img {
         pipTarget ?? fullscreenTarget ?? document.body
       );
     });
+    const getFullscreenElement = (target = document) => {
+      var _a2;
+      if (target.fullscreenElement) return target.fullscreenElement;
+      return ((_a2 = target.body) == null ? void 0 : _a2.classList.contains("fullScreen_mode")) ? target.body : null;
+    };
     const subscribeToFullscreenChange = (listener, target = document) => {
-      const update = () => listener(target.fullscreenElement !== null);
+      const update = () => listener(getFullscreenElement(target) !== null);
+      const body = target.body;
+      const classObserver = body ? new MutationObserver(update) : null;
       target.addEventListener("fullscreenchange", update);
+      classObserver == null ? void 0 : classObserver.observe(body, { attributes: true, attributeFilter: ["class"] });
       update();
-      return () => target.removeEventListener("fullscreenchange", update);
+      return () => {
+        target.removeEventListener("fullscreenchange", update);
+        classObserver == null ? void 0 : classObserver.disconnect();
+      };
     };
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
-      const [fullscreenElement, setFullscreenElement] = reactExports.useState(() => document.fullscreenElement);
+      const [fullscreenElement, setFullscreenElement] = reactExports.useState(getFullscreenElement);
       const isFullscreen = fullscreenElement !== null;
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
@@ -13272,19 +13349,12 @@ img {
         const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer2.disconnect();
       }, []);
-      reactExports.useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(document.fullscreenElement)), []);
+      reactExports.useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(getFullscreenElement())), []);
       if (!isBroadcastRoom || fullscreenOnly && !isFullscreen) return null;
       let chatElem;
       switch (chat_style) {
         case 0:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(
-            OverlayChat,
-            {
-              pipTarget,
-              fullscreenTarget: fullscreenElement,
-              persistPosition: !pipTarget
-            }
-          );
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, { pipTarget, fullscreenTarget: fullscreenElement, persistPosition: !pipTarget });
           break;
         case 1:
           chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, { pipTarget });

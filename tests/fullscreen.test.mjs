@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-const { subscribeToFullscreenChange } = await import('../src/Utils/fullscreen.ts');
+const { getFullscreenElement, subscribeToFullscreenChange } = await import('../src/Utils/fullscreen.ts');
 
 class FakeDocument extends EventTarget {
     fullscreenElement = null;
@@ -21,4 +21,10 @@ test('reports fullscreen entry and exit, then unsubscribes', () => {
     document.dispatchEvent(new Event('fullscreenchange'));
 
     assert.deepEqual(states, [false, true, false]);
+});
+
+test('detects SOOP fullscreen mode from the body class', () => {
+    const body = { classList: { contains: (className) => className === 'fullScreen_mode' } };
+
+    assert.equal(getFullscreenElement({ fullscreenElement: null, body }), body);
 });

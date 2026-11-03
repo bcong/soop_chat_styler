@@ -4,7 +4,7 @@ import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { addLocationChangeCallback, isSoopBroadcastRoom } from '@Utils/index';
-import { subscribeToFullscreenChange } from '@Utils/fullscreen';
+import { getFullscreenElement, subscribeToFullscreenChange } from '@Utils/fullscreen';
 
 type Props = {
     pipTarget?: HTMLElement;
@@ -13,7 +13,7 @@ type Props = {
 const Chat = observer(({ pipTarget }: Props) => {
     const mainStore = useMainStore();
     const [isBroadcastRoom, setIsBroadcastRoom] = useState(isSoopBroadcastRoom);
-    const [fullscreenElement, setFullscreenElement] = useState<Element | null>(() => document.fullscreenElement);
+    const [fullscreenElement, setFullscreenElement] = useState(getFullscreenElement);
     const isFullscreen = fullscreenElement !== null;
     const enable = mainStore.setting.get('enable');
     const chat_style = mainStore.setting.get('chat_style');
@@ -24,7 +24,7 @@ const Chat = observer(({ pipTarget }: Props) => {
         return () => observer.disconnect();
     }, []);
 
-    useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(document.fullscreenElement)), []);
+    useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(getFullscreenElement())), []);
 
     if (!isBroadcastRoom || (fullscreenOnly && !isFullscreen)) return null;
 
@@ -32,11 +32,7 @@ const Chat = observer(({ pipTarget }: Props) => {
     switch (chat_style) {
         case 0:
             chatElem = (
-                <OverlayChat
-                    pipTarget={pipTarget}
-                    fullscreenTarget={fullscreenElement}
-                    persistPosition={!pipTarget}
-                />
+                <OverlayChat pipTarget={pipTarget} fullscreenTarget={fullscreenElement} persistPosition={!pipTarget} />
             );
             break;
         case 1:

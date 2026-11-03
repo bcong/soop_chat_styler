@@ -23,6 +23,38 @@
         bottom: 0;
     }
 
+    &.Hidden {
+        box-sizing: border-box;
+        width: 2em;
+        height: 2em;
+        padding: 0;
+    }
+
+    .VisibilityToggle {
+        align-self: flex-start;
+        display: flex;
+        font-size: inherit;
+        width: 2em;
+        height: 2em;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: 0.43em;
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        cursor: pointer;
+
+        svg {
+            width: 1.25em;
+            height: 1.25em;
+        }
+
+        &.RightAligned {
+            align-self: flex-end;
+        }
+    }
+
     .Chat {
         display: flex;
         position: relative;
