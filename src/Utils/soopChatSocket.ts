@@ -42,7 +42,6 @@ export const installSoopChatSocketHook = (pageWindow: Pick<typeof unsafeWindow, 
                 if (listeners.size) {
                     listeners.forEach((listener) => listener(chat));
                 } else {
-                    // ponytail: keep only recent pre-mount chats; the overlay does not need an unbounded backlog.
                     if (pendingChats.length === MAX_PENDING_CHATS) pendingChats.shift();
                     pendingChats.push(chat);
                 }
