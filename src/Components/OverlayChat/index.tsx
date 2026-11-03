@@ -11,10 +11,22 @@ type Props = {
     persistPosition?: boolean;
     isChatVisible: boolean;
     onToggleChatVisibility: () => void;
+    isVisibilityToggleVisible: boolean;
+    onVisibilityTogglePointerEnter: () => void;
+    onVisibilityTogglePointerLeave: () => void;
 };
 
 const OverlayChat = observer((props: Props) => {
-    const { pipTarget, fullscreenTarget, persistPosition = true, isChatVisible, onToggleChatVisibility } = props;
+    const {
+        pipTarget,
+        fullscreenTarget,
+        persistPosition = true,
+        isChatVisible,
+        onToggleChatVisibility,
+        isVisibilityToggleVisible,
+        onVisibilityTogglePointerEnter,
+        onVisibilityTogglePointerLeave,
+    } = props;
     const mainStore = useMainStore();
     const chatRef = useRef<HTMLDivElement | null>(null);
     const [isView, IsView] = useState(false);
@@ -228,6 +240,8 @@ const OverlayChat = observer((props: Props) => {
                 !isChatVisible ? styles.Hidden : false,
             )}
             onMouseDown={handleMouseDown}
+            onPointerEnter={onVisibilityTogglePointerEnter}
+            onPointerLeave={onVisibilityTogglePointerLeave}
             style={{
                 left: `${position.left}px`,
                 top: `${position.top}px`,
@@ -237,7 +251,11 @@ const OverlayChat = observer((props: Props) => {
             {isChatVisible && chatsElem}
             <button
                 type="button"
-                className={classes(styles.VisibilityToggle, isLeftAligned ? false : styles.RightAligned)}
+                className={classes(
+                    styles.VisibilityToggle,
+                    isLeftAligned ? false : styles.RightAligned,
+                    !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false,
+                )}
                 aria-label={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 title={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 onMouseDown={(event) => event.stopPropagation()}

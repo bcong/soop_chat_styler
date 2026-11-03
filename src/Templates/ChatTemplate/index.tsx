@@ -2,7 +2,7 @@ import FrameChat from '@Components/FrameChat';
 import OverlayChat from '@Components/OverlayChat';
 import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { addLocationChangeCallback, isSoopBroadcastRoom } from '@Utils/index';
 import { getFullscreenElement, subscribeToFullscreenChange } from '@Utils/fullscreen';
 import type { ChatVisibilityByMode } from '@Utils/chatVisibility';
@@ -11,6 +11,8 @@ import {
     isChatAllowedInMode,
     toggleChatVisibility as toggleVisibilityForMode,
 } from '@Utils/chatVisibility';
+
+const VISIBILITY_TOGGLE_HIDE_DELAY = 2000;
 
 type Props = {
     pipTarget?: HTMLElement;
@@ -25,6 +27,8 @@ const Chat = observer(({ pipTarget }: Props) => {
         fullscreen: true,
         pip: true,
     });
+    const [isVisibilityToggleVisible, setIsVisibilityToggleVisible] = useState(false);
+    const visibilityToggleTimeoutRef = useRef<number | null>(null);
     const isFullscreen = fullscreenElement !== null;
     const isPip = Boolean(pipTarget);
     const chatMode = getChatVisibilityMode(isPip, isFullscreen);
@@ -34,6 +38,22 @@ const Chat = observer(({ pipTarget }: Props) => {
     const fullscreenOnly = mainStore.setting.get('fullscreen_only');
     const handleToggleChatVisibility = () =>
         setVisibilityByMode((visibility) => toggleVisibilityForMode(visibility, chatMode));
+    const showVisibilityToggle = useCallback(() => {
+        if (visibilityToggleTimeoutRef.current !== null) {
+            window.clearTimeout(visibilityToggleTimeoutRef.current);
+            visibilityToggleTimeoutRef.current = null;
+        }
+        setIsVisibilityToggleVisible(true);
+    }, []);
+    const scheduleVisibilityToggleHide = useCallback(() => {
+        if (visibilityToggleTimeoutRef.current !== null) {
+            window.clearTimeout(visibilityToggleTimeoutRef.current);
+        }
+        visibilityToggleTimeoutRef.current = window.setTimeout(() => {
+            visibilityToggleTimeoutRef.current = null;
+            setIsVisibilityToggleVisible(false);
+        }, VISIBILITY_TOGGLE_HIDE_DELAY);
+    }, []);
 
     useEffect(() => {
         const observer = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
@@ -41,6 +61,35 @@ const Chat = observer(({ pipTarget }: Props) => {
     }, []);
 
     useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(getFullscreenElement())), []);
+
+    useEffect(() => {
+        const hoverTarget =
+            pipTarget ??
+            fullscreenElement ??
+            document.querySelector('#player_area') ??
+            document.querySelector('#videoLayer');
+        if (!hoverTarget) return;
+
+        hoverTarget.addEventListener('pointerenter', showVisibilityToggle);
+        hoverTarget.addEventListener('pointermove', showVisibilityToggle);
+        hoverTarget.addEventListener('pointerleave', scheduleVisibilityToggleHide);
+
+        return () => {
+            hoverTarget.removeEventListener('pointerenter', showVisibilityToggle);
+            hoverTarget.removeEventListener('pointermove', showVisibilityToggle);
+            hoverTarget.removeEventListener('pointerleave', scheduleVisibilityToggleHide);
+        };
+    }, [pipTarget, fullscreenElement, showVisibilityToggle, scheduleVisibilityToggleHide]);
+
+    useEffect(
+        () => () => {
+            if (visibilityToggleTimeoutRef.current !== null) {
+                window.clearTimeout(visibilityToggleTimeoutRef.current);
+                visibilityToggleTimeoutRef.current = null;
+            }
+        },
+        [],
+    );
 
     if (!isBroadcastRoom || !isChatAllowedInMode(fullscreenOnly, isFullscreen, isPip)) return null;
 
@@ -54,6 +103,9 @@ const Chat = observer(({ pipTarget }: Props) => {
                     persistPosition={!pipTarget}
                     isChatVisible={isChatVisible}
                     onToggleChatVisibility={handleToggleChatVisibility}
+                    isVisibilityToggleVisible={isVisibilityToggleVisible}
+                    onVisibilityTogglePointerEnter={showVisibilityToggle}
+                    onVisibilityTogglePointerLeave={scheduleVisibilityToggleHide}
                 />
             );
             break;
@@ -64,6 +116,9 @@ const Chat = observer(({ pipTarget }: Props) => {
                     fullscreenTarget={fullscreenElement}
                     isChatVisible={isChatVisible}
                     onToggleChatVisibility={handleToggleChatVisibility}
+                    isVisibilityToggleVisible={isVisibilityToggleVisible}
+                    onVisibilityTogglePointerEnter={showVisibilityToggle}
+                    onVisibilityTogglePointerLeave={scheduleVisibilityToggleHide}
                 />
             );
             break;

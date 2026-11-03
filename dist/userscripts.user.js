@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103175819
+// @version      20261103184344
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -373,7 +373,7 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._VisibilityToggle_1v1n5_1 {
+._VisibilityToggle_10vii_1 {
   display: flex;
   align-self: flex-start;
   font-size: inherit;
@@ -387,100 +387,109 @@ img {
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
   cursor: pointer;
+  transition: opacity 0.15s;
 }
-._VisibilityToggle_1v1n5_1 svg {
+._VisibilityToggle_10vii_1 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._VisibilityToggle_1v1n5_1._RightAligned_1v1n5_20 {
+._VisibilityToggle_10vii_1:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+._VisibilityToggle_10vii_1._RightAligned_10vii_25 {
   align-self: flex-end;
 }
-._VisibilityToggleAnchor_1v1n5_23 {
+._VisibilityToggleHidden_10vii_28 {
+  opacity: 0;
+  pointer-events: none;
+}
+._VisibilityToggleAnchor_10vii_32 {
   visibility: hidden;
   pointer-events: none;
 }
-._VisibilityLayer_1v1n5_27 {
+._VisibilityLayer_10vii_36 {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
   pointer-events: none;
 }
-._VisibilityTogglePortal_1v1n5_33 {
+._VisibilityTogglePortal_10vii_42 {
   position: absolute;
   pointer-events: auto;
 }
-._FrameChat_1v1n5_37 {
+._FrameChat_10vii_46 {
   z-index: 10000;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_1v1n5_37._LeftTop_1v1n5_44 {
+._FrameChat_10vii_46._LeftTop_10vii_53 {
   top: 0;
 }
-._FrameChat_1v1n5_37._LeftBottom_1v1n5_47 {
+._FrameChat_10vii_46._LeftBottom_10vii_56 {
   bottom: 0;
 }
-._FrameChat_1v1n5_37._RightTop_1v1n5_50 {
+._FrameChat_10vii_46._RightTop_10vii_59 {
   right: 0;
   top: 0;
 }
-._FrameChat_1v1n5_37._RightBottom_1v1n5_54 {
+._FrameChat_10vii_46._RightBottom_10vii_63 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_1v1n5_37._Hidden_1v1n5_58 {
+._FrameChat_10vii_46._Hidden_10vii_67 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 {
+._FrameChat_10vii_46 ._Chat_10vii_73 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64._Sorted_1v1n5_70 ._MessageContainer_1v1n5_70 {
+._FrameChat_10vii_46 ._Chat_10vii_73._Sorted_10vii_79 ._MessageContainer_10vii_79 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64._Sorted_1v1n5_70 ._MessageContainer_1v1n5_70 ._Username_1v1n5_74 {
+._FrameChat_10vii_46 ._Chat_10vii_73._Sorted_10vii_79 ._MessageContainer_10vii_79 ._Username_10vii_83 {
   width: 126px;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64._Sorted_1v1n5_70 ._MessageContainer_1v1n5_70 ._Message_1v1n5_70 {
+._FrameChat_10vii_46 ._Chat_10vii_73._Sorted_10vii_79 ._MessageContainer_10vii_79 ._Message_10vii_79 {
   flex: 1;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 ._MessageContainer_1v1n5_70 {
+._FrameChat_10vii_46 ._Chat_10vii_73 ._MessageContainer_10vii_79 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 ._MessageContainer_1v1n5_70 ._Username_1v1n5_74 {
+._FrameChat_10vii_46 ._Chat_10vii_73 ._MessageContainer_10vii_79 ._Username_10vii_83 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 ._MessageContainer_1v1n5_70 ._Username_1v1n5_74 p {
+._FrameChat_10vii_46 ._Chat_10vii_73 ._MessageContainer_10vii_79 ._Username_10vii_83 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 ._MessageContainer_1v1n5_70 ._Message_1v1n5_70 {
+._FrameChat_10vii_46 ._Chat_10vii_73 ._MessageContainer_10vii_79 ._Message_10vii_79 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64 ._MessageContainer_1v1n5_70 ._Message_1v1n5_70 p {
+._FrameChat_10vii_46 ._Chat_10vii_73 ._MessageContainer_10vii_79 ._Message_10vii_79 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_1v1n5_37 ._Chat_1v1n5_64._Background_1v1n5_105 ._MessageContainer_1v1n5_70 {
+._FrameChat_10vii_46 ._Chat_10vii_73._Background_10vii_114 ._MessageContainer_10vii_79 {
   padding: 4px 8px;
 }
-._OverlayChat_1cf3p_1 {
+._OverlayChat_1pwbm_1 {
   position: fixed;
   flex-direction: column;
   z-index: 10000;
@@ -492,16 +501,16 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1cf3p_1._View_1cf3p_13 {
+._OverlayChat_1pwbm_1._View_1pwbm_13 {
   display: flex;
 }
-._OverlayChat_1cf3p_1._Hidden_1cf3p_16 {
+._OverlayChat_1pwbm_1._Hidden_1pwbm_16 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22 {
+._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22 {
   align-self: flex-start;
   display: flex;
   font-size: inherit;
@@ -517,55 +526,63 @@ img {
   cursor: pointer;
   transition: opacity 0.15s;
 }
-._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22 svg {
+._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._OverlayChat_1cf3p_1 ._VisibilityToggle_1cf3p_22._RightAligned_1cf3p_42 {
+._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22._RightAligned_1pwbm_46 {
   align-self: flex-end;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 {
+._OverlayChat_1pwbm_1 ._VisibilityToggleHidden_1pwbm_49 {
+  opacity: 0;
+  pointer-events: none;
+}
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 {
   width: 126px;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Sorted_1cf3p_51 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 {
   flex: 1;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Username_1cf3p_55 p {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45 ._MessageContainer_1cf3p_51 ._Message_1cf3p_51 p {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_1cf3p_1 ._Chat_1cf3p_45._Background_1cf3p_86 ._MessageContainer_1cf3p_51 {
+._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Background_1pwbm_94 ._MessageContainer_1pwbm_59 {
   padding: 4px 8px;
 } `);
 
@@ -12861,7 +12878,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103175819"
+                "20261103184344"
               ] })
             ]
           }
@@ -12869,26 +12886,28 @@ img {
         document.body
       );
     };
-    const VisibilityToggle$1 = "_VisibilityToggle_1v1n5_1";
-    const RightAligned$1 = "_RightAligned_1v1n5_20";
-    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_1v1n5_23";
-    const VisibilityLayer = "_VisibilityLayer_1v1n5_27";
-    const VisibilityTogglePortal = "_VisibilityTogglePortal_1v1n5_33";
-    const FrameChat$1 = "_FrameChat_1v1n5_37";
-    const LeftTop = "_LeftTop_1v1n5_44";
-    const LeftBottom = "_LeftBottom_1v1n5_47";
-    const RightTop = "_RightTop_1v1n5_50";
-    const RightBottom = "_RightBottom_1v1n5_54";
-    const Hidden$1 = "_Hidden_1v1n5_58";
-    const Chat$2 = "_Chat_1v1n5_64";
-    const Sorted$1 = "_Sorted_1v1n5_70";
-    const MessageContainer$1 = "_MessageContainer_1v1n5_70";
-    const Username$1 = "_Username_1v1n5_74";
-    const Message$1 = "_Message_1v1n5_70";
-    const Background$1 = "_Background_1v1n5_105";
+    const VisibilityToggle$1 = "_VisibilityToggle_10vii_1";
+    const RightAligned$1 = "_RightAligned_10vii_25";
+    const VisibilityToggleHidden$1 = "_VisibilityToggleHidden_10vii_28";
+    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_10vii_32";
+    const VisibilityLayer = "_VisibilityLayer_10vii_36";
+    const VisibilityTogglePortal = "_VisibilityTogglePortal_10vii_42";
+    const FrameChat$1 = "_FrameChat_10vii_46";
+    const LeftTop = "_LeftTop_10vii_53";
+    const LeftBottom = "_LeftBottom_10vii_56";
+    const RightTop = "_RightTop_10vii_59";
+    const RightBottom = "_RightBottom_10vii_63";
+    const Hidden$1 = "_Hidden_10vii_67";
+    const Chat$2 = "_Chat_10vii_73";
+    const Sorted$1 = "_Sorted_10vii_79";
+    const MessageContainer$1 = "_MessageContainer_10vii_79";
+    const Username$1 = "_Username_10vii_83";
+    const Message$1 = "_Message_10vii_79";
+    const Background$1 = "_Background_10vii_114";
     const styles$1 = {
       VisibilityToggle: VisibilityToggle$1,
       RightAligned: RightAligned$1,
+      VisibilityToggleHidden: VisibilityToggleHidden$1,
       VisibilityToggleAnchor,
       VisibilityLayer,
       VisibilityTogglePortal,
@@ -12912,7 +12931,16 @@ img {
       ...visibility,
       [mode]: !visibility[mode]
     });
-    const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onToggleChatVisibility }) => {
+    const FrameChat = observer((props) => {
+      const {
+        pipTarget,
+        fullscreenTarget,
+        isChatVisible,
+        onToggleChatVisibility,
+        isVisibilityToggleVisible,
+        onVisibilityTogglePointerEnter,
+        onVisibilityTogglePointerLeave
+      } = props;
       const mainStore = useMainStore();
       const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? document.body);
       const [visibilityTogglePosition, setVisibilityTogglePosition] = reactExports.useState(
@@ -13102,7 +13130,8 @@ img {
           className: classes(
             styles$1.VisibilityToggle,
             isRightAligned ? styles$1.RightAligned : false,
-            visibilityToggleTarget ? styles$1.VisibilityTogglePortal : false
+            visibilityToggleTarget ? styles$1.VisibilityTogglePortal : false,
+            !isVisibilityToggleVisible ? styles$1.VisibilityToggleHidden : false
           ),
           style: visibilityToggleTarget && visibilityTogglePosition ? {
             fontSize: `${frameFontSize}px`,
@@ -13111,6 +13140,8 @@ img {
           } : void 0,
           "aria-label": isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
           title: isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
+          onPointerEnter: visibilityToggleTarget ? onVisibilityTogglePointerEnter : void 0,
+          onPointerLeave: visibilityToggleTarget ? onVisibilityTogglePointerLeave : void 0,
           onClick: onToggleChatVisibility,
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             "svg",
@@ -13175,23 +13206,25 @@ img {
         )
       ] }) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1cf3p_1";
-    const View = "_View_1cf3p_13";
-    const Hidden = "_Hidden_1cf3p_16";
-    const VisibilityToggle = "_VisibilityToggle_1cf3p_22";
-    const RightAligned = "_RightAligned_1cf3p_42";
-    const Chat$1 = "_Chat_1cf3p_45";
-    const Sorted = "_Sorted_1cf3p_51";
-    const MessageContainer = "_MessageContainer_1cf3p_51";
-    const Username = "_Username_1cf3p_55";
-    const Message = "_Message_1cf3p_51";
-    const Background = "_Background_1cf3p_86";
+    const OverlayChat$1 = "_OverlayChat_1pwbm_1";
+    const View = "_View_1pwbm_13";
+    const Hidden = "_Hidden_1pwbm_16";
+    const VisibilityToggle = "_VisibilityToggle_1pwbm_22";
+    const RightAligned = "_RightAligned_1pwbm_46";
+    const VisibilityToggleHidden = "_VisibilityToggleHidden_1pwbm_49";
+    const Chat$1 = "_Chat_1pwbm_53";
+    const Sorted = "_Sorted_1pwbm_59";
+    const MessageContainer = "_MessageContainer_1pwbm_59";
+    const Username = "_Username_1pwbm_63";
+    const Message = "_Message_1pwbm_59";
+    const Background = "_Background_1pwbm_94";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
       Hidden,
       VisibilityToggle,
       RightAligned,
+      VisibilityToggleHidden,
       Chat: Chat$1,
       Sorted,
       MessageContainer,
@@ -13201,7 +13234,16 @@ img {
     };
     const OverlayChat = observer((props) => {
       var _a2;
-      const { pipTarget, fullscreenTarget, persistPosition = true, isChatVisible, onToggleChatVisibility } = props;
+      const {
+        pipTarget,
+        fullscreenTarget,
+        persistPosition = true,
+        isChatVisible,
+        onToggleChatVisibility,
+        isVisibilityToggleVisible,
+        onVisibilityTogglePointerEnter,
+        onVisibilityTogglePointerLeave
+      } = props;
       const mainStore = useMainStore();
       const chatRef = reactExports.useRef(null);
       const [isView, IsView] = reactExports.useState(false);
@@ -13381,6 +13423,8 @@ img {
               !isChatVisible ? styles.Hidden : false
             ),
             onMouseDown: handleMouseDown,
+            onPointerEnter: onVisibilityTogglePointerEnter,
+            onPointerLeave: onVisibilityTogglePointerLeave,
             style: {
               left: `${position.left}px`,
               top: `${position.top}px`,
@@ -13393,7 +13437,11 @@ img {
                 "button",
                 {
                   type: "button",
-                  className: classes(styles.VisibilityToggle, isLeftAligned ? false : styles.RightAligned),
+                  className: classes(
+                    styles.VisibilityToggle,
+                    isLeftAligned ? false : styles.RightAligned,
+                    !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false
+                  ),
                   "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   onMouseDown: (event) => event.stopPropagation(),
@@ -13444,6 +13492,7 @@ img {
         classObserver == null ? void 0 : classObserver.disconnect();
       };
     };
+    const VISIBILITY_TOGGLE_HIDE_DELAY = 2e3;
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
@@ -13453,6 +13502,8 @@ img {
         fullscreen: true,
         pip: true
       });
+      const [isVisibilityToggleVisible, setIsVisibilityToggleVisible] = reactExports.useState(false);
+      const visibilityToggleTimeoutRef = reactExports.useRef(null);
       const isFullscreen = fullscreenElement !== null;
       const isPip = Boolean(pipTarget);
       const chatMode = getChatVisibilityMode(isPip, isFullscreen);
@@ -13461,11 +13512,48 @@ img {
       const chat_style = mainStore.setting.get("chat_style");
       const fullscreenOnly = mainStore.setting.get("fullscreen_only");
       const handleToggleChatVisibility = () => setVisibilityByMode((visibility) => toggleChatVisibility(visibility, chatMode));
+      const showVisibilityToggle = reactExports.useCallback(() => {
+        if (visibilityToggleTimeoutRef.current !== null) {
+          window.clearTimeout(visibilityToggleTimeoutRef.current);
+          visibilityToggleTimeoutRef.current = null;
+        }
+        setIsVisibilityToggleVisible(true);
+      }, []);
+      const scheduleVisibilityToggleHide = reactExports.useCallback(() => {
+        if (visibilityToggleTimeoutRef.current !== null) {
+          window.clearTimeout(visibilityToggleTimeoutRef.current);
+        }
+        visibilityToggleTimeoutRef.current = window.setTimeout(() => {
+          visibilityToggleTimeoutRef.current = null;
+          setIsVisibilityToggleVisible(false);
+        }, VISIBILITY_TOGGLE_HIDE_DELAY);
+      }, []);
       reactExports.useEffect(() => {
         const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer2.disconnect();
       }, []);
       reactExports.useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(getFullscreenElement())), []);
+      reactExports.useEffect(() => {
+        const hoverTarget = pipTarget ?? fullscreenElement ?? document.querySelector("#player_area") ?? document.querySelector("#videoLayer");
+        if (!hoverTarget) return;
+        hoverTarget.addEventListener("pointerenter", showVisibilityToggle);
+        hoverTarget.addEventListener("pointermove", showVisibilityToggle);
+        hoverTarget.addEventListener("pointerleave", scheduleVisibilityToggleHide);
+        return () => {
+          hoverTarget.removeEventListener("pointerenter", showVisibilityToggle);
+          hoverTarget.removeEventListener("pointermove", showVisibilityToggle);
+          hoverTarget.removeEventListener("pointerleave", scheduleVisibilityToggleHide);
+        };
+      }, [pipTarget, fullscreenElement, showVisibilityToggle, scheduleVisibilityToggleHide]);
+      reactExports.useEffect(
+        () => () => {
+          if (visibilityToggleTimeoutRef.current !== null) {
+            window.clearTimeout(visibilityToggleTimeoutRef.current);
+            visibilityToggleTimeoutRef.current = null;
+          }
+        },
+        []
+      );
       if (!isBroadcastRoom || !isChatAllowedInMode(fullscreenOnly, isFullscreen, isPip)) return null;
       let chatElem;
       switch (chat_style) {
@@ -13477,7 +13565,10 @@ img {
               fullscreenTarget: fullscreenElement,
               persistPosition: !pipTarget,
               isChatVisible,
-              onToggleChatVisibility: handleToggleChatVisibility
+              onToggleChatVisibility: handleToggleChatVisibility,
+              isVisibilityToggleVisible,
+              onVisibilityTogglePointerEnter: showVisibilityToggle,
+              onVisibilityTogglePointerLeave: scheduleVisibilityToggleHide
             }
           );
           break;
@@ -13488,7 +13579,10 @@ img {
               pipTarget,
               fullscreenTarget: fullscreenElement,
               isChatVisible,
-              onToggleChatVisibility: handleToggleChatVisibility
+              onToggleChatVisibility: handleToggleChatVisibility,
+              isVisibilityToggleVisible,
+              onVisibilityTogglePointerEnter: showVisibilityToggle,
+              onVisibilityTogglePointerLeave: scheduleVisibilityToggleHide
             }
           );
           break;

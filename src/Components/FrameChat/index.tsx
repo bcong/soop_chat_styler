@@ -11,9 +11,21 @@ type Props = {
     fullscreenTarget?: Element | null;
     isChatVisible: boolean;
     onToggleChatVisibility: () => void;
+    isVisibilityToggleVisible: boolean;
+    onVisibilityTogglePointerEnter: () => void;
+    onVisibilityTogglePointerLeave: () => void;
 };
 
-const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onToggleChatVisibility }: Props) => {
+const FrameChat = observer((props: Props) => {
+    const {
+        pipTarget,
+        fullscreenTarget,
+        isChatVisible,
+        onToggleChatVisibility,
+        isVisibilityToggleVisible,
+        onVisibilityTogglePointerEnter,
+        onVisibilityTogglePointerLeave,
+    } = props;
     const mainStore = useMainStore();
     const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(pipTarget ?? document.body);
     const [visibilityTogglePosition, setVisibilityTogglePosition] = useState<{ left: number; top: number } | null>(
@@ -230,6 +242,7 @@ const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onTogg
                 styles.VisibilityToggle,
                 isRightAligned ? styles.RightAligned : false,
                 visibilityToggleTarget ? styles.VisibilityTogglePortal : false,
+                !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false,
             )}
             style={
                 visibilityToggleTarget && visibilityTogglePosition
@@ -242,6 +255,8 @@ const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onTogg
             }
             aria-label={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
             title={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
+            onPointerEnter={visibilityToggleTarget ? onVisibilityTogglePointerEnter : undefined}
+            onPointerLeave={visibilityToggleTarget ? onVisibilityTogglePointerLeave : undefined}
             onClick={onToggleChatVisibility}>
             <svg
                 aria-hidden="true"
