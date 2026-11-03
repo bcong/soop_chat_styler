@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103171033
+// @version      20261103173259
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12861,7 +12861,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103171033"
+                "20261103173259"
               ] })
             ]
           }
@@ -12905,10 +12905,9 @@ img {
       Message: Message$1,
       Background: Background$1
     };
-    const FrameChat = observer(({ pipTarget, fullscreenTarget }) => {
+    const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onToggleChatVisibility }) => {
       const mainStore = useMainStore();
       const [playerSizeDiv, setPlayerSizeDiv] = reactExports.useState(pipTarget ?? document.body);
-      const [isChatVisible, setIsChatVisible] = reactExports.useState(true);
       const [visibilityTogglePosition, setVisibilityTogglePosition] = reactExports.useState(
         null
       );
@@ -13106,7 +13105,7 @@ img {
           } : void 0,
           "aria-label": isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
           title: isChatVisible ? "채팅 프레임 숨기기" : "채팅 프레임 표시",
-          onClick: () => setIsChatVisible((visible) => !visible),
+          onClick: onToggleChatVisibility,
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             "svg",
             {
@@ -13194,13 +13193,13 @@ img {
       Message,
       Background
     };
-    const OverlayChat = observer(({ pipTarget, fullscreenTarget, persistPosition = true }) => {
+    const OverlayChat = observer((props) => {
       var _a2;
+      const { pipTarget, fullscreenTarget, persistPosition = true, isChatVisible, onToggleChatVisibility } = props;
       const mainStore = useMainStore();
       const chatRef = reactExports.useRef(null);
       const [isView, IsView] = reactExports.useState(false);
       const [isDragging, setIsDragging] = reactExports.useState(false);
-      const [isChatVisible, setIsChatVisible] = reactExports.useState(true);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
       const [position, setPosition] = reactExports.useState({ left: 0, top: 0 });
@@ -13392,7 +13391,7 @@ img {
                   "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
                   onMouseDown: (event) => event.stopPropagation(),
-                  onClick: () => setIsChatVisible((visible) => !visible),
+                  onClick: onToggleChatVisibility,
                   children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "svg",
                     {
@@ -13439,27 +13438,59 @@ img {
         classObserver == null ? void 0 : classObserver.disconnect();
       };
     };
+    const getChatVisibilityMode = (isPip, isFullscreen) => isPip ? "pip" : isFullscreen ? "fullscreen" : "normal";
+    const isChatAllowedInMode = (fullscreenOnly, isFullscreen, isPip) => !fullscreenOnly || isFullscreen || isPip;
+    const toggleChatVisibility = (visibility, mode) => ({
+      ...visibility,
+      [mode]: !visibility[mode]
+    });
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
       const [fullscreenElement, setFullscreenElement] = reactExports.useState(getFullscreenElement);
+      const [visibilityByMode, setVisibilityByMode] = reactExports.useState({
+        normal: true,
+        fullscreen: true,
+        pip: true
+      });
       const isFullscreen = fullscreenElement !== null;
+      const isPip = Boolean(pipTarget);
+      const chatMode = getChatVisibilityMode(isPip, isFullscreen);
+      const isChatVisible = visibilityByMode[chatMode];
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
       const fullscreenOnly = mainStore.setting.get("fullscreen_only");
+      const handleToggleChatVisibility = () => setVisibilityByMode((visibility) => toggleChatVisibility(visibility, chatMode));
       reactExports.useEffect(() => {
         const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer2.disconnect();
       }, []);
       reactExports.useEffect(() => subscribeToFullscreenChange(() => setFullscreenElement(getFullscreenElement())), []);
-      if (!isBroadcastRoom || fullscreenOnly && !isFullscreen) return null;
+      if (!isBroadcastRoom || !isChatAllowedInMode(fullscreenOnly, isFullscreen, isPip)) return null;
       let chatElem;
       switch (chat_style) {
         case 0:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(OverlayChat, { pipTarget, fullscreenTarget: fullscreenElement, persistPosition: !pipTarget });
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(
+            OverlayChat,
+            {
+              pipTarget,
+              fullscreenTarget: fullscreenElement,
+              persistPosition: !pipTarget,
+              isChatVisible,
+              onToggleChatVisibility: handleToggleChatVisibility
+            }
+          );
           break;
         case 1:
-          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(FrameChat, { pipTarget, fullscreenTarget: fullscreenElement });
+          chatElem = /* @__PURE__ */ jsxRuntimeExports.jsx(
+            FrameChat,
+            {
+              pipTarget,
+              fullscreenTarget: fullscreenElement,
+              isChatVisible,
+              onToggleChatVisibility: handleToggleChatVisibility
+            }
+          );
           break;
       }
       return enable && chatElem;

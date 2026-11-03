@@ -9,14 +9,16 @@ type Props = {
     pipTarget?: HTMLElement;
     fullscreenTarget?: Element | null;
     persistPosition?: boolean;
+    isChatVisible: boolean;
+    onToggleChatVisibility: () => void;
 };
 
-const OverlayChat = observer(({ pipTarget, fullscreenTarget, persistPosition = true }: Props) => {
+const OverlayChat = observer((props: Props) => {
+    const { pipTarget, fullscreenTarget, persistPosition = true, isChatVisible, onToggleChatVisibility } = props;
     const mainStore = useMainStore();
     const chatRef = useRef<HTMLDivElement | null>(null);
     const [isView, IsView] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
-    const [isChatVisible, setIsChatVisible] = useState(true);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
     const [position, setPosition] = useState({ left: 0, top: 0 });
@@ -239,7 +241,7 @@ const OverlayChat = observer(({ pipTarget, fullscreenTarget, persistPosition = t
                 aria-label={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 title={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
                 onMouseDown={(event) => event.stopPropagation()}
-                onClick={() => setIsChatVisible((visible) => !visible)}>
+                onClick={onToggleChatVisibility}>
                 <svg
                     aria-hidden="true"
                     viewBox="0 0 24 24"

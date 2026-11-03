@@ -8,12 +8,13 @@ import { classes } from '@Utils/index';
 type Props = {
     pipTarget?: HTMLElement;
     fullscreenTarget?: Element | null;
+    isChatVisible: boolean;
+    onToggleChatVisibility: () => void;
 };
 
-const FrameChat = observer(({ pipTarget, fullscreenTarget }: Props) => {
+const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onToggleChatVisibility }: Props) => {
     const mainStore = useMainStore();
     const [playerSizeDiv, setPlayerSizeDiv] = useState<Element | null>(pipTarget ?? document.body);
-    const [isChatVisible, setIsChatVisible] = useState(true);
     const [visibilityTogglePosition, setVisibilityTogglePosition] = useState<{ left: number; top: number } | null>(
         null,
     );
@@ -241,7 +242,7 @@ const FrameChat = observer(({ pipTarget, fullscreenTarget }: Props) => {
             }
             aria-label={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
             title={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
-            onClick={() => setIsChatVisible((visible) => !visible)}>
+            onClick={onToggleChatVisibility}>
             <svg
                 aria-hidden="true"
                 viewBox="0 0 24 24"
