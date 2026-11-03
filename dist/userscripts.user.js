@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261102191831
+// @version      20261103141025
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -438,7 +438,7 @@ img {
 ._FrameChat_1wav7_1 ._Chat_1wav7_22._Background_1wav7_63 ._MessageContainer_1wav7_28 {
   padding: 4px 8px;
 }
-._OverlayChat_1v2vq_1 {
+._OverlayChat_1svh6_1 {
   position: fixed;
   flex-direction: column;
   z-index: 10000;
@@ -450,51 +450,87 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1v2vq_1._View_1v2vq_13 {
+._OverlayChat_1svh6_1._View_1svh6_13 {
   display: flex;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 {
+._OverlayChat_1svh6_1._Hidden_1svh6_16 {
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+._OverlayChat_1svh6_1 ._VisibilityToggle_1svh6_22 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.15s;
+}
+._OverlayChat_1svh6_1 ._VisibilityToggle_1svh6_22 svg {
+  width: 18px;
+  height: 18px;
+}
+._OverlayChat_1svh6_1._ControlsVisible_1svh6_47 ._VisibilityToggle_1svh6_22 {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 ._Username_1svh6_62 {
   width: 126px;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Sorted_1v2vq_22 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52._Sorted_1svh6_58 ._MessageContainer_1svh6_58 ._Message_1svh6_58 {
   flex: 1;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Username_1svh6_62 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Username_1v2vq_26 p {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Username_1svh6_62 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Message_1svh6_58 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16 ._MessageContainer_1v2vq_22 ._Message_1v2vq_22 p {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52 ._MessageContainer_1svh6_58 ._Message_1svh6_58 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_1v2vq_1 ._Chat_1v2vq_16._Background_1v2vq_57 ._MessageContainer_1v2vq_22 {
+._OverlayChat_1svh6_1 ._Chat_1svh6_52._Background_1svh6_93 ._MessageContainer_1svh6_58 {
   padding: 4px 8px;
 } `);
 
@@ -11727,6 +11763,10 @@ img {
             value: true
           },
           {
+            key: "fullscreen_only",
+            value: false
+          },
+          {
             key: "overlay_view_count",
             value: 10
           },
@@ -12386,6 +12426,16 @@ img {
           ]
         },
         {
+          name: "전체화면에서만 표시",
+          values: [
+            {
+              type: "toggle",
+              value: mainStore.setting.get("fullscreen_only"),
+              cb: (value) => mainStore.setSetting("fullscreen_only", value, true)
+            }
+          ]
+        },
+        {
           name: "닉네임 표시",
           values: [
             {
@@ -12776,7 +12826,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261102191831"
+                "20261103141025"
               ] })
             ]
           }
@@ -12955,17 +13005,23 @@ img {
         playerSizeDiv
       ) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1v2vq_1";
-    const View = "_View_1v2vq_13";
-    const Chat$1 = "_Chat_1v2vq_16";
-    const Sorted = "_Sorted_1v2vq_22";
-    const MessageContainer = "_MessageContainer_1v2vq_22";
-    const Username = "_Username_1v2vq_26";
-    const Message = "_Message_1v2vq_22";
-    const Background = "_Background_1v2vq_57";
+    const OverlayChat$1 = "_OverlayChat_1svh6_1";
+    const View = "_View_1svh6_13";
+    const Hidden = "_Hidden_1svh6_16";
+    const VisibilityToggle = "_VisibilityToggle_1svh6_22";
+    const ControlsVisible = "_ControlsVisible_1svh6_47";
+    const Chat$1 = "_Chat_1svh6_52";
+    const Sorted = "_Sorted_1svh6_58";
+    const MessageContainer = "_MessageContainer_1svh6_58";
+    const Username = "_Username_1svh6_62";
+    const Message = "_Message_1svh6_58";
+    const Background = "_Background_1svh6_93";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
+      Hidden,
+      VisibilityToggle,
+      ControlsVisible,
       Chat: Chat$1,
       Sorted,
       MessageContainer,
@@ -12978,9 +13034,12 @@ img {
       const chatRef = reactExports.useRef(null);
       const [isView, IsView] = reactExports.useState(false);
       const [isDragging, setIsDragging] = reactExports.useState(false);
+      const [isChatVisible, setIsChatVisible] = reactExports.useState(true);
+      const [areControlsVisible, setAreControlsVisible] = reactExports.useState(false);
       const [offset, setOffset] = reactExports.useState({ x: 0, y: 0 });
       const [initialPosition, setInitialPosition] = reactExports.useState({ x: 0, y: 0 });
       const [position, setPosition] = reactExports.useState({ left: 0, top: 0 });
+      const controlsTimeout = reactExports.useRef(null);
       const overlayViewCount = mainStore.setting.get("overlay_view_count");
       const overlayViewOpacity = mainStore.setting.get("overlay_chat_opacity");
       const overlayBackgroundOpacity = mainStore.setting.get("overlay_background_opacity");
@@ -12992,6 +13051,14 @@ img {
       const overlayBackground = mainStore.setting.get("overlay_background");
       const overlayBackgroundArea = mainStore.setting.get("overlay_background_area");
       const showNicknames = mainStore.setting.get("show_nicknames");
+      const showControls = () => {
+        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
+        setAreControlsVisible(true);
+      };
+      const hideControlsLater = () => {
+        if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
+        controlsTimeout.current = window.setTimeout(() => setAreControlsVisible(false), 1500);
+      };
       const handleMouseDown = (e2) => {
         if (!chatRef.current) return;
         setIsDragging(true);
@@ -13078,6 +13145,12 @@ img {
         chatRef.current.style.top = `${top}px`;
         IsView(true);
       }, []);
+      reactExports.useEffect(
+        () => () => {
+          if (controlsTimeout.current !== null) window.clearTimeout(controlsTimeout.current);
+        },
+        []
+      );
       reactExports.useEffect(() => {
         if (!pipTarget || !isView || !chatRef.current) return;
         const chatWindow = chatRef.current.ownerDocument.defaultView ?? window;
@@ -13141,33 +13214,86 @@ img {
       });
       const chatBackgroundStyle = `linear-gradient(0deg, rgba(0, 0, 0, ${overlayBackgroundOpacity}%) ${overlayBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
       return ReactDOM.createPortal(
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "div",
           {
             ref: chatRef,
-            className: classes(styles.OverlayChat, isView ? styles.View : false),
+            className: classes(
+              styles.OverlayChat,
+              isView ? styles.View : false,
+              !isChatVisible ? styles.Hidden : false,
+              areControlsVisible ? styles.ControlsVisible : false
+            ),
+            onMouseEnter: showControls,
+            onMouseLeave: hideControlsLater,
+            onFocus: showControls,
+            onBlur: hideControlsLater,
             onMouseDown: handleMouseDown,
+            tabIndex: 0,
             style: {
               left: `${position.left}px`,
               top: `${position.top}px`,
-              background: overlayBackground ? chatBackgroundStyle : ""
+              background: isChatVisible && overlayBackground ? chatBackgroundStyle : ""
             },
-            children: chatsElem
+            children: [
+              isChatVisible && chatsElem,
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  className: styles.VisibilityToggle,
+                  "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
+                  title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
+                  onMouseDown: (event) => event.stopPropagation(),
+                  onClick: () => setIsChatVisible((visible) => !visible),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "svg",
+                    {
+                      "aria-hidden": "true",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      stroke: "currentColor",
+                      strokeWidth: "2",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      children: isChatVisible ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "3" })
+                      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M3 3 21 21" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M10.6 10.6a2 2 0 0 0 2.8 2.8" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" })
+                      ] })
+                    }
+                  )
+                }
+              )
+            ]
           }
         ),
         pipTarget ?? document.body
       );
     });
+    const subscribeToFullscreenChange = (listener, target = document) => {
+      const update = () => listener(target.fullscreenElement !== null);
+      target.addEventListener("fullscreenchange", update);
+      update();
+      return () => target.removeEventListener("fullscreenchange", update);
+    };
     const Chat = observer(({ pipTarget }) => {
       const mainStore = useMainStore();
       const [isBroadcastRoom, setIsBroadcastRoom] = reactExports.useState(isSoopBroadcastRoom);
+      const [isFullscreen, setIsFullscreen] = reactExports.useState(() => document.fullscreenElement !== null);
       const enable = mainStore.setting.get("enable");
       const chat_style = mainStore.setting.get("chat_style");
+      const fullscreenOnly = mainStore.setting.get("fullscreen_only");
       reactExports.useEffect(() => {
         const observer2 = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer2.disconnect();
       }, []);
-      if (!isBroadcastRoom) return null;
+      reactExports.useEffect(() => subscribeToFullscreenChange(setIsFullscreen), []);
+      if (!isBroadcastRoom || fullscreenOnly && !isFullscreen) return null;
       let chatElem;
       switch (chat_style) {
         case 0:

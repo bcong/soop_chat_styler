@@ -53,6 +53,16 @@ const Setting = observer(() => {
             ]
         },
         {
+            name: '전체화면에서만 표시',
+            values: [
+                {
+                    type: 'toggle',
+                    value: mainStore.setting.get('fullscreen_only'),
+                    cb: (value: unknown) => mainStore.setSetting('fullscreen_only', value, true)
+                }
+            ]
+        },
+        {
             name: '닉네임 표시',
             values: [
                 {

@@ -4,6 +4,7 @@ import { useMainStore } from '@Stores/index';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { addLocationChangeCallback, isSoopBroadcastRoom } from '@Utils/index';
+import { subscribeToFullscreenChange } from '@Utils/fullscreen';
 
 type Props = {
     pipTarget?: HTMLElement;
@@ -12,15 +13,19 @@ type Props = {
 const Chat = observer(({ pipTarget }: Props) => {
     const mainStore = useMainStore();
     const [isBroadcastRoom, setIsBroadcastRoom] = useState(isSoopBroadcastRoom);
+    const [isFullscreen, setIsFullscreen] = useState(() => document.fullscreenElement !== null);
     const enable = mainStore.setting.get('enable');
     const chat_style = mainStore.setting.get('chat_style');
+    const fullscreenOnly = mainStore.setting.get('fullscreen_only');
 
     useEffect(() => {
         const observer = addLocationChangeCallback(() => setIsBroadcastRoom(isSoopBroadcastRoom()));
         return () => observer.disconnect();
     }, []);
 
-    if (!isBroadcastRoom) return null;
+    useEffect(() => subscribeToFullscreenChange(setIsFullscreen), []);
+
+    if (!isBroadcastRoom || (fullscreenOnly && !isFullscreen)) return null;
 
     let chatElem;
     switch (chat_style) {

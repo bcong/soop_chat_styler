@@ -12,6 +12,10 @@ export default class MainStore {
             value: true,
         },
         {
+            key: 'fullscreen_only',
+            value: false,
+        },
+        {
             key: 'overlay_view_count',
             value: 10,
         },
