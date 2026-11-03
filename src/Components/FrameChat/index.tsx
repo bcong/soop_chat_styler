@@ -177,7 +177,6 @@ const FrameChat = observer(({ pipTarget, fullscreenTarget, isChatVisible, onTogg
         frameOffsetX,
         frameOffsetY,
         isChatVisible,
-        chatsElem,
     ]);
 
     useEffect(() => {

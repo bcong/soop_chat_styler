@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103173902
+// @version      20261103175819
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12861,7 +12861,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103173902"
+                "20261103175819"
               ] })
             ]
           }
@@ -13056,8 +13056,7 @@ img {
         frameFontSize,
         frameOffsetX,
         frameOffsetY,
-        isChatVisible,
-        chatsElem
+        isChatVisible
       ]);
       reactExports.useEffect(() => {
         if (!visibilityToggleTarget) return;
