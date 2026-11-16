@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261116191401
+// @version      20261116192026
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -373,22 +373,22 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._Controls_1lx57_1 {
+._Controls_1wxi0_1 {
   display: flex;
   gap: 4px;
   align-self: flex-start;
   transition: opacity 0.15s;
 }
-._Controls_1lx57_1._RightAligned_1lx57_7 {
+._Controls_1wxi0_1._RightAligned_1wxi0_7 {
   align-self: flex-end;
 }
-._Spacer_1lx57_10 {
+._Spacer_1wxi0_10 {
   display: block;
   flex: none;
   width: 2em;
   height: 2em;
 }
-._VisibilityToggle_1lx57_16 {
+._VisibilityToggle_1wxi0_16 {
   display: flex;
   flex: none;
   font-size: inherit;
@@ -404,104 +404,107 @@ img {
   cursor: pointer;
   transition: opacity 0.15s;
 }
-._VisibilityToggle_1lx57_16 svg {
+._VisibilityToggle_1wxi0_16 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._VisibilityToggle_1lx57_16:focus-visible {
+._VisibilityToggle_1wxi0_16:focus-visible {
   opacity: 1;
   pointer-events: auto;
 }
-._VisibilityToggleHidden_1lx57_40 {
+._VisibilityToggleHidden_1wxi0_40 {
   opacity: 0;
   pointer-events: none;
 }
-._VisibilityToggleAnchor_1lx57_44 {
+._VisibilityToggleAnchor_1wxi0_44 {
   visibility: hidden;
   pointer-events: none;
 }
-._VisibilityLayer_1lx57_48 {
+._VisibilityLayer_1wxi0_48 {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
   pointer-events: none;
 }
-._VisibilityTogglePortal_1lx57_54 {
+._VisibilityTogglePortal_1wxi0_54 {
   position: absolute;
   pointer-events: auto;
 }
-._FrameChat_1lx57_58 {
+._FrameChat_1wxi0_58 {
   z-index: 10000;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_1lx57_58._LeftTop_1lx57_65 {
+._FrameChat_1wxi0_58._LeftTop_1wxi0_65 {
   top: 0;
 }
-._FrameChat_1lx57_58._LeftBottom_1lx57_68 {
+._FrameChat_1wxi0_58._LeftBottom_1wxi0_68 {
   bottom: 0;
 }
-._FrameChat_1lx57_58._RightTop_1lx57_71 {
+._FrameChat_1wxi0_58._RightTop_1wxi0_71 {
   right: 0;
   top: 0;
 }
-._FrameChat_1lx57_58._RightBottom_1lx57_75 {
+._FrameChat_1wxi0_58._RightBottom_1wxi0_75 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_1lx57_58._RightAligned_1lx57_7 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 {
+._FrameChat_1wxi0_58._RightAligned_1wxi0_7 {
+  align-items: flex-end;
+}
+._FrameChat_1wxi0_58._RightAligned_1wxi0_7 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 {
   text-align: right;
 }
-._FrameChat_1lx57_58._Hidden_1lx57_82 {
+._FrameChat_1wxi0_58._Hidden_1wxi0_85 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79._Sorted_1lx57_94 ._MessageContainer_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79._Sorted_1lx57_94 ._MessageContainer_1lx57_79 ._Username_1lx57_98 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 {
   width: 126px;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79._Sorted_1lx57_94 ._MessageContainer_1lx57_79 ._Message_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 {
   flex: 1;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 ._Username_1lx57_98 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 ._Username_1lx57_98 p {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 ._Message_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79 ._MessageContainer_1lx57_79 ._Message_1lx57_79 p {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_1lx57_58 ._Chat_1lx57_79._Background_1lx57_129 ._MessageContainer_1lx57_79 {
+._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Background_1wxi0_132 ._MessageContainer_1wxi0_82 {
   padding: 4px 8px;
 }
 ._OverlayChat_czw16_1 {
@@ -12899,7 +12902,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261116191401"
+                "20261116192026"
               ] })
             ]
           }
@@ -12907,26 +12910,26 @@ img {
         document.body
       );
     };
-    const Controls$1 = "_Controls_1lx57_1";
-    const RightAligned$1 = "_RightAligned_1lx57_7";
-    const Spacer = "_Spacer_1lx57_10";
-    const VisibilityToggle$1 = "_VisibilityToggle_1lx57_16";
-    const VisibilityToggleHidden$1 = "_VisibilityToggleHidden_1lx57_40";
-    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_1lx57_44";
-    const VisibilityLayer = "_VisibilityLayer_1lx57_48";
-    const VisibilityTogglePortal = "_VisibilityTogglePortal_1lx57_54";
-    const FrameChat$1 = "_FrameChat_1lx57_58";
-    const LeftTop = "_LeftTop_1lx57_65";
-    const LeftBottom = "_LeftBottom_1lx57_68";
-    const RightTop = "_RightTop_1lx57_71";
-    const RightBottom = "_RightBottom_1lx57_75";
-    const Chat$2 = "_Chat_1lx57_79";
-    const MessageContainer$1 = "_MessageContainer_1lx57_79";
-    const Hidden$1 = "_Hidden_1lx57_82";
-    const Sorted$1 = "_Sorted_1lx57_94";
-    const Username$1 = "_Username_1lx57_98";
-    const Message$1 = "_Message_1lx57_79";
-    const Background$1 = "_Background_1lx57_129";
+    const Controls$1 = "_Controls_1wxi0_1";
+    const RightAligned$1 = "_RightAligned_1wxi0_7";
+    const Spacer = "_Spacer_1wxi0_10";
+    const VisibilityToggle$1 = "_VisibilityToggle_1wxi0_16";
+    const VisibilityToggleHidden$1 = "_VisibilityToggleHidden_1wxi0_40";
+    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_1wxi0_44";
+    const VisibilityLayer = "_VisibilityLayer_1wxi0_48";
+    const VisibilityTogglePortal = "_VisibilityTogglePortal_1wxi0_54";
+    const FrameChat$1 = "_FrameChat_1wxi0_58";
+    const LeftTop = "_LeftTop_1wxi0_65";
+    const LeftBottom = "_LeftBottom_1wxi0_68";
+    const RightTop = "_RightTop_1wxi0_71";
+    const RightBottom = "_RightBottom_1wxi0_75";
+    const Chat$2 = "_Chat_1wxi0_82";
+    const MessageContainer$1 = "_MessageContainer_1wxi0_82";
+    const Hidden$1 = "_Hidden_1wxi0_85";
+    const Sorted$1 = "_Sorted_1wxi0_97";
+    const Username$1 = "_Username_1wxi0_101";
+    const Message$1 = "_Message_1wxi0_82";
+    const Background$1 = "_Background_1wxi0_132";
     const styles$1 = {
       Controls: Controls$1,
       RightAligned: RightAligned$1,
