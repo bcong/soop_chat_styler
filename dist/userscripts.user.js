@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261116192026
+// @version      20261116192544
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -19,7 +19,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const _=document.createElement("style");_.textContent=n,document.head.append(_)})(` @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -373,22 +373,22 @@ img {
   color: #fff;
   font-weight: 600;
 }
-._Controls_1wxi0_1 {
+._Controls_1qs8j_1 {
   display: flex;
   gap: 4px;
   align-self: flex-start;
   transition: opacity 0.15s;
 }
-._Controls_1wxi0_1._RightAligned_1wxi0_7 {
+._Controls_1qs8j_1._RightAligned_1qs8j_7 {
   align-self: flex-end;
 }
-._Spacer_1wxi0_10 {
+._Spacer_1qs8j_10 {
   display: block;
   flex: none;
   width: 2em;
   height: 2em;
 }
-._VisibilityToggle_1wxi0_16 {
+._VisibilityToggle_1qs8j_16 {
   display: flex;
   flex: none;
   font-size: inherit;
@@ -404,107 +404,113 @@ img {
   cursor: pointer;
   transition: opacity 0.15s;
 }
-._VisibilityToggle_1wxi0_16 svg {
+._VisibilityToggle_1qs8j_16 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._VisibilityToggle_1wxi0_16:focus-visible {
+._VisibilityToggle_1qs8j_16:focus-visible {
   opacity: 1;
   pointer-events: auto;
 }
-._VisibilityToggleHidden_1wxi0_40 {
+._VisibilityToggleHidden_1qs8j_40 {
   opacity: 0;
   pointer-events: none;
 }
-._VisibilityToggleAnchor_1wxi0_44 {
+._VisibilityToggleAnchor_1qs8j_44 {
   visibility: hidden;
   pointer-events: none;
 }
-._VisibilityLayer_1wxi0_48 {
+._VisibilityLayer_1qs8j_48 {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
   pointer-events: none;
 }
-._VisibilityTogglePortal_1wxi0_54 {
+._VisibilityTogglePortal_1qs8j_54 {
   position: absolute;
   pointer-events: auto;
 }
-._FrameChat_1wxi0_58 {
+._FrameChat_1qs8j_58 {
   z-index: 10000;
   display: flex;
   flex-direction: column;
   position: absolute;
   gap: 4px;
 }
-._FrameChat_1wxi0_58._LeftTop_1wxi0_65 {
+._FrameChat_1qs8j_58._LeftTop_1qs8j_65 {
   top: 0;
 }
-._FrameChat_1wxi0_58._LeftBottom_1wxi0_68 {
+._FrameChat_1qs8j_58._LeftBottom_1qs8j_68 {
   bottom: 0;
 }
-._FrameChat_1wxi0_58._RightTop_1wxi0_71 {
+._FrameChat_1qs8j_58._RightTop_1qs8j_71 {
   right: 0;
   top: 0;
 }
-._FrameChat_1wxi0_58._RightBottom_1wxi0_75 {
+._FrameChat_1qs8j_58._RightBottom_1qs8j_75 {
   right: 0;
   bottom: 0;
 }
-._FrameChat_1wxi0_58._RightAligned_1wxi0_7 {
+._FrameChat_1qs8j_58._RightAligned_1qs8j_7 {
   align-items: flex-end;
 }
-._FrameChat_1wxi0_58._RightAligned_1wxi0_7 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 {
+._FrameChat_1qs8j_58._TopAligned_1qs8j_82 > ._Controls_1qs8j_1 {
+  order: 1;
+}
+._FrameChat_1qs8j_58._RightAligned_1qs8j_7 ._Chat_1qs8j_85 {
+  justify-content: flex-end;
+}
+._FrameChat_1qs8j_58._RightAligned_1qs8j_7 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 {
   text-align: right;
 }
-._FrameChat_1wxi0_58._Hidden_1wxi0_85 {
+._FrameChat_1qs8j_58._Hidden_1qs8j_91 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85._Sorted_1qs8j_103 ._MessageContainer_1qs8j_88 {
   display: flex;
   flex-direction: row;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85._Sorted_1qs8j_103 ._MessageContainer_1qs8j_88 ._Username_1qs8j_107 {
   width: 126px;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Sorted_1wxi0_97 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85._Sorted_1qs8j_103 ._MessageContainer_1qs8j_88 ._Message_1qs8j_88 {
   flex: 1;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 ._Username_1qs8j_107 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Username_1wxi0_101 p {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 ._Username_1qs8j_107 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 ._Message_1qs8j_88 {
   display: inline;
   word-break: break-all;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82 ._MessageContainer_1wxi0_82 ._Message_1wxi0_82 p {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85 ._MessageContainer_1qs8j_88 ._Message_1qs8j_88 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._FrameChat_1wxi0_58 ._Chat_1wxi0_82._Background_1wxi0_132 ._MessageContainer_1wxi0_82 {
+._FrameChat_1qs8j_58 ._Chat_1qs8j_85._Background_1qs8j_138 ._MessageContainer_1qs8j_88 {
   padding: 4px 8px;
 }
 ._OverlayChat_czw16_1 {
@@ -12902,7 +12908,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261116192026"
+                "20261116192544"
               ] })
             ]
           }
@@ -12910,26 +12916,27 @@ img {
         document.body
       );
     };
-    const Controls$1 = "_Controls_1wxi0_1";
-    const RightAligned$1 = "_RightAligned_1wxi0_7";
-    const Spacer = "_Spacer_1wxi0_10";
-    const VisibilityToggle$1 = "_VisibilityToggle_1wxi0_16";
-    const VisibilityToggleHidden$1 = "_VisibilityToggleHidden_1wxi0_40";
-    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_1wxi0_44";
-    const VisibilityLayer = "_VisibilityLayer_1wxi0_48";
-    const VisibilityTogglePortal = "_VisibilityTogglePortal_1wxi0_54";
-    const FrameChat$1 = "_FrameChat_1wxi0_58";
-    const LeftTop = "_LeftTop_1wxi0_65";
-    const LeftBottom = "_LeftBottom_1wxi0_68";
-    const RightTop = "_RightTop_1wxi0_71";
-    const RightBottom = "_RightBottom_1wxi0_75";
-    const Chat$2 = "_Chat_1wxi0_82";
-    const MessageContainer$1 = "_MessageContainer_1wxi0_82";
-    const Hidden$1 = "_Hidden_1wxi0_85";
-    const Sorted$1 = "_Sorted_1wxi0_97";
-    const Username$1 = "_Username_1wxi0_101";
-    const Message$1 = "_Message_1wxi0_82";
-    const Background$1 = "_Background_1wxi0_132";
+    const Controls$1 = "_Controls_1qs8j_1";
+    const RightAligned$1 = "_RightAligned_1qs8j_7";
+    const Spacer = "_Spacer_1qs8j_10";
+    const VisibilityToggle$1 = "_VisibilityToggle_1qs8j_16";
+    const VisibilityToggleHidden$1 = "_VisibilityToggleHidden_1qs8j_40";
+    const VisibilityToggleAnchor = "_VisibilityToggleAnchor_1qs8j_44";
+    const VisibilityLayer = "_VisibilityLayer_1qs8j_48";
+    const VisibilityTogglePortal = "_VisibilityTogglePortal_1qs8j_54";
+    const FrameChat$1 = "_FrameChat_1qs8j_58";
+    const LeftTop = "_LeftTop_1qs8j_65";
+    const LeftBottom = "_LeftBottom_1qs8j_68";
+    const RightTop = "_RightTop_1qs8j_71";
+    const RightBottom = "_RightBottom_1qs8j_75";
+    const TopAligned = "_TopAligned_1qs8j_82";
+    const Chat$2 = "_Chat_1qs8j_85";
+    const MessageContainer$1 = "_MessageContainer_1qs8j_88";
+    const Hidden$1 = "_Hidden_1qs8j_91";
+    const Sorted$1 = "_Sorted_1qs8j_103";
+    const Username$1 = "_Username_1qs8j_107";
+    const Message$1 = "_Message_1qs8j_88";
+    const Background$1 = "_Background_1qs8j_138";
     const styles$1 = {
       Controls: Controls$1,
       RightAligned: RightAligned$1,
@@ -12944,6 +12951,7 @@ img {
       LeftBottom,
       RightTop,
       RightBottom,
+      TopAligned,
       Chat: Chat$2,
       MessageContainer: MessageContainer$1,
       Hidden: Hidden$1,
@@ -13245,6 +13253,7 @@ img {
                 styles$1.FrameChat,
                 frameChatPositionCls,
                 isRightAligned ? styles$1.RightAligned : false,
+                frameChatPosition === 0 || frameChatPosition === 2 ? styles$1.TopAligned : false,
                 !isChatVisible ? styles$1.Hidden : false
               ),
               style: {

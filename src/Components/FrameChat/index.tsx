@@ -323,6 +323,7 @@ const FrameChat = observer((props: Props) => {
                         styles.FrameChat,
                         frameChatPositionCls,
                         isRightAligned ? styles.RightAligned : false,
+                        frameChatPosition === 0 || frameChatPosition === 2 ? styles.TopAligned : false,
                         !isChatVisible ? styles.Hidden : false,
                     )}
                     style={{
