@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261103184344
+// @version      20261116173432
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -489,7 +489,7 @@ img {
 ._FrameChat_10vii_46 ._Chat_10vii_73._Background_10vii_114 ._MessageContainer_10vii_79 {
   padding: 4px 8px;
 }
-._OverlayChat_1pwbm_1 {
+._OverlayChat_czw16_1 {
   position: fixed;
   flex-direction: column;
   z-index: 10000;
@@ -501,17 +501,26 @@ img {
   gap: 4px;
   padding: 8px 4px;
 }
-._OverlayChat_1pwbm_1._View_1pwbm_13 {
+._OverlayChat_czw16_1._View_czw16_13 {
   display: flex;
 }
-._OverlayChat_1pwbm_1._Hidden_1pwbm_16 {
+._OverlayChat_czw16_1._Hidden_czw16_16 {
   box-sizing: border-box;
   width: 2em;
   height: 2em;
   padding: 0;
 }
-._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22 {
+._OverlayChat_czw16_1 ._Controls_czw16_22 {
   align-self: flex-start;
+  display: flex;
+  gap: 4px;
+  transition: opacity 0.15s;
+}
+._OverlayChat_czw16_1 ._Controls_czw16_22._RightAligned_czw16_28 {
+  align-self: flex-end;
+}
+._OverlayChat_czw16_1 ._VisibilityToggle_czw16_31 {
+  flex: none;
   display: flex;
   font-size: inherit;
   width: 2em;
@@ -526,63 +535,60 @@ img {
   cursor: pointer;
   transition: opacity 0.15s;
 }
-._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22:focus-visible {
+._OverlayChat_czw16_1 ._VisibilityToggle_czw16_31:focus-visible {
   opacity: 1;
   pointer-events: auto;
 }
-._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22 svg {
+._OverlayChat_czw16_1 ._VisibilityToggle_czw16_31 svg {
   width: 1.25em;
   height: 1.25em;
 }
-._OverlayChat_1pwbm_1 ._VisibilityToggle_1pwbm_22._RightAligned_1pwbm_46 {
-  align-self: flex-end;
-}
-._OverlayChat_1pwbm_1 ._VisibilityToggleHidden_1pwbm_49 {
+._OverlayChat_czw16_1 ._VisibilityToggleHidden_czw16_55 {
   opacity: 0;
   pointer-events: none;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 {
+._OverlayChat_czw16_1 ._Chat_czw16_59 {
   display: flex;
   position: relative;
   z-index: 1;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 {
+._OverlayChat_czw16_1 ._Chat_czw16_59._Sorted_czw16_65 ._MessageContainer_czw16_65 {
   display: flex;
   flex-direction: row;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 {
+._OverlayChat_czw16_1 ._Chat_czw16_59._Sorted_czw16_65 ._MessageContainer_czw16_65 ._Username_czw16_69 {
   width: 126px;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Sorted_1pwbm_59 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 {
+._OverlayChat_czw16_1 ._Chat_czw16_59._Sorted_czw16_65 ._MessageContainer_czw16_65 ._Message_czw16_65 {
   flex: 1;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 {
+._OverlayChat_czw16_1 ._Chat_czw16_59 ._MessageContainer_czw16_65 {
   padding: 2px 8px;
   border-radius: 8px;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 {
+._OverlayChat_czw16_1 ._Chat_czw16_59 ._MessageContainer_czw16_65 ._Username_czw16_69 {
   display: inline-block;
   word-break: break-all;
   white-space: nowrap;
   margin-right: 8px;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Username_1pwbm_63 p {
+._OverlayChat_czw16_1 ._Chat_czw16_59 ._MessageContainer_czw16_65 ._Username_czw16_69 p {
   display: inline;
   vertical-align: top;
   font-weight: 700;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 {
+._OverlayChat_czw16_1 ._Chat_czw16_59 ._MessageContainer_czw16_65 ._Message_czw16_65 {
   display: inline;
   word-break: break-all;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53 ._MessageContainer_1pwbm_59 ._Message_1pwbm_59 p {
+._OverlayChat_czw16_1 ._Chat_czw16_59 ._MessageContainer_czw16_65 ._Message_czw16_65 p {
   display: inline;
   vertical-align: top;
   font-weight: 500;
   color: #f6f9ff;
 }
-._OverlayChat_1pwbm_1 ._Chat_1pwbm_53._Background_1pwbm_94 ._MessageContainer_1pwbm_59 {
+._OverlayChat_czw16_1 ._Chat_czw16_59._Background_czw16_100 ._MessageContainer_czw16_65 {
   padding: 4px 8px;
 } `);
 
@@ -12878,7 +12884,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261103184344"
+                "20261116173432"
               ] })
             ]
           }
@@ -13206,24 +13212,26 @@ img {
         )
       ] }) : null;
     });
-    const OverlayChat$1 = "_OverlayChat_1pwbm_1";
-    const View = "_View_1pwbm_13";
-    const Hidden = "_Hidden_1pwbm_16";
-    const VisibilityToggle = "_VisibilityToggle_1pwbm_22";
-    const RightAligned = "_RightAligned_1pwbm_46";
-    const VisibilityToggleHidden = "_VisibilityToggleHidden_1pwbm_49";
-    const Chat$1 = "_Chat_1pwbm_53";
-    const Sorted = "_Sorted_1pwbm_59";
-    const MessageContainer = "_MessageContainer_1pwbm_59";
-    const Username = "_Username_1pwbm_63";
-    const Message = "_Message_1pwbm_59";
-    const Background = "_Background_1pwbm_94";
+    const OverlayChat$1 = "_OverlayChat_czw16_1";
+    const View = "_View_czw16_13";
+    const Hidden = "_Hidden_czw16_16";
+    const Controls = "_Controls_czw16_22";
+    const RightAligned = "_RightAligned_czw16_28";
+    const VisibilityToggle = "_VisibilityToggle_czw16_31";
+    const VisibilityToggleHidden = "_VisibilityToggleHidden_czw16_55";
+    const Chat$1 = "_Chat_czw16_59";
+    const Sorted = "_Sorted_czw16_65";
+    const MessageContainer = "_MessageContainer_czw16_65";
+    const Username = "_Username_czw16_69";
+    const Message = "_Message_czw16_65";
+    const Background = "_Background_czw16_100";
     const styles = {
       OverlayChat: OverlayChat$1,
       View,
       Hidden,
-      VisibilityToggle,
+      Controls,
       RightAligned,
+      VisibilityToggle,
       VisibilityToggleHidden,
       Chat: Chat$1,
       Sorted,
@@ -13291,6 +13299,45 @@ img {
         if (persistPosition) {
           mainStore.setSetting("overlay_x", position.left, true);
           mainStore.setSetting("overlay_y", position.top, true);
+        }
+      };
+      const rightEdgeGapRef = reactExports.useRef(null);
+      reactExports.useLayoutEffect(() => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const rect = chat.getBoundingClientRect();
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        const gap = rightEdgeGapRef.current;
+        if (gap !== null && Math.abs(gap) < 1 && Math.abs(chatWindow.innerWidth - rect.right) >= 1) {
+          const left = Math.max(0, chatWindow.innerWidth - rect.width);
+          setPosition((prev) => ({ ...prev, left }));
+          chat.style.left = `${left}px`;
+          if (persistPosition) mainStore.setSetting("overlay_x", left, true);
+        }
+      }, [isChatVisible]);
+      reactExports.useEffect(() => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        rightEdgeGapRef.current = chatWindow.innerWidth - chat.getBoundingClientRect().right;
+      });
+      const handleCyclePosition = () => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const rect = chat.getBoundingClientRect();
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        const isRight = rect.left + rect.width / 2 > chatWindow.innerWidth / 2;
+        const isBottom = rect.top + rect.height / 2 > chatWindow.innerHeight / 2;
+        const nextRight = !isBottom;
+        const nextBottom = isRight;
+        const left = nextRight ? chatWindow.innerWidth - rect.width : 0;
+        const top = nextBottom ? chatWindow.innerHeight - rect.height : 0;
+        setPosition({ left, top });
+        chat.style.left = `${left}px`;
+        chat.style.top = `${top}px`;
+        if (persistPosition) {
+          mainStore.setSetting("overlay_x", left, true);
+          mainStore.setSetting("overlay_y", top, true);
         }
       };
       reactExports.useEffect(() => {
@@ -13433,40 +13480,77 @@ img {
             },
             children: [
               isChatVisible && chatsElem,
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "div",
                 {
-                  type: "button",
                   className: classes(
-                    styles.VisibilityToggle,
+                    styles.Controls,
                     isLeftAligned ? false : styles.RightAligned,
                     !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false
                   ),
-                  "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
-                  title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
-                  onMouseDown: (event) => event.stopPropagation(),
-                  onClick: onToggleChatVisibility,
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "svg",
-                    {
-                      "aria-hidden": "true",
-                      viewBox: "0 0 24 24",
-                      fill: "none",
-                      stroke: "currentColor",
-                      strokeWidth: "2",
-                      strokeLinecap: "round",
-                      strokeLinejoin: "round",
-                      children: isChatVisible ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "3" })
-                      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M3 3 21 21" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M10.6 10.6a2 2 0 0 0 2.8 2.8" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" })
-                      ] })
-                    }
-                  )
+                  children: [
+                    isChatVisible && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        type: "button",
+                        className: styles.VisibilityToggle,
+                        "aria-label": "오버레이 위치 변경",
+                        title: "오버레이 위치 변경",
+                        onMouseDown: (event) => event.stopPropagation(),
+                        onClick: handleCyclePosition,
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                          "svg",
+                          {
+                            "aria-hidden": "true",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M5 9V5h4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M19 9V5h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M19 15v4h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M5 15v4h4" })
+                            ]
+                          }
+                        )
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        type: "button",
+                        className: styles.VisibilityToggle,
+                        "aria-label": isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
+                        title: isChatVisible ? "채팅 오버레이 숨기기" : "채팅 오버레이 표시",
+                        onMouseDown: (event) => event.stopPropagation(),
+                        onClick: onToggleChatVisibility,
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "svg",
+                          {
+                            "aria-hidden": "true",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            children: isChatVisible ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("circle", { cx: "12", cy: "12", r: "3" })
+                            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M3 3 21 21" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M10.6 10.6a2 2 0 0 0 2.8 2.8" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" })
+                            ] })
+                          }
+                        )
+                      }
+                    )
+                  ]
                 }
               )
             ]

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import styles from './style.module.less';
 import { useMainStore } from '@Stores/index';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { classes } from '@Utils/index';
 
@@ -85,6 +85,50 @@ const OverlayChat = observer((props: Props) => {
         if (persistPosition) {
             mainStore.setSetting('overlay_x', position.left, true);
             mainStore.setSetting('overlay_y', position.top, true);
+        }
+    };
+
+    // 숨김/표시로 너비가 바뀌어도 우측 프레임에 붙어 있으면 계속 붙도록 유지
+    const rightEdgeGapRef = useRef<number | null>(null);
+    useLayoutEffect(() => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const rect = chat.getBoundingClientRect();
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        const gap = rightEdgeGapRef.current;
+        if (gap !== null && Math.abs(gap) < 1 && Math.abs(chatWindow.innerWidth - rect.right) >= 1) {
+            const left = Math.max(0, chatWindow.innerWidth - rect.width);
+            setPosition((prev) => ({ ...prev, left }));
+            chat.style.left = `${left}px`;
+            if (persistPosition) mainStore.setSetting('overlay_x', left, true);
+        }
+    }, [isChatVisible]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        rightEdgeGapRef.current = chatWindow.innerWidth - chat.getBoundingClientRect().right;
+    });
+
+    const handleCyclePosition = () => {
+        const chat = chatRef.current;
+        if (!chat) return;
+        const rect = chat.getBoundingClientRect();
+        const chatWindow = chat.ownerDocument.defaultView ?? window;
+        const isRight = rect.left + rect.width / 2 > chatWindow.innerWidth / 2;
+        const isBottom = rect.top + rect.height / 2 > chatWindow.innerHeight / 2;
+        // 좌상단 → 우상단 → 우하단 → 좌하단 순환
+        const nextRight = !isBottom;
+        const nextBottom = isRight;
+        const left = nextRight ? chatWindow.innerWidth - rect.width : 0;
+        const top = nextBottom ? chatWindow.innerHeight - rect.height : 0;
+        setPosition({ left, top });
+        chat.style.left = `${left}px`;
+        chat.style.top = `${top}px`;
+        if (persistPosition) {
+            mainStore.setSetting('overlay_x', left, true);
+            mainStore.setSetting('overlay_y', top, true);
         }
     };
 
@@ -249,40 +293,66 @@ const OverlayChat = observer((props: Props) => {
                 background: isChatVisible && overlayBackground ? chatBackgroundStyle : '',
             }}>
             {isChatVisible && chatsElem}
-            <button
-                type="button"
+            <div
                 className={classes(
-                    styles.VisibilityToggle,
+                    styles.Controls,
                     isLeftAligned ? false : styles.RightAligned,
                     !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false,
+                )}>
+                {isChatVisible && (
+                    <button
+                        type="button"
+                        className={styles.VisibilityToggle}
+                        aria-label="오버레이 위치 변경"
+                        title="오버레이 위치 변경"
+                        onMouseDown={(event) => event.stopPropagation()}
+                        onClick={handleCyclePosition}>
+                        <svg
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <path d="M5 9V5h4" />
+                            <path d="M19 9V5h-4" />
+                            <path d="M19 15v4h-4" />
+                            <path d="M5 15v4h4" />
+                        </svg>
+                    </button>
                 )}
-                aria-label={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
-                title={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
-                onMouseDown={(event) => event.stopPropagation()}
-                onClick={onToggleChatVisibility}>
-                <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round">
-                    {isChatVisible ? (
-                        <>
-                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </>
-                    ) : (
-                        <>
-                            <path d="M3 3 21 21" />
-                            <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
-                            <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" />
-                            <path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" />
-                        </>
-                    )}
-                </svg>
-            </button>
+                <button
+                    type="button"
+                    className={styles.VisibilityToggle}
+                    aria-label={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
+                    title={isChatVisible ? '채팅 오버레이 숨기기' : '채팅 오버레이 표시'}
+                    onMouseDown={(event) => event.stopPropagation()}
+                    onClick={onToggleChatVisibility}>
+                    <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round">
+                        {isChatVisible ? (
+                            <>
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </>
+                        ) : (
+                            <>
+                                <path d="M3 3 21 21" />
+                                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                                <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" />
+                                <path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" />
+                            </>
+                        )}
+                    </svg>
+                </button>
+            </div>
         </div>,
         pipTarget ?? fullscreenTarget ?? document.body,
     );
