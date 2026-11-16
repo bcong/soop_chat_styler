@@ -1,6 +1,24 @@
+.Controls {
+    display: flex;
+    gap: 4px;
+    align-self: flex-start;
+    transition: opacity 0.15s;
+
+    &.RightAligned {
+        align-self: flex-end;
+    }
+}
+
+.Spacer {
+    display: block;
+    flex: none;
+    width: 2em;
+    height: 2em;
+}
+
 .VisibilityToggle {
     display: flex;
-    align-self: flex-start;
+    flex: none;
     font-size: inherit;
     width: 2em;
     height: 2em;
@@ -22,10 +40,6 @@
     &:focus-visible {
         opacity: 1;
         pointer-events: auto;
-    }
-
-    &.RightAligned {
-        align-self: flex-end;
     }
 }
 
@@ -74,6 +88,10 @@
     &.RightBottom {
         right: 0;
         bottom: 0;
+    }
+
+    &.RightAligned .Chat .MessageContainer {
+        text-align: right;
     }
 
     &.Hidden {

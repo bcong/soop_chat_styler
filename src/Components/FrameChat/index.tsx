@@ -235,11 +235,16 @@ const FrameChat = observer((props: Props) => {
     }
 
     const chatBackgroundStyle = `linear-gradient(${frameChatDegree}deg, rgba(0, 0, 0, ${frameBackgroundOpacity}%) ${frameBackgroundArea}%, rgba(0, 0, 0, 0) 100%)`;
+    const handleCyclePosition = () => {
+        // 좌상단 → 우상단 → 우하단 → 좌하단 순환
+        const order = [0, 2, 3, 1];
+        const next = order[(order.indexOf(frameChatPosition) + 1) % order.length];
+        mainStore.setSetting('frame_chat_position', next, true);
+    };
     const visibilityToggle = (
-        <button
-            type="button"
+        <div
             className={classes(
-                styles.VisibilityToggle,
+                styles.Controls,
                 isRightAligned ? styles.RightAligned : false,
                 visibilityToggleTarget ? styles.VisibilityTogglePortal : false,
                 !isVisibilityToggleVisible ? styles.VisibilityToggleHidden : false,
@@ -253,34 +258,60 @@ const FrameChat = observer((props: Props) => {
                       }
                     : undefined
             }
-            aria-label={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
-            title={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
             onPointerEnter={visibilityToggleTarget ? onVisibilityTogglePointerEnter : undefined}
-            onPointerLeave={visibilityToggleTarget ? onVisibilityTogglePointerLeave : undefined}
-            onClick={onToggleChatVisibility}>
-            <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round">
-                {isChatVisible ? (
-                    <>
-                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
-                        <circle cx="12" cy="12" r="3" />
-                    </>
-                ) : (
-                    <>
-                        <path d="M3 3 21 21" />
-                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
-                        <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" />
-                        <path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" />
-                    </>
-                )}
-            </svg>
-        </button>
+            onPointerLeave={visibilityToggleTarget ? onVisibilityTogglePointerLeave : undefined}>
+            {isChatVisible && (
+                <button
+                    type="button"
+                    className={styles.VisibilityToggle}
+                    aria-label="채팅 프레임 위치 변경"
+                    title="채팅 프레임 위치 변경"
+                    onClick={handleCyclePosition}>
+                    <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round">
+                        <path d="M5 9V5h4" />
+                        <path d="M19 9V5h-4" />
+                        <path d="M19 15v4h-4" />
+                        <path d="M5 15v4h4" />
+                    </svg>
+                </button>
+            )}
+            <button
+                type="button"
+                className={styles.VisibilityToggle}
+                aria-label={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
+                title={isChatVisible ? '채팅 프레임 숨기기' : '채팅 프레임 표시'}
+                onClick={onToggleChatVisibility}>
+                <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round">
+                    {isChatVisible ? (
+                        <>
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </>
+                    ) : (
+                        <>
+                            <path d="M3 3 21 21" />
+                            <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                            <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" />
+                            <path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" />
+                        </>
+                    )}
+                </svg>
+            </button>
+        </div>
     );
 
     return playerSizeDiv ? (
@@ -288,7 +319,12 @@ const FrameChat = observer((props: Props) => {
             {ReactDOM.createPortal(
                 <div
                     ref={frameChatRef}
-                    className={classes(styles.FrameChat, frameChatPositionCls, !isChatVisible ? styles.Hidden : false)}
+                    className={classes(
+                        styles.FrameChat,
+                        frameChatPositionCls,
+                        isRightAligned ? styles.RightAligned : false,
+                        !isChatVisible ? styles.Hidden : false,
+                    )}
                     style={{
                         fontSize: `${frameFontSize}px`,
                         background: isChatVisible && frameBackground ? chatBackgroundStyle : '',
@@ -301,12 +337,14 @@ const FrameChat = observer((props: Props) => {
                         <div
                             ref={visibilityToggleAnchorRef}
                             className={classes(
-                                styles.VisibilityToggle,
+                                styles.Controls,
                                 styles.VisibilityToggleAnchor,
                                 isRightAligned ? styles.RightAligned : false,
                             )}
-                            aria-hidden="true"
-                        />
+                            aria-hidden="true">
+                            {isChatVisible && <span className={styles.Spacer} />}
+                            <span className={styles.Spacer} />
+                        </div>
                     ) : (
                         visibilityToggle
                     )}
