@@ -111,6 +111,8 @@ const OverlayChat = observer((props: Props) => {
         rightEdgeGapRef.current = chatWindow.innerWidth - chat.getBoundingClientRect().right;
     });
 
+    const isBottomAligned = position.top + (chatRef.current?.offsetHeight ?? 0) / 2 > overlayWindow.innerHeight / 2;
+    const cornerIndex = isBottomAligned ? (isLeftAligned ? 3 : 2) : isLeftAligned ? 0 : 1;
     const handleCyclePosition = () => {
         const chat = chatRef.current;
         if (!chat) return;
@@ -313,12 +315,15 @@ const OverlayChat = observer((props: Props) => {
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
-                            strokeLinecap="round"
                             strokeLinejoin="round">
-                            <path d="M5 9V5h4" />
-                            <path d="M19 9V5h-4" />
-                            <path d="M19 15v4h-4" />
-                            <path d="M5 15v4h4" />
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <rect
+                                x={cornerIndex === 1 || cornerIndex === 2 ? 13 : 5}
+                                y={cornerIndex >= 2 ? 13 : 5}
+                                width="6"
+                                height="6"
+                                fill="currentColor"
+                            />
                         </svg>
                     </button>
                 )}
@@ -339,15 +344,13 @@ const OverlayChat = observer((props: Props) => {
                         strokeLinejoin="round">
                         {isChatVisible ? (
                             <>
-                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" />
                                 <circle cx="12" cy="12" r="3" />
                             </>
                         ) : (
                             <>
-                                <path d="M3 3 21 21" />
-                                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
-                                <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a14.7 14.7 0 0 1-3.1 3.8" />
-                                <path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.5 7 10 7c1 0 1.9-.2 2.8-.5" />
+                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" />
+                                <path d="m3 3 18 18" />
                             </>
                         )}
                     </svg>
