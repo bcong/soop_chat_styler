@@ -120,7 +120,7 @@ export default class MainStore {
     @observable
     private _setting = new Map();
 
-    @observable
+    @observable.ref
     private _chats: I_CHAT[] = [];
 
     @observable
@@ -166,10 +166,15 @@ export default class MainStore {
 
     @action
     addChat = (chat: I_CHAT) => {
-        this.chats.push(chat);
-        this._chatId++;
+        this._chats = [...this._chats, chat].slice(-(this._maxChats - 1));
+    };
 
-        if (this.chats.length >= this.maxChats) this.chats.shift();
+    // 여러 채팅을 한 번의 갱신으로 반영 (채팅 폭주 시 렌더 횟수 제한)
+    @action
+    addChats = (chats: Omit<I_CHAT, 'id'>[]) => {
+        if (!chats.length) return;
+        const added = chats.slice(-this._maxChats).map((chat) => ({ ...chat, id: ++this._chatId }));
+        this._chats = [...this._chats, ...added].slice(-(this._maxChats - 1));
     };
 
     @action

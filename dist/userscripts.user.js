@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261117104536
+// @version      20261123000154
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -11972,9 +11972,12 @@ img {
           }
         });
         __publicField(this, "addChat", (chat) => {
-          this.chats.push(chat);
-          this._chatId++;
-          if (this.chats.length >= this.maxChats) this.chats.shift();
+          this._chats = [...this._chats, chat].slice(-(this._maxChats - 1));
+        });
+        __publicField(this, "addChats", (chats) => {
+          if (!chats.length) return;
+          const added = chats.slice(-this._maxChats).map((chat) => ({ ...chat, id: ++this._chatId }));
+          this._chats = [...this._chats, ...added].slice(-(this._maxChats - 1));
         });
         __publicField(this, "lastChat", () => {
           return this.chats[this.chats.length - 1];
@@ -12006,7 +12009,7 @@ img {
       observable
     ], MainStore.prototype, "_setting", 2);
     __decorateClass([
-      observable
+      observable.ref
     ], MainStore.prototype, "_chats", 2);
     __decorateClass([
       observable
@@ -12026,6 +12029,9 @@ img {
     __decorateClass([
       action
     ], MainStore.prototype, "addChat", 2);
+    __decorateClass([
+      action
+    ], MainStore.prototype, "addChats", 2);
     __decorateClass([
       action
     ], MainStore.prototype, "lastChat", 2);
@@ -12908,7 +12914,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261117104536"
+                "20261123000154"
               ] })
             ]
           }
@@ -13804,6 +13810,36 @@ img {
       });
       hookInstalled$1 = true;
     };
+    const SIGNATURE_API = "https://live.sooplive.com/api/signature_emoticon_api.php";
+    const SIGNATURE_IMAGE_BASE = "https://static.file.sooplive.com/signature_emoticon";
+    const EMOTICON_CODE = /(^|\s)\/([^/\s]+)\/(?=\s|$)/g;
+    const emoticonImages = /* @__PURE__ */ new Map();
+    const loadSignatureEmoticons = async (broadcasterId) => {
+      if (!broadcasterId) return;
+      const response = await fetch(`${SIGNATURE_API}?work=list&szBjId=${encodeURIComponent(broadcasterId)}`);
+      const body = await response.json();
+      const list = body == null ? void 0 : body.data;
+      if (!Array.isArray(list)) return;
+      list.forEach(({ title, pc_img }) => {
+        if (title && pc_img) emoticonImages.set(title, `${SIGNATURE_IMAGE_BASE}/${broadcasterId}/${pc_img}`);
+      });
+    };
+    const parseEmoticonComment = (comment) => {
+      const contents = [];
+      let lastIndex = 0;
+      const pushText = (text) => {
+        if (text) contents.push({ type: "text", content: text });
+      };
+      for (const match of comment.matchAll(EMOTICON_CODE)) {
+        const src = emoticonImages.get(match[2]);
+        if (!src) continue;
+        pushText(comment.slice(lastIndex, match.index) + match[1]);
+        contents.push({ type: "image", content: src });
+        lastIndex = match.index + match[0].length;
+      }
+      pushText(comment.slice(lastIndex));
+      return contents;
+    };
     let handler = null;
     let hookInstalled = false;
     const subscribeToSoopPictureInPicture = (nextHandler) => {
@@ -13829,6 +13865,8 @@ img {
       hookInstalled = true;
     };
     const COLORS = ["#f28ca5", "#9dd9a5", "#fff08c", "#a1b1eb", "#fac098", "#c88ed9", "#a2f7f7", "#f798f2", "#ddfa85"];
+    const CHAT_FLUSH_INTERVAL_MS = 100;
+    const MAX_QUEUED_CHATS = 50;
     const App = () => {
       const mainStore = useMainStore();
       const [isSetting, IsSetting] = reactExports.useState(false);
@@ -13935,19 +13973,23 @@ img {
       };
       reactExports.useEffect(() => {
         initSetting();
+        loadSignatureEmoticons(mainStore.broadcasterId).catch(() => void 0);
+        let queue = [];
+        const flushTimer = window.setInterval(() => {
+          if (!queue.length) return;
+          mainStore.addChats(queue);
+          queue = [];
+        }, CHAT_FLUSH_INTERVAL_MS);
         const unsubscribe = subscribeToSoopChat(({ username, comment }) => {
           if (!comment.trim()) return;
           const idx = colorIdxRef.current;
-          mainStore.addChat({
-            id: mainStore.chatId + 1,
-            username,
-            contentArray: [{ type: "text", content: comment }],
-            color: COLORS[idx]
-          });
+          queue.push({ username, contentArray: parseEmoticonComment(comment), color: COLORS[idx] });
+          if (queue.length > MAX_QUEUED_CHATS) queue.shift();
           colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
         });
         const unsubscribePip = subscribeToSoopPictureInPicture(openPictureInPicture);
         return () => {
+          window.clearInterval(flushTimer);
           unsubscribe();
           unsubscribePip();
         };

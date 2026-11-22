@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import SettingMenu from '@Components/SettingMenu';
 import SettingTemplate from '@Templates/SettingTemplate';
 import { useMainStore } from './Stores';
-import { T_SETTING } from './@types';
+import { I_CHAT, T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
 import { subscribeToSoopChat } from '@Utils/soopChatSocket';
+import { loadSignatureEmoticons, parseEmoticonComment } from '@Utils/soopEmoticon';
 import { subscribeToSoopPictureInPicture } from '@Utils/soopPictureInPicture';
 
 type WindowWithDocumentPictureInPicture = typeof unsafeWindow & {
@@ -14,6 +15,9 @@ type WindowWithDocumentPictureInPicture = typeof unsafeWindow & {
 };
 
 const COLORS = ['#f28ca5', '#9dd9a5', '#fff08c', '#a1b1eb', '#fac098', '#c88ed9', '#a2f7f7', '#f798f2', '#ddfa85'];
+
+const CHAT_FLUSH_INTERVAL_MS = 100;
+const MAX_QUEUED_CHATS = 50;
 
 const App = () => {
     const mainStore = useMainStore();
@@ -141,21 +145,26 @@ const App = () => {
 
     useEffect(() => {
         initSetting();
+        loadSignatureEmoticons(mainStore.broadcasterId).catch(() => undefined);
+        // 채팅이 폭주해도 렌더가 밀리지 않도록 모아서 일정 간격으로 한 번에 반영
+        let queue: Omit<I_CHAT, 'id'>[] = [];
+        const flushTimer = window.setInterval(() => {
+            if (!queue.length) return;
+            mainStore.addChats(queue);
+            queue = [];
+        }, CHAT_FLUSH_INTERVAL_MS);
         const unsubscribe = subscribeToSoopChat(({ username, comment }) => {
             if (!comment.trim()) return;
 
             const idx = colorIdxRef.current;
-            mainStore.addChat({
-                id: mainStore.chatId + 1,
-                username,
-                contentArray: [{ type: 'text', content: comment }],
-                color: COLORS[idx],
-            });
+            queue.push({ username, contentArray: parseEmoticonComment(comment), color: COLORS[idx] });
+            if (queue.length > MAX_QUEUED_CHATS) queue.shift();
             colorIdxRef.current = idx >= COLORS.length - 1 ? 0 : idx + 1;
         });
         const unsubscribePip = subscribeToSoopPictureInPicture(openPictureInPicture);
 
         return () => {
+            window.clearInterval(flushTimer);
             unsubscribe();
             unsubscribePip();
         };
