@@ -5,7 +5,7 @@ import { useMainStore } from './Stores';
 import { I_CHAT, T_SETTING } from './@types';
 import ChatTemplate from '@Templates/ChatTemplate';
 import { subscribeToSoopChat } from '@Utils/soopChatSocket';
-import { loadSignatureEmoticons, parseEmoticonComment } from '@Utils/soopEmoticon';
+import { loadEmoticons, parseEmoticonComment } from '@Utils/soopEmoticon';
 import { subscribeToSoopPictureInPicture } from '@Utils/soopPictureInPicture';
 
 type WindowWithDocumentPictureInPicture = typeof unsafeWindow & {
@@ -145,7 +145,7 @@ const App = () => {
 
     useEffect(() => {
         initSetting();
-        loadSignatureEmoticons(mainStore.broadcasterId).catch(() => undefined);
+        void loadEmoticons(mainStore.broadcasterId);
         // 채팅이 폭주해도 렌더가 밀리지 않도록 모아서 일정 간격으로 한 번에 반영
         let queue: Omit<I_CHAT, 'id'>[] = [];
         const flushTimer = window.setInterval(() => {

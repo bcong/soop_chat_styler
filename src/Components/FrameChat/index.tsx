@@ -123,6 +123,7 @@ const FrameChat = observer((props: Props) => {
     const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : '';
         const fontSize = `${frameFontSize}px`;
+        const emoticonSize = `${Math.round(frameFontSize * 1.8)}px`;
 
         const userNameElem = (
             <div className={styles.Username}>
@@ -138,7 +139,14 @@ const FrameChat = observer((props: Props) => {
 
         const messageContent = contentArray.map((content, index) => {
             if (content.type == 'image') {
-                return <img key={index} src={content.content} style={{ width: fontSize, height: fontSize }} />;
+                return (
+                    <img
+                        key={index}
+                        src={content.content}
+                        alt=""
+                        style={{ width: emoticonSize, height: emoticonSize, verticalAlign: 'middle' }}
+                    />
+                );
             } else {
                 return (
                     <p style={{ fontSize: fontSize }} key={index}>

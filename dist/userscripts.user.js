@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SOOP (숲) - 채팅 스타일러
 // @namespace    https://github.com/bcong
-// @version      20261123000154
+// @version      20261123005201
 // @author       비콩
 // @description  새로운 채팅 환경
 // @license      MIT
@@ -12914,7 +12914,7 @@ img {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.Content, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Setting, {}) }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.Footer, children: [
                 "빌드 버전: ",
-                "20261123000154"
+                "20261123005201"
               ] })
             ]
           }
@@ -13066,6 +13066,7 @@ img {
       const chatsElem = mainStore.chats.slice(-frameViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = frameChatBackground ? `rgba(0, 0, 0, ${frameChatOpacity}%)` : "";
         const fontSize = `${frameFontSize}px`;
+        const emoticonSize = `${Math.round(frameFontSize * 1.8)}px`;
         const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "p",
           {
@@ -13078,7 +13079,15 @@ img {
         ) });
         const messageContent = contentArray.map((content, index) => {
           if (content.type == "image") {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: content.content,
+                alt: "",
+                style: { width: emoticonSize, height: emoticonSize, verticalAlign: "middle" }
+              },
+              index
+            );
           } else {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content.content }, index);
           }
@@ -13506,6 +13515,7 @@ img {
       const chatsElem = mainStore.chats.slice(-overlayViewCount).map(({ id: id2, username, contentArray, color }) => {
         const background = overlayChatBackground ? `rgba(0, 0, 0, ${overlayViewOpacity}%)` : "";
         const fontSize = `${overlayFontSize}px`;
+        const emoticonSize = `${Math.round(overlayFontSize * 1.8)}px`;
         const userNameElem = /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.Username, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "p",
           {
@@ -13518,7 +13528,15 @@ img {
         ) });
         const messageContent = contentArray.map((content, index) => {
           if (content.type == "image") {
-            return /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: content.content, style: { width: fontSize, height: fontSize } }, index);
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: content.content,
+                alt: "",
+                style: { width: emoticonSize, height: emoticonSize, verticalAlign: "middle" }
+              },
+              index
+            );
           } else {
             return /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: { fontSize }, children: content.content }, index);
           }
@@ -13810,34 +13828,53 @@ img {
       });
       hookInstalled$1 = true;
     };
+    const DEFAULT_API = "https://st.sooplive.com/api/emoticons.php";
     const SIGNATURE_API = "https://live.sooplive.com/api/signature_emoticon_api.php";
     const SIGNATURE_IMAGE_BASE = "https://static.file.sooplive.com/signature_emoticon";
-    const EMOTICON_CODE = /(^|\s)\/([^/\s]+)\/(?=\s|$)/g;
     const emoticonImages = /* @__PURE__ */ new Map();
+    const loadDefaultEmoticons = async () => {
+      const body = await (await fetch(DEFAULT_API)).json();
+      const sets = body == null ? void 0 : body.data;
+      if (!sets) return;
+      Object.values(sets).forEach(({ small_url, groups }) => {
+        if (!small_url) return;
+        groups == null ? void 0 : groups.forEach(
+          ({ emoticons }) => emoticons == null ? void 0 : emoticons.forEach(({ keyword, fileName }) => {
+            const name = keyword == null ? void 0 : keyword.replace(/^\/|\/$/g, "");
+            if (name && fileName && !emoticonImages.has(name)) emoticonImages.set(name, small_url + fileName);
+          })
+        );
+      });
+    };
     const loadSignatureEmoticons = async (broadcasterId) => {
-      if (!broadcasterId) return;
-      const response = await fetch(`${SIGNATURE_API}?work=list&szBjId=${encodeURIComponent(broadcasterId)}`);
-      const body = await response.json();
+      const body = await (await fetch(`${SIGNATURE_API}?work=list&szBjId=${encodeURIComponent(broadcasterId)}`)).json();
       const list = body == null ? void 0 : body.data;
       if (!Array.isArray(list)) return;
       list.forEach(({ title, pc_img }) => {
         if (title && pc_img) emoticonImages.set(title, `${SIGNATURE_IMAGE_BASE}/${broadcasterId}/${pc_img}`);
       });
     };
+    const loadEmoticons = async (broadcasterId) => {
+      await Promise.allSettled([loadDefaultEmoticons(), broadcasterId ? loadSignatureEmoticons(broadcasterId) : null]);
+    };
     const parseEmoticonComment = (comment) => {
       const contents = [];
-      let lastIndex = 0;
-      const pushText = (text) => {
-        if (text) contents.push({ type: "text", content: text });
-      };
-      for (const match of comment.matchAll(EMOTICON_CODE)) {
-        const src = emoticonImages.get(match[2]);
-        if (!src) continue;
-        pushText(comment.slice(lastIndex, match.index) + match[1]);
-        contents.push({ type: "image", content: src });
-        lastIndex = match.index + match[0].length;
+      let text = "";
+      let index = 0;
+      while (index < comment.length) {
+        const end = comment[index] === "/" ? comment.indexOf("/", index + 1) : -1;
+        const src = end > index + 1 ? emoticonImages.get(comment.slice(index + 1, end)) : void 0;
+        if (src) {
+          if (text) contents.push({ type: "text", content: text });
+          contents.push({ type: "image", content: src });
+          text = "";
+          index = end + 1;
+        } else {
+          text += comment[index];
+          index++;
+        }
       }
-      pushText(comment.slice(lastIndex));
+      if (text) contents.push({ type: "text", content: text });
       return contents;
     };
     let handler = null;
@@ -13973,7 +14010,7 @@ img {
       };
       reactExports.useEffect(() => {
         initSetting();
-        loadSignatureEmoticons(mainStore.broadcasterId).catch(() => void 0);
+        void loadEmoticons(mainStore.broadcasterId);
         let queue = [];
         const flushTimer = window.setInterval(() => {
           if (!queue.length) return;
